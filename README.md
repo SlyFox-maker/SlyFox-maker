@@ -1,5 +1,5 @@
 <div id="header" align="center">
-  <img src="https://giphy.com/stickers/dgitechart-love-it-itechart-SUcApSWjPwQMARvcM8" width="100"/>
+  <img src="[https://giphy.com/stickers/dgitechart-love-it-itechart-SUcApSWjPwQMARvcM8](https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnMzZXQzdnFhNmpwMGRjaXllbDN5MnFlZmczZnpteW9iZTJyMjBudyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/SUcApSWjPwQMARvcM8/giphy.gif)" width="100"/>
 </div>
 ## Hi there 👋
 
