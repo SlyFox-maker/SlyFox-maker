@@ -36,11 +36,21 @@
   What I love most about programming is solving problems and finding creative, out-of-the-box solutions. Breaking boundaries and pushing limits is what keeps me excited.
 
 - **💻 Technologies I Use**  
-  My go-to languages and frameworks include **JavaScript**, **C#**, **Python**, **PHP**, **jQuery**, **Django**, **Laravel**, and **Bootstrap**. I enjoy experimenting with different technologies and finding the best tools for each project.
+  These are the technologies I use most frequently:  
+  **JavaScript**, **C#**, **C++**, **Python**, **PHP**, **jQuery**, **Django**, **Laravel**, and **Bootstrap**.  
+  *(I also explore other tools and technologies, which I’ll add later!)*
 
-- **🎮 Notable Projects**  
+- **🎮 Projects I’m Proud Of**  
+
+  **Pet Projects:**  
   - A **Minecraft plugin** I developed in **Java**, which completely transformed the game into a survival experience with custom NPCs, a unique storyline, and multiple endings.  
-  - A **file-sharing website** I created using **Django**, which has become my own personal version of Google Drive.
+  - A **file-sharing website** I created using **Django**, which has become my own personal version of Google Drive.  
+
+  **Commercial Projects:**  
+  - **Integration of various services** into **AMO/Kommo CRM**, from simple setups to complex configurations, enabling seamless workflows.  
+  - **Automation of data entry** to reduce manual effort and improve efficiency for clients.  
+  - A project for a doctor to manage **patient appointment scheduling**, simplifying the booking process and improving organization.  
+  - Currently developing a **service booking platform** for my company, designed to streamline booking and enhance user experience.
 
 - **🤝 Teamwork**  
   I thrive in team environments because I love collaborating and exchanging ideas with people in my field. It’s not just about the work—it’s about building connections, having interesting conversations, and learning from others. But I also enjoy individual projects where I can take full ownership and explore new concepts on my own.
@@ -51,10 +61,36 @@
 - **🌟 Dream Project**  
   My ultimate dream is to create an **app** that would be used by many people, providing real value and making a positive impact. I’d love to manage it, interact with users, gather feedback, and maybe even build a team to help take it to the next level.
 
+---
 
+### :hammer_and_wrench: Languages and Frameworks :
 
+<div>
 
+</div>
 
+<div>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/cplusplus/cplusplus-original.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/csharp/csharp-original.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/c/c-original.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/python/python-original.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/java/java-original.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/php/php-original.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/html5/html5-original.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/css3/css3-original.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/javascript/javascript-original.svg" width="40" height="40"/>&nbsp;
+</div>
+<p></p>
+<div>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/django/django-plain.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/laravel/laravel-original.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/dot-net/dot-net-original.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/qt/qt-original.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/jquery/jquery-plain-wordmark.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/vuejs/vuejs-original-wordmark.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/bootstrap/bootstrap-original-wordmark.svg" width="40" height="40"/>&nbsp;
+  <img src="https://github.com/devicons/devicon/blob/master/icons/docker/docker-original-wordmark.svg" width="40" height="40"/>&nbsp;
+</div>
 
 <!--
 **SlyFox-maker/SlyFox-maker** is a ✨ _special_ ✨ repository because its `README.md` (this file) appears on your GitHub profile.
