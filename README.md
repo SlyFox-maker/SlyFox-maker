@@ -4,29 +4,25 @@
 
 <div id="header" align="center">
   <!--  <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExNnMzZXQzdnFhNmpwMGRjaXllbDN5MnFlZmczZnpteW9iZTJyMjBudyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/SUcApSWjPwQMARvcM8/giphy.gif" width="200"/> -->
-    <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExejc5enpxMGcyNW9pdWtubTZtcXViYnowcWtjN2ZpMXFibzRwMWFrMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/zhYSVCirREeIZtONCI/giphy.gif" width="200"/> 
+  <img src="https://media3.giphy.com/media/v1.Y2lkPTc5MGI3NjExejc5enpxMGcyNW9pdWtubTZtcXViYnowcWtjN2ZpMXFibzRwMWFrMyZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/zhYSVCirREeIZtONCI/giphy.gif" width="200"/> 
   <!--  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExODBoODc4bGp1OXQ5a2g4Y3RodXR4N3R0aG85ZHVzOHU3M2h4bzUwZSZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/M4NykXxUE0HAcK7UJ6/giphy.gif" width="200"/> -->
   <!--  <img src="https://media4.giphy.com/media/v1.Y2lkPTc5MGI3NjExb29zbHNoeXh5eDExenZndDRiNGlmaHJmdDQ2YXdva3AwbmZkaHU3ZiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/5eLDrEaRGHegx2FeF2/giphy.gif" width="200"/> -->
   <div id="badges">
-      <a href="https://www.linkedin.com/in/egor-pavlov-824b02281">
-    <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
-  </a>
-  <a href="https://t.me/Slyfoxy">
-    <img src="https://img.shields.io/badge/Telegram-blue?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram Badge"/>
-  </a>
-
-## Hi there 👋
-
-
-
+    <a href="https://www.linkedin.com/in/egor-pavlov-824b02281">
+      <img src="https://img.shields.io/badge/LinkedIn-blue?style=for-the-badge&logo=linkedin&logoColor=white" alt="LinkedIn Badge"/>
+    </a>
+    <a href="https://t.me/Slyfoxy">
+      <img src="https://img.shields.io/badge/Telegram-blue?style=for-the-badge&logo=telegram&logoColor=white" alt="Telegram Badge"/>
+    </a>
+    ## Hi there 👋
   </div>
-
+  
   <div align="center">
     <img src="https://media0.giphy.com/media/v1.Y2lkPTc5MGI3NjExajNuazQ0Z3NqOHgzMzEyOXdoeTBpZTZwM3kxbGN5eGxzYWhyOTJkNiZlcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9Zw/2sbLlG7XNuzzeVKvw0/giphy.gif" width="450" height="350"/>
   </div>
-
-### 🌟 About Me :
-
+  
+  ### 🌟 About Me :
+  
 </div>
 
 - **👋 Introduction**  
@@ -66,10 +62,6 @@
 ### :hammer_and_wrench: Languages and Frameworks :
 
 <div>
-
-</div>
-
-<div>
   <img src="https://github.com/devicons/devicon/blob/master/icons/cplusplus/cplusplus-original.svg" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/csharp/csharp-original.svg" width="40" height="40"/>&nbsp;
   <img src="https://github.com/devicons/devicon/blob/master/icons/c/c-original.svg" width="40" height="40"/>&nbsp;
@@ -93,5 +85,10 @@
   <img src="https://github.com/devicons/devicon/blob/master/icons/unity/unity-original.svg" width="40" height="40"/>&nbsp;
 </div>
 
+---
+
+### :fire: My Stats :
 
 [![Top Langs](https://github-readme-stats.vercel.app/api/top-langs/?username=SlyFox-maker&theme=merko)]
+
+
