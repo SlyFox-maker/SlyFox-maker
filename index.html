@@ -1,7 +1,249 @@
 <!DOCTYPE html>
-<html>
-    <head> </head>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <title>Egor Pavlov - Portfolio</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <!-- Bootstrap -->
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
+        <!-- Animate.css -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+        <!-- Vue.js -->
+        <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <style>
+            body {
+                background-color: #0e0e0e;
+                color: #f0f0f0;
+                font-family: "Fira Code", monospace;
+            }
+            .neon-text {
+                color: #00ffff;
+                text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+            }
+            a {
+                color: #00bcd4;
+            }
+            .navbar {
+                background: #000 !important;
+            }
+            .card {
+                background-color: #1b1b1b;
+            }
+
+            /* Новый неоновый эффект с анимацией цвета */
+            @keyframes neonGlow {
+                0%,
+                100% {
+                    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 50px #00ffff, 0 0 60px #00ffff;
+                    color: #00ffff;
+                }
+                50% {
+                    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff69b4, 0 0 40px #ff69b4, 0 0 50px #ff69b4, 0 0 60px #ff69b4;
+                    color: #ff69b4;
+                }
+            }
+            .neon-glow {
+                animation: neonGlow 2s infinite alternate;
+            }
+        </style>
+    </head>
     <body>
-        Hi
+        <div id="app">
+            <nav class="navbar navbar-expand-lg navbar-dark">
+                <a class="navbar-brand" href="#">Egor Pavlov</a>
+                <div class="ml-auto">
+                    <button class="btn btn-sm btn-outline-info mx-1" @click="setLang('en')">EN</button>
+                    <button class="btn btn-sm btn-outline-info mx-1" @click="setLang('es')">ES</button>
+                    <button class="btn btn-sm btn-outline-info mx-1" @click="setLang('ru')">RU</button>
+                </div>
+            </nav>
+
+            <div class="container py-5 animate__animated animate__fadeIn">
+                <h1 ref="title" class="display-4 neon-text mb-4">{{ t('title') }}</h1>
+                <p ref="intro" class="lead">{{ t('intro') }}</p>
+
+                <section class="my-5">
+                    <h2 ref="skills" class="h4 border-bottom border-info pb-2">{{ t('skills') }}</h2>
+                    <ul ref="skillsList">
+                        <li v-for="item in t('skills_list')" :key="item">{{ item }}</li>
+                    </ul>
+                </section>
+
+                <section class="my-5">
+                    <h2 ref="projects" class="h4 border-bottom border-info pb-2">{{ t('projects') }}</h2>
+                    <div class="row">
+                        <div class="col-md-6" v-for="(project, i) in t('project_list')" :key="i">
+                            <div class="card border-info mb-4">
+                                <div class="card-body">
+                                    <h5 class="card-title">{{ project.title }}</h5>
+                                    <p class="card-text">{{ project.desc }}</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <footer class="text-center mt-5 pt-3 border-top border-info">
+                    <small>© 2025 Egor Pavlov — <a href="https://github.com/your-username" target="_blank">GitHub</a></small>
+                </footer>
+            </div>
+        </div>
+
+        <script>
+            new Vue({
+                el: "#app",
+                data: {
+                    lang: "en",
+                    translations: {
+                        en: {
+                            title: "Versatile Fullstack & DevOps Engineer",
+                            intro: "Welcome! I’m Egor Pavlov — a passionate developer working on web, desktop, and infrastructure projects.",
+                            skills: "Key Skills",
+                            skills_list: ["CRM Integrations (Bitrix24, amoCRM)", "DevOps (Linux, Git, CI/CD)", "Frameworks: Django, Vue.js, Node.js", "Desktop: Qt, .NET, Java"],
+                            projects: "Projects",
+                            project_list: [
+                                { title: "Minecraft Plugin", desc: "A survival overhaul with custom NPCs and storylines." },
+                                { title: "File Sharing Site", desc: "My own Google Drive clone using Django." },
+                                { title: "CRM Automation", desc: "Bitrix/Kommo integrations and workflow automation." },
+                                { title: "Booking Platform", desc: "Current development for internal company booking tool." },
+                            ],
+                        },
+                        es: {
+                            title: "Ingeniero Fullstack y DevOps",
+                            intro: "¡Hola! Soy Egor Pavlov — un desarrollador apasionado de proyectos web, de escritorio e infraestructura.",
+                            skills: "Habilidades Clave",
+                            skills_list: ["Integraciones CRM (Bitrix24, amoCRM)", "DevOps (Linux, Git, CI/CD)", "Frameworks: Django, Vue.js, Node.js", "Escritorio: Qt, .NET, Java"],
+                            projects: "Proyectos",
+                            project_list: [
+                                { title: "Plugin para Minecraft", desc: "Una revisión completa con NPCs personalizados y narrativa." },
+                                { title: "Sitio para compartir archivos", desc: "Mi clon personal de Google Drive en Django." },
+                                { title: "Automatización de CRM", desc: "Integraciones Bitrix/Kommo y automatización de flujos." },
+                                { title: "Plataforma de reservas", desc: "Desarrollo en curso para mi empresa." },
+                            ],
+                        },
+                        ru: {
+                            title: "Фуллстек и DevOps инженер",
+                            intro: "Привет! Я Егор Павлов — разработчик, работающий с вебом, десктопом и инфраструктурой.",
+                            skills: "Ключевые навыки",
+                            skills_list: ["Интеграции CRM (Bitrix24, amoCRM)", "DevOps (Linux, Git, CI/CD)", "Фреймворки: Django, Vue.js, Node.js", "Десктоп: Qt, .NET, Java"],
+                            projects: "Проекты",
+                            project_list: [
+                                { title: "Плагин для Minecraft", desc: "Модификация выживания с кастомными NPC и сюжетом." },
+                                { title: "Сайт для обмена файлами", desc: "Мой аналог Google Drive на Django." },
+                                { title: "Автоматизация CRM", desc: "Интеграции с Bitrix/Kommo и автоматизация процессов." },
+                                { title: "Система бронирования", desc: "Текущий проект по внутреннему бронированию услуг." },
+                            ],
+                        },
+                    },
+                },
+                computed: {
+                    t() {
+                        return (key) => this.translations[this.lang][key];
+                    },
+                },
+                methods: {
+                    getRandomColor() {
+                        const colors = ["#0ff", "#00ffff", "#ff00ff", "#ff69b4", "#39ff14", "#ff1493", "#00ffff"];
+                        return colors[Math.floor(Math.random() * colors.length)];
+                    },
+
+                    scrambleText(oldText, newText, element, callback) {
+                        const chars = "!<>-_\\/[]{}—=+*^?#________";
+                        let frame = 0;
+                        const length = newText.length;
+
+                        const animate = () => {
+                            let output = "";
+                            for (let i = 0; i < length; i++) {
+                                if (i < frame) {
+                                    const color = this.getRandomColor();
+                                    output += `<span style="color:${color}; text-shadow: 0 0 5px ${color}, 0 0 10px ${color}">${newText[i]}</span>`;
+                                } else {
+                                    output += chars[Math.floor(Math.random() * chars.length)];
+                                }
+                            }
+                            element.innerHTML = output;
+                            frame++;
+                            if (frame <= length) {
+                                requestAnimationFrame(animate);
+                            } else {
+                                const finalColor = "#00ffff";
+                                element.innerHTML = newText
+                                    .split("")
+                                    .map((ch) => {
+                                        return `<span style="color:${finalColor}; text-shadow: 0 0 5px ${finalColor}, 0 0 10px ${finalColor}">${ch}</span>`;
+                                    })
+                                    .join("");
+                                if (callback) callback();
+                            }
+                        };
+                        animate();
+                    },
+
+                    setLang(language) {
+                        const textKeys = ["title", "intro", "skills", "projects"];
+
+                        textKeys.forEach((key) => {
+                            const el = this.$refs[key];
+                            if (!el) return;
+                            const newText = this.translations[language][key];
+                            if (Array.isArray(newText)) return; // списки отдельно
+                            this.scrambleText(this.translations[this.lang][key], newText, el);
+                        });
+
+                        // Анимируем список навыков
+                        if (this.$refs.skillsList) {
+                            const skillsList = this.translations[language].skills_list;
+                            this.animateList(this.$refs.skillsList, skillsList);
+                        }
+
+                        // Анимируем проекты
+                        const projects = this.translations[language].project_list;
+                        this.$nextTick(() => {
+                            const projectCards = this.$el.querySelectorAll(".card");
+                            projectCards.forEach((card, i) => {
+                                if (!projects[i]) return;
+                                const titleEl = card.querySelector(".card-title");
+                                const descEl = card.querySelector(".card-text");
+                                this.scrambleText(titleEl.innerText, projects[i].title, titleEl);
+                                this.scrambleText(descEl.innerText, projects[i].desc, descEl);
+                            });
+                        });
+
+                        // Анимируем футер
+                        this.$nextTick(() => {
+                            const footer = this.$el.querySelector("footer small");
+                            if (footer) {
+                                const footerText = `© 2025 Egor Pavlov — GitHub`;
+                                this.scrambleText(footer.innerText, footerText, footer);
+                            }
+                        });
+
+                        this.lang = language;
+                    },
+
+                    animateList(ulElement, items) {
+                        ulElement.innerHTML = "";
+                        let index = 0;
+                        const addNext = () => {
+                            if (index >= items.length) return;
+                            const li = document.createElement("li");
+                            ulElement.appendChild(li);
+                            this.scrambleText("", items[index], li, () => {
+                                index++;
+                                addNext();
+                            });
+                        };
+                        addNext();
+                    },
+                },
+                mounted() {
+                    if (this.$refs.skillsList) {
+                        const skillsList = this.translations[this.lang].skills_list;
+                        this.$refs.skillsList.innerHTML = skillsList.map((item) => `<li>${item}</li>`).join("");
+                    }
+                },
+            });
+        </script>
     </body>
 </html>
