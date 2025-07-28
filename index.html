@@ -4,11 +4,8 @@
         <meta charset="UTF-8" />
         <title>Egor Pavlov - Portfolio</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <!-- Bootstrap -->
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
-        <!-- Animate.css -->
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
-        <!-- Vue.js -->
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
         <style>
             body {
@@ -29,8 +26,6 @@
             .card {
                 background-color: #1b1b1b;
             }
-
-            /* Новый неоновый эффект с анимацией цвета */
             @keyframes neonGlow {
                 0%,
                 100% {
@@ -44,6 +39,126 @@
             }
             .neon-glow {
                 animation: neonGlow 2s infinite alternate;
+            }
+        </style>
+
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.8/pdfobject.min.js"></script>
+        <style>
+            /* Добавлено */
+            .modal {
+                display: none;
+                position: fixed;
+                z-index: 9999;
+                left: 0;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.9);
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
+            .modal-content {
+                background-color: #111;
+                padding: 20px;
+                border-radius: 10px;
+                max-width: 90vw;
+                max-height: 90vh;
+                overflow: auto;
+                box-shadow: 0 0 30px #0ff;
+                color: #0ff;
+            }
+            .modal-close {
+                position: absolute;
+                top: 20px;
+                right: 30px;
+                font-size: 2rem;
+                color: #0ff;
+                cursor: pointer;
+            }
+            .project-card {
+                cursor: pointer;
+                padding: 15px;
+                margin: 10px 0;
+                background: rgba(0, 255, 255, 0.1);
+                border: 1px solid #0ff;
+                border-radius: 12px;
+                transition: all 0.3s ease;
+            }
+            .project-card:hover {
+                background: rgba(0, 255, 255, 0.2);
+                transform: scale(1.02);
+            }
+            .contact-info {
+                margin-top: 60px;
+                border-top: 1px solid #0ff;
+                padding-top: 20px;
+                display: flex;
+                gap: 20px;
+                justify-content: center;
+                font-size: 1.2rem;
+                color: #0ff;
+            }
+            .contact-info a {
+                color: #0ff;
+                text-decoration: none;
+            }
+            .modal {
+                display: flex;
+                position: fixed;
+                z-index: 9999;
+                left: 0;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.9);
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+            }
+            .modal-content {
+                background-color: #111;
+                padding: 20px;
+                border-radius: 10px;
+                max-width: 90vw;
+                max-height: 90vh;
+                overflow: auto;
+                box-shadow: 0 0 30px #0ff;
+                color: #0ff;
+                position: relative;
+            }
+            .modal-close {
+                position: absolute;
+                top: 15px;
+                right: 15px;
+                font-size: 2rem;
+                color: #0ff;
+                cursor: pointer;
+                background: transparent;
+                border: none;
+            }
+            .modal-body {
+                display: flex;
+                flex-direction: row;
+                gap: 30px;
+                align-items: flex-start;
+                justify-content: center;
+                flex-wrap: wrap;
+                padding: 20px;
+            }
+
+            .modal-img {
+                border-radius: 10px;
+                flex-shrink: 0;
+            }
+
+            .modal-desc {
+                flex: 1;
+                font-family: "Fira Code", monospace;
+                font-size: 16px;
+                margin-top: 10px;
+                max-width: 500px;
+                word-wrap: break-word;
             }
         </style>
     </head>
@@ -64,24 +179,47 @@
 
                 <section class="my-5">
                     <h2 ref="skills" class="h4 border-bottom border-info pb-2">{{ t('skills') }}</h2>
-                    <ul ref="skillsList">
-                        <li v-for="item in t('skills_list')" :key="item">{{ item }}</li>
+                    <ul ref="skillsList"></ul>
+                </section>
+
+                <section id="certificates" class="my-5">
+                    <h2 ref="certs" class="h4 border-bottom border-info pb-2" style="color: #0ff">{{ t('certificates') }}</h2>
+                    <ul>
+                        <li v-for="cert in currentTranslations.certs_list" :key="cert.file">
+                            <a href="#" @click.prevent="openImage(cert)">{{ cert.name }}</a>
+                        </li>
                     </ul>
                 </section>
 
-                <section class="my-5">
-                    <h2 ref="projects" class="h4 border-bottom border-info pb-2">{{ t('projects') }}</h2>
-                    <div class="row">
-                        <div class="col-md-6" v-for="(project, i) in t('project_list')" :key="i">
-                            <div class="card border-info mb-4">
-                                <div class="card-body">
-                                    <h5 class="card-title">{{ project.title }}</h5>
-                                    <p class="card-text">{{ project.desc }}</p>
-                                </div>
-                            </div>
+                <section id="projects" class="my-5">
+                    <h2 ref="projects" class="h4 border-bottom border-info pb-2" style="color: #0ff">{{ t('projects') }}</h2>
+                    <div class="project-card" onclick="openProject('Cyber CRM', 'Моя кастомная CRM с интеграцией в Bitrix24.', 'img/cybercrm.png')">Cyber CRM</div>
+                    <div class="project-card" onclick="openProject('Flang Delivery', 'Платформа для доставки еды с API.', 'img/flang.png')">Flang Delivery</div>
+                </section>
+
+                <div class="contact-info">
+                    <a href="mailto:egor@example.com"><i class="fa fa-envelope"></i> Email</a>
+                    <a href="https://t.me/egor_pavlov"><i class="fa fa-paper-plane"></i> Telegram</a>
+                    <a href="https://github.com/egorpavlov"><i class="fa fa-github"></i> GitHub</a>
+                </div>
+
+                <ul>
+                    <li v-for="cert in currentTranslations.certs_list" :key="cert.file">
+                        <a href="#" @click.prevent="openPDF(cert.file)">{{ cert.name }}</a>
+                    </li>
+                </ul>
+
+                <!-- Модалка -->
+                <div id="modal" class="modal" v-show="modalVisible" @click.self="closeModal">
+                    <div class="modal-content animate__animated animate__fadeInDown">
+                        <button class="modal-close" @click="closeModal">&times;</button>
+
+                        <div id="modal-body" class="modal-body">
+                            <img :src="modalImage" alt="Certificate" class="modal-img" />
+                            <div class="modal-desc" ref="descText"></div>
                         </div>
                     </div>
-                </section>
+                </div>
 
                 <footer class="text-center mt-5 pt-3 border-top border-info">
                     <small>© 2025 Egor Pavlov — <a href="https://github.com/your-username" target="_blank">GitHub</a></small>
@@ -97,9 +235,9 @@
                     translations: {
                         en: {
                             title: "Versatile Fullstack & DevOps Engineer",
-                            intro: "Welcome! I’m Egor Pavlov — a passionate developer working on web, desktop, and infrastructure projects.",
+                            intro: "Hi! I'm Egor Pavlov — a full-cycle developer working across web, desktop, and infrastructure layers. I design and build end-to-end software solutions with a focus on architecture, efficiency, and visual polish. Whether it's a complex integration, backend logic, or automation pipeline — I bring the code to life with engineering mindset and creative precision.",
                             skills: "Key Skills",
-                            skills_list: ["CRM Integrations (Bitrix24, amoCRM)", "DevOps (Linux, Git, CI/CD)", "Frameworks: Django, Vue.js, Node.js", "Desktop: Qt, .NET, Java"],
+                            skills_list: ["Fullstack development (frontend + backend)", "Languages: C++, C#, Python, Java, JavaScript, PHP", "Frameworks & libraries: Django, Vue.js, Node.js, Qt, .NET", "Desktop apps: Qt, WinForms, JavaFX, .NET", "DevOps: Linux, Git, Docker, CI/CD, automation", "CRM/API integrations (Bitrix24, amoCRM, custom webhooks)", "Databases: PostgreSQL, MySQL, SQLite, MongoDB", "Working with REST APIs, JSON, XML, WebSocket"],
                             projects: "Projects",
                             project_list: [
                                 { title: "Minecraft Plugin", desc: "A survival overhaul with custom NPCs and storylines." },
@@ -107,12 +245,17 @@
                                 { title: "CRM Automation", desc: "Bitrix/Kommo integrations and workflow automation." },
                                 { title: "Booking Platform", desc: "Current development for internal company booking tool." },
                             ],
+                            certs: "Certificates",
+                            certs_list: ["Cisco CCNA", "Python for Everybody", "Bitrix24 API", "Frontend Basics"],
+                            degree: "Degree",
+                            degree_text: "Final semester of university — almost graduated!",
                         },
+
                         es: {
-                            title: "Ingeniero Fullstack y DevOps",
-                            intro: "¡Hola! Soy Egor Pavlov — un desarrollador apasionado de proyectos web, de escritorio e infraestructura.",
+                            title: "Ingeniero Fullstack y DevOps versátil",
+                            intro: "¡Hola! Soy Egor Pavlov — un desarrollador de ciclo completo que trabaja en todos los niveles: web, escritorio e infraestructura. Diseño y creo soluciones tecnológicas completas, con enfoque en arquitectura, eficiencia y una presentación cuidada. Ya sea una integración compleja, lógica backend o automatización — transformo ideas en software funcional y sólido.",
                             skills: "Habilidades Clave",
-                            skills_list: ["Integraciones CRM (Bitrix24, amoCRM)", "DevOps (Linux, Git, CI/CD)", "Frameworks: Django, Vue.js, Node.js", "Escritorio: Qt, .NET, Java"],
+                            skills_list: ["Desarrollo fullstack (frontend + backend)", "Lenguajes: C++, C#, Python, Java, JavaScript, PHP", "Frameworks y librerías: Django, Vue.js, Node.js, Qt, .NET", "Aplicaciones de escritorio: Qt, WinForms, JavaFX, .NET", "DevOps: Linux, Git, Docker, CI/CD, automatización", "Integraciones CRM/API (Bitrix24, amoCRM, webhooks personalizados)", "Bases de datos: PostgreSQL, MySQL, SQLite, MongoDB", "Trabajo con REST APIs, JSON, XML, WebSocket"],
                             projects: "Proyectos",
                             project_list: [
                                 { title: "Plugin para Minecraft", desc: "Una revisión completa con NPCs personalizados y narrativa." },
@@ -120,12 +263,17 @@
                                 { title: "Automatización de CRM", desc: "Integraciones Bitrix/Kommo y automatización de flujos." },
                                 { title: "Plataforma de reservas", desc: "Desarrollo en curso para mi empresa." },
                             ],
+                            certs: "Certificados",
+                            certs_list: ["Cisco CCNA", "Python for Everybody", "Bitrix24 API", "Frontend Básico"],
+                            degree: "Título universitario",
+                            degree_text: "Último semestre de la universidad — ¡casi graduado!",
                         },
+
                         ru: {
-                            title: "Фуллстек и DevOps инженер",
-                            intro: "Привет! Я Егор Павлов — разработчик, работающий с вебом, десктопом и инфраструктурой.",
+                            title: "Фуллстек разработчик, DevOps-инженер и разработчик десктоп-приложений",
+                            intro: "Я — Егор Павлов, инженер полного цикла. Мой стек охватывает всё: от фронтенда до серверной логики, от десктопа до DevOps-инфраструктуры. Я разрабатываю не просто интерфейсы или бэкенд — я создаю законченные технологические продукты. Умею решать сложные задачи, интегрировать системы, оптимизировать процессы и доводить всё до блеска. В моём арсенале — опыт, страсть к разработке и внимание к деталям.",
                             skills: "Ключевые навыки",
-                            skills_list: ["Интеграции CRM (Bitrix24, amoCRM)", "DevOps (Linux, Git, CI/CD)", "Фреймворки: Django, Vue.js, Node.js", "Десктоп: Qt, .NET, Java"],
+                            skills_list: ["Фуллстек-разработка (frontend + backend)", "Языки: C++, C#, Python, Java, JavaScript, PHP", "Фреймворки и библиотеки: Django, Vue.js, Node.js, Qt, .NET", "Десктоп-приложения (Qt, WinForms, JavaFX, .NET)", "DevOps: Linux, Git, Docker, CI/CD, автоматизация процессов", "Интеграции с CRM (Bitrix24, amoCRM), API, вебхуки", "Базы данных: PostgreSQL, MySQL, SQLite, MongoDB", "Работа с REST API, JSON, XML, WebSocket"],
                             projects: "Проекты",
                             project_list: [
                                 { title: "Плагин для Minecraft", desc: "Модификация выживания с кастомными NPC и сюжетом." },
@@ -133,12 +281,28 @@
                                 { title: "Автоматизация CRM", desc: "Интеграции с Bitrix/Kommo и автоматизация процессов." },
                                 { title: "Система бронирования", desc: "Текущий проект по внутреннему бронированию услуг." },
                             ],
+                            certs: "Сертификаты",
+                            certs_list: [
+                                { name: "Сертификат Cisco", file: "./programador.png", desc: "Сертификат по основам сетевых технологий Cisco CCNA." },
+                                { name: "Сертификат HTML/CSS", file: "./cert2.png", desc: "Сертификат по основам верстки HTML и CSS." },
+                            ],
+
+                            degree: "Диплом",
+                            degree_text: "Последний семестр университета — почти выпустился!",
                         },
                     },
+
+                    modalVisible: false,
+                    modalContent: "",
+                    modalImage: "",
+                    modalDesc: "",
                 },
                 computed: {
                     t() {
                         return (key) => this.translations[this.lang][key];
+                    },
+                    currentTranslations() {
+                        return this.translations[this.lang];
                     },
                 },
                 methods: {
@@ -146,12 +310,10 @@
                         const colors = ["#0ff", "#00ffff", "#ff00ff", "#ff69b4", "#39ff14", "#ff1493", "#00ffff"];
                         return colors[Math.floor(Math.random() * colors.length)];
                     },
-
                     scrambleText(oldText, newText, element, callback) {
                         const chars = "!<>-_\\/[]{}—=+*^?#________";
                         let frame = 0;
                         const length = newText.length;
-
                         const animate = () => {
                             let output = "";
                             for (let i = 0; i < length; i++) {
@@ -170,58 +332,40 @@
                                 const finalColor = "#00ffff";
                                 element.innerHTML = newText
                                     .split("")
-                                    .map((ch) => {
-                                        return `<span style="color:${finalColor}; text-shadow: 0 0 5px ${finalColor}, 0 0 10px ${finalColor}">${ch}</span>`;
-                                    })
+                                    .map((ch) => `<span style="color:${finalColor}; text-shadow: 0 0 5px ${finalColor}, 0 0 10px ${finalColor}">${ch}</span>`)
                                     .join("");
                                 if (callback) callback();
                             }
                         };
                         animate();
                     },
-
                     setLang(language) {
-                        const textKeys = ["title", "intro", "skills", "projects"];
-
+                        const textKeys = ["title", "intro", "skills", "skills_list", "projects", "project_list", "tools", "certs", "certs_list", "degree", "degree_text"];
                         textKeys.forEach((key) => {
                             const el = this.$refs[key];
                             if (!el) return;
                             const newText = this.translations[language][key];
-                            if (Array.isArray(newText)) return; // списки отдельно
+                            if (Array.isArray(newText)) return;
                             this.scrambleText(this.translations[this.lang][key], newText, el);
                         });
-
-                        // Анимируем список навыков
-                        if (this.$refs.skillsList) {
-                            const skillsList = this.translations[language].skills_list;
-                            this.animateList(this.$refs.skillsList, skillsList);
-                        }
-
-                        // Анимируем проекты
-                        const projects = this.translations[language].project_list;
-                        this.$nextTick(() => {
-                            const projectCards = this.$el.querySelectorAll(".card");
-                            projectCards.forEach((card, i) => {
-                                if (!projects[i]) return;
-                                const titleEl = card.querySelector(".card-title");
-                                const descEl = card.querySelector(".card-text");
-                                this.scrambleText(titleEl.innerText, projects[i].title, titleEl);
-                                this.scrambleText(descEl.innerText, projects[i].desc, descEl);
-                            });
-                        });
-
-                        // Анимируем футер
-                        this.$nextTick(() => {
-                            const footer = this.$el.querySelector("footer small");
-                            if (footer) {
-                                const footerText = `© 2025 Egor Pavlov — GitHub`;
-                                this.scrambleText(footer.innerText, footerText, footer);
+                        const listMappings = [
+                            ["skillsList", "skills_list"],
+                            ["languagesList", "languages_list"],
+                            ["frameworksList", "frameworks_list"],
+                            ["toolsList", "tools_list"],
+                            ["certsList", "certs_list"],
+                        ];
+                        listMappings.forEach(([refName, transKey]) => {
+                            if (this.$refs[refName]) {
+                                this.animateList(this.$refs[refName], this.translations[language][transKey]);
                             }
                         });
-
+                        const degreeText = this.translations[language].degree_text;
+                        if (this.$refs.degreeText) {
+                            this.scrambleText(this.translations[this.lang].degree_text, degreeText, this.$refs.degreeText);
+                        }
                         this.lang = language;
                     },
-
                     animateList(ulElement, items) {
                         ulElement.innerHTML = "";
                         let index = 0;
@@ -236,12 +380,56 @@
                         };
                         addNext();
                     },
+                    initScrollAnimations() {
+                        const observer = new IntersectionObserver(
+                            (entries) => {
+                                entries.forEach((entry) => {
+                                    if (entry.isIntersecting) {
+                                        entry.target.classList.add("animate__animated", "animate__fadeInUp");
+                                        observer.unobserve(entry.target);
+                                    }
+                                });
+                            },
+                            { threshold: 0.2 }
+                        );
+                        this.$el.querySelectorAll(".scroll-animate").forEach((el) => {
+                            observer.observe(el);
+                        });
+                    },
+                    openImage(cert) {
+                        this.modalImage = cert.file;
+                        this.modalVisible = true;
+                        this.$nextTick(() => {
+                            const el = this.$refs.descText;
+                            if (el) {
+                                this.scrambleText("", cert.desc || "", el);
+                            }
+                        });
+                    },
+                    closeModal() {
+                        this.modalVisible = false;
+                        this.modalContent = "";
+                        if (this.$refs.descText) this.$refs.descText.innerHTML = "";
+                    },
                 },
                 mounted() {
-                    if (this.$refs.skillsList) {
-                        const skillsList = this.translations[this.lang].skills_list;
-                        this.$refs.skillsList.innerHTML = skillsList.map((item) => `<li>${item}</li>`).join("");
+                    const updateList = (refName, listKey) => {
+                        if (this.$refs[refName]) {
+                            const items = this.translations[this.lang][listKey];
+                            this.$refs[refName].innerHTML = items.map((item) => `<li>${item}</li>`).join("");
+                        }
+                    };
+                    [
+                        ["skillsList", "skills_list"],
+                        ["languagesList", "languages_list"],
+                        ["frameworksList", "frameworks_list"],
+                        ["toolsList", "tools_list"],
+                        ["certsList", "certs_list"],
+                    ].forEach(([ref, key]) => updateList(ref, key));
+                    if (this.$refs.degreeText) {
+                        this.$refs.degreeText.innerText = this.translations[this.lang].degree_text;
                     }
+                    this.initScrollAnimations();
                 },
             });
         </script>
