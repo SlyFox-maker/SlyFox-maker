@@ -58,16 +58,6 @@
                 align-items: center;
                 padding: 20px;
             }
-            .modal-content {
-                background-color: #111;
-                padding: 20px;
-                border-radius: 10px;
-                max-width: 90vw;
-                max-height: 90vh;
-                overflow: auto;
-                box-shadow: 0 0 30px #0ff;
-                color: #0ff;
-            }
             .modal-close {
                 position: absolute;
                 top: 20px;
@@ -120,13 +110,74 @@
                 background-color: #111;
                 padding: 20px;
                 border-radius: 10px;
-                max-width: 90vw;
-                max-height: 90vh;
-                overflow: auto;
-                box-shadow: 0 0 30px #0ff;
+                max-width: 1000px; /* жёсткий максимум по ширине */
+                width: 90vw; /* адаптивная ширина */
+                max-height: 80vh; /* ограничиваем высоту */
+                overflow: hidden; /* скрываем лишнее */
                 color: #0ff;
                 position: relative;
+
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+                align-items: flex-start;
+                justify-content: center;
             }
+
+            .modal-img {
+                border-radius: 10px;
+                width: 500px; /* фиксированная ширина для картинки */
+                height: auto;
+                object-fit: contain;
+                flex-shrink: 0;
+                flex-grow: 0;
+                user-select: none;
+                filter: drop-shadow(0 0 5px #0ff);
+            }
+
+            .modal-desc {
+                flex-grow: 1;
+                font-family: "Fira Code", monospace;
+                font-size: 16px;
+                overflow-y: auto;
+                max-height: 75vh;
+                word-wrap: break-word;
+                padding-right: 10px;
+            }
+
+            /* --- Адаптив --- */
+            @media (max-width: 768px) {
+                .modal-content {
+                    flex-direction: column;
+                    max-width: 95vw;
+                    max-height: 90vh;
+                    padding: 15px;
+                }
+
+                .modal-img {
+                    width: 100%;
+                    max-height: 40vh;
+                    margin-bottom: 15px;
+                }
+
+                .modal-desc {
+                    max-height: 40vh;
+                    font-size: 14px;
+                }
+            }
+
+            @media (max-width: 400px) {
+                .modal-content {
+                    max-width: 98vw;
+                    max-height: 85vh;
+                    padding: 10px;
+                }
+
+                .modal-desc {
+                    font-size: 13px;
+                }
+            }
+
             .modal-close {
                 position: absolute;
                 top: 15px;
@@ -160,6 +211,76 @@
                 max-width: 500px;
                 word-wrap: break-word;
             }
+
+            @keyframes neonFlicker {
+                0%,
+                100% {
+                    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 55px #0ff, 0 0 75px #0ff;
+                    box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+                }
+                50% {
+                    text-shadow: 0 0 3px #0ff, 0 0 6px #0ff, 0 0 10px #0ff, 0 0 15px #0ff, 0 0 20px #0ff;
+                    box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+                }
+            }
+
+            /* Киберпанк-анимация входа */
+            @keyframes cyberpunkIn {
+                0% {
+                    opacity: 0;
+                    transform: translateY(-50px) skew(-5deg);
+                    box-shadow: 0 0 0px #0ff;
+                    filter: drop-shadow(0 0 0px #0ff);
+                }
+                50% {
+                    opacity: 1;
+                    transform: translateY(0) skew(0deg);
+                    box-shadow: 0 0 5px #0ff, 0 0 5px #0ff inset;
+                    filter: drop-shadow(0 0 5px #0ff);
+                }
+                100% {
+                    opacity: 1;
+                    transform: translateY(0) skew(0deg);
+                    box-shadow: 0 0 10px #0ff, 0 0 10px #0ff inset;
+                    filter: drop-shadow(0 0 10px #0ff);
+                }
+            }
+
+            /* Киберпанк-анимация выхода */
+            @keyframes cyberpunkOut {
+                0% {
+                    opacity: 1;
+                    transform: translateY(0) skew(0deg);
+                    box-shadow: 0 0 30px #0ff, 0 0 40px #0ff inset;
+                }
+                100% {
+                    opacity: 0;
+                    transform: translateY(-50px) skew(5deg);
+                    box-shadow: 0 0 5px #0ff;
+                }
+            }
+
+            /* Классы для применения анимации */
+            .cyberpunk-in {
+                animation: cyberpunkIn 0.5s forwards ease-out;
+            }
+
+            .cyberpunk-out {
+                animation: cyberpunkOut 0.4s forwards ease-in;
+            }
+            @keyframes neonFlicker {
+                0%,
+                100% {
+                    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 55px #0ff, 0 0 75px #0ff;
+                    box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+                }
+                50% {
+                    text-shadow: 0 0 3px #0ff, 0 0 6px #0ff, 0 0 10px #0ff, 0 0 15px #0ff, 0 0 20px #0ff;
+                    box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+                }
+            }
+
+            /* Остальные стили модалки, модал-контента, кнопки и т.д. — оставь свои */
         </style>
     </head>
     <body>
@@ -181,7 +302,9 @@
                     <h2 ref="skills" class="h4 border-bottom border-info pb-2">{{ t('skills') }}</h2>
                     <ul ref="skillsList"></ul>
                 </section>
-
+                <section id="degrees" class="my-5">
+                    <h2 ref="degree" class="h4 border-bottom border-info pb-2" style="color: #0ff">{{ t('degree_text') }}</h2>
+                </section>
                 <section id="certificates" class="my-5">
                     <h2 ref="certs" class="h4 border-bottom border-info pb-2" style="color: #0ff">{{ t('certificates') }}</h2>
                     <ul>
@@ -203,17 +326,10 @@
                     <a href="https://github.com/egorpavlov"><i class="fa fa-github"></i> GitHub</a>
                 </div>
 
-                <ul>
-                    <li v-for="cert in currentTranslations.certs_list" :key="cert.file">
-                        <a href="#" @click.prevent="openPDF(cert.file)">{{ cert.name }}</a>
-                    </li>
-                </ul>
-
                 <!-- Модалка -->
-                <div id="modal" class="modal" v-show="modalVisible" @click.self="closeModal">
-                    <div class="modal-content animate__animated animate__fadeInDown">
-                        <button class="modal-close" @click="closeModal">&times;</button>
-
+                <div id="modal" class="modal" v-show="modalVisible" @click.self="startClose">
+                    <div class="modal-content" :class="animationClass" @animationend="onAnimationEnd">
+                        <button class="modal-close" @click="startClose">&times;</button>
                         <div id="modal-body" class="modal-body">
                             <img :src="modalImage" alt="Certificate" class="modal-img" />
                             <div class="modal-desc" ref="descText"></div>
@@ -246,7 +362,39 @@
                                 { title: "Booking Platform", desc: "Current development for internal company booking tool." },
                             ],
                             certs: "Certificates",
-                            certs_list: ["Cisco CCNA", "Python for Everybody", "Bitrix24 API", "Frontend Basics"],
+                            certs_list: [
+                                {
+                                    name: "Web & Mobile Application Developer Diploma",
+                                    file: "./cert/Carlos/diplomeDev.png",
+                                    desc: "Issued for completing a comprehensive course in full-cycle web development — including frontend (HTML, CSS, JavaScript, UI/UX) and backend (PHP, Python, databases) — as well as mobile app creation using Progressive Web Apps (PWA) technology.",
+                                },
+                                {
+                                    name: "OOP Programmer Certificate",
+                                    file: "./cert/Carlos/programadorOOP.png",
+                                    desc: "Covers core concepts of object-oriented programming (OOP), such as encapsulation, inheritance, polymorphism, and abstraction, with practical implementation in high-level languages.",
+                                },
+                                {
+                                    name: "Front-end Developer Certificate",
+                                    file: "./cert/Carlos/devFrontEnd.png",
+                                    desc: "Awarded for completing a course in frontend development, focusing on HTML5, CSS3, JavaScript, responsive design, cross-browser compatibility, and UI/UX design principles.",
+                                },
+                                {
+                                    name: "Back-end Developer Certificate",
+                                    file: "./cert/Carlos/devBackEnd.png",
+                                    desc: "Confirms proficiency in backend development with PHP and Python, database management, REST API integration, web app architecture, and security practices.",
+                                },
+                                {
+                                    name: "Game Developer Certificate",
+                                    file: "./cert/Carlos/devGame.png",
+                                    desc: "Covers fundamentals of game development including game design, programming in Unity, as well as basic marketing and monetization strategies in the gaming industry.",
+                                },
+                                {
+                                    name: "Mobile Developer Certificate",
+                                    file: "./cert/Carlos/devPhone.png",
+                                    desc: "Certifies knowledge in mobile development using PWA technology — building cross-platform apps with offline access, installation capabilities, and device integration.",
+                                },
+                            ],
+
                             degree: "Degree",
                             degree_text: "Final semester of university — almost graduated!",
                         },
@@ -264,7 +412,39 @@
                                 { title: "Plataforma de reservas", desc: "Desarrollo en curso para mi empresa." },
                             ],
                             certs: "Certificados",
-                            certs_list: ["Cisco CCNA", "Python for Everybody", "Bitrix24 API", "Frontend Básico"],
+                            certs_list: [
+                                {
+                                    name: "Diploma de Desarrollador de Sitios Web y Aplicaciones Móviles",
+                                    file: "./cert/Carlos/diplomeDev.png",
+                                    desc: "Certifica la finalización de un curso completo en desarrollo web full-stack — incluyendo frontend (HTML, CSS, JavaScript, UI/UX) y backend (PHP, Python, bases de datos) — y en creación de aplicaciones móviles usando tecnología PWA (Progressive Web Apps).",
+                                },
+                                {
+                                    name: "Certificado de Programador OOP",
+                                    file: "./cert/Carlos/programadorOOP.png",
+                                    desc: "Incluye los conceptos clave de la programación orientada a objetos (POO): encapsulamiento, herencia, polimorfismo y abstracción, con implementación práctica en lenguajes de alto nivel.",
+                                },
+                                {
+                                    name: "Certificado de Desarrollador Front-end",
+                                    file: "./cert/Carlos/devFrontEnd.png",
+                                    desc: "Otorgado tras completar un curso de desarrollo frontend enfocado en HTML5, CSS3, JavaScript, diseño responsivo, compatibilidad entre navegadores y principios de diseño UI/UX.",
+                                },
+                                {
+                                    name: "Certificado de Desarrollador Back-end",
+                                    file: "./cert/Carlos/devBackEnd.png",
+                                    desc: "Certifica conocimientos en desarrollo backend con PHP y Python, manejo de bases de datos, integración de APIs REST, arquitectura de aplicaciones web y seguridad.",
+                                },
+                                {
+                                    name: "Certificado de Desarrollador de Videojuegos",
+                                    file: "./cert/Carlos/devGame.png",
+                                    desc: "Incluye fundamentos del desarrollo de videojuegos: diseño, programación en Unity, así como nociones básicas de marketing y monetización en la industria del gaming.",
+                                },
+                                {
+                                    name: "Certificado de Desarrollador Móvil",
+                                    file: "./cert/Carlos/devPhone.png",
+                                    desc: "Certifica habilidades en desarrollo móvil usando tecnología PWA — creación de apps multiplataforma con acceso offline, instalación y funciones integradas del dispositivo.",
+                                },
+                            ],
+
                             degree: "Título universitario",
                             degree_text: "Último semestre de la universidad — ¡casi graduado!",
                         },
@@ -283,10 +463,37 @@
                             ],
                             certs: "Сертификаты",
                             certs_list: [
-                                { name: "Сертификат Cisco", file: "./programador.png", desc: "Сертификат по основам сетевых технологий Cisco CCNA." },
-                                { name: "Сертификат HTML/CSS", file: "./cert2.png", desc: "Сертификат по основам верстки HTML и CSS." },
+                                {
+                                    name: "Диплом разработчика веб-сайтов и мобильных приложений",
+                                    file: "./cert/Carlos/diplomeDev.png",
+                                    desc: "Подтверждает успешное прохождение курса по созданию веб-сайтов с применением технологий как фронтенд (HTML, CSS, JavaScript, UI/UX), так и бэкенд (PHP, Python, базы данных), а также разработке мобильных приложений с использованием PWA (Progressive Web Apps).",
+                                },
+                                {
+                                    name: "Программист ООП",
+                                    file: "./cert/Carlos/programadorOOP.png",
+                                    desc: "Сертификат, подтверждающий знания и практические навыки объектно-ориентированного программирования (ООП), включая принципы инкапсуляции, наследования, полиморфизма и абстракции, с применением на языках программирования высокого уровня.",
+                                },
+                                {
+                                    name: "Front-end разработчик",
+                                    file: "./cert/Carlos/devFrontEnd.png",
+                                    desc: "Сертификат по фронтенд-разработке. Включает углублённое изучение HTML5, CSS3, JavaScript, принципов адаптивной и кроссбраузерной вёрстки, а также основ UI/UX-дизайна и взаимодействия с пользователем.",
+                                },
+                                {
+                                    name: "Back-end разработчик",
+                                    file: "./cert/Carlos/devBackEnd.png",
+                                    desc: "Подтверждает освоение основ серверной разработки с использованием PHP и Python, взаимодействия с базами данных, REST API, а также принципов безопасности и архитектуры веб-приложений.",
+                                },
+                                {
+                                    name: "Разработчик игр",
+                                    file: "./cert/Carlos/devGame.png",
+                                    desc: "Сертификат по основам геймдева. Изучены принципы проектирования и программирования видеоигр, основы работы с игровыми движками (Unity), а также вводный курс по маркетингу и монетизации игр.",
+                                },
+                                {
+                                    name: "Мобильный разработчик",
+                                    file: "./cert/Carlos/devPhone.png",
+                                    desc: "Сертификат, подтверждающий знания в области мобильной разработки на основе PWA — создание кроссплатформенных приложений с оффлайн-доступом, установкой на устройства и интеграцией с функциями смартфона.",
+                                },
                             ],
-
                             degree: "Диплом",
                             degree_text: "Последний семестр университета — почти выпустился!",
                         },
@@ -296,6 +503,7 @@
                     modalContent: "",
                     modalImage: "",
                     modalDesc: "",
+                    animationClass: "",
                 },
                 computed: {
                     t() {
@@ -340,7 +548,7 @@
                         animate();
                     },
                     setLang(language) {
-                        const textKeys = ["title", "intro", "skills", "skills_list", "projects", "project_list", "tools", "certs", "certs_list", "degree", "degree_text"];
+                        const textKeys = ["degree", "title", "intro", "skills", "skills_list", "projects", "project_list", "tools", "certs", "certs_list", "degree", "degree_text"];
                         textKeys.forEach((key) => {
                             const el = this.$refs[key];
                             if (!el) return;
@@ -353,7 +561,7 @@
                             ["languagesList", "languages_list"],
                             ["frameworksList", "frameworks_list"],
                             ["toolsList", "tools_list"],
-                            ["certsList", "certs_list"],
+                            ["certsList", "certs_list", "degrees"],
                         ];
                         listMappings.forEach(([refName, transKey]) => {
                             if (this.$refs[refName]) {
@@ -399,6 +607,9 @@
                     openImage(cert) {
                         this.modalImage = cert.file;
                         this.modalVisible = true;
+                        // Запускаем анимацию открытия
+                        this.animationClass = "cyberpunk-in";
+
                         this.$nextTick(() => {
                             const el = this.$refs.descText;
                             if (el) {
@@ -406,10 +617,17 @@
                             }
                         });
                     },
-                    closeModal() {
-                        this.modalVisible = false;
-                        this.modalContent = "";
-                        if (this.$refs.descText) this.$refs.descText.innerHTML = "";
+                    startClose() {
+                        // Запускаем анимацию закрытия
+                        this.animationClass = "cyberpunk-out";
+                    },
+                    onAnimationEnd(event) {
+                        if (this.animationClass === "cyberpunk-out") {
+                            // После анимации закрытия скрываем модалку
+                            this.modalVisible = false;
+                            this.animationClass = "";
+                            if (this.$refs.descText) this.$refs.descText.innerHTML = "";
+                        }
                     },
                 },
                 mounted() {
