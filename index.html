@@ -58,14 +58,7 @@
                 align-items: center;
                 padding: 20px;
             }
-            .modal-close {
-                position: absolute;
-                top: 20px;
-                right: 30px;
-                font-size: 2rem;
-                color: #0ff;
-                cursor: pointer;
-            }
+
             .project-card {
                 cursor: pointer;
                 padding: 15px;
@@ -180,13 +173,26 @@
 
             .modal-close {
                 position: absolute;
-                top: 15px;
+                top: 10px;
                 right: 15px;
-                font-size: 2rem;
-                color: #0ff;
+                width: 32px;
+                height: 32px;
                 cursor: pointer;
-                background: transparent;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000; /* Поверх всего */
+                background-color: transparent;
                 border: none;
+                padding: 0;
+                color: white;
+                font-size: 28px;
+            }
+
+            .modal-close svg {
+                width: 24px;
+                height: 24px;
+                pointer-events: none; /* Чтобы вся кнопка реагировала, а не только SVG */
             }
             .modal-body {
                 display: flex;
@@ -279,7 +285,66 @@
                     box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
                 }
             }
+            .certificates-grid {
+                display: grid;
+                grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+                gap: 20px;
+                justify-items: stretch; /* карточки растягиваются по ширине */
+            }
 
+            .cert-card {
+                background: rgba(0, 255, 255, 0.1);
+                border: 2px solid #0ff;
+                border-radius: 10px;
+                padding: 20px;
+                cursor: pointer;
+                user-select: none;
+                font-family: "Fira Code", monospace;
+                font-weight: 600;
+                color: #0ff;
+                height: 120px; /* фиксированная высота для карточек */
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                text-align: center;
+                box-shadow: 0 0 10px #0ff33aa;
+                transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+            }
+
+            .cert-card:hover,
+            .cert-card:focus {
+                background-color: rgba(0, 255, 255, 0.25);
+                box-shadow: 0 0 20px #00ffffcc, 0 0 30px #00ffffcc inset;
+                transform: scale(1.05);
+                outline: none;
+            }
+            @keyframes flashGlow {
+                0%,
+                100% {
+                    box-shadow: 0 0 10px #0ff33aa;
+                    transform: scale(1);
+                }
+                50% {
+                    box-shadow: 0 0 20px #00ffffcc, 0 0 30px #00ffffcc inset;
+                    transform: scale(0.95);
+                }
+            }
+
+            .flash-effect {
+                animation: flashGlow 0.4s ease;
+            }
+            .lead {
+                height: 150px;
+            }
+            .skills {
+                height: 290px;
+            }
+            #degrees {
+                height: 100px;
+            }
+            #title {
+                height: 260px;
+            }
             /* Остальные стили модалки, модал-контента, кнопки и т.д. — оставь свои */
         </style>
     </head>
@@ -295,23 +360,23 @@
             </nav>
 
             <div class="container py-5 animate__animated animate__fadeIn">
-                <h1 ref="title" class="display-4 neon-text mb-4">{{ t('title') }}</h1>
+                <h1 ref="title" id="title" class="display-4 neon-text mb-4">{{ t('title') }}</h1>
                 <p ref="intro" class="lead">{{ t('intro') }}</p>
 
-                <section class="my-5">
+                <section class="my-5 skills">
                     <h2 ref="skills" class="h4 border-bottom border-info pb-2">{{ t('skills') }}</h2>
                     <ul ref="skillsList"></ul>
                 </section>
                 <section id="degrees" class="my-5">
-                    <h2 ref="degree" class="h4 border-bottom border-info pb-2" style="color: #0ff">{{ t('degree_text') }}</h2>
+                    <h2 ref="degree" class="h4 border-bottom border-info pb-2">{{ t('skills') }}</h2>
+
+                    <p ref="degree_text">{{ t('degree_text') }}</p>
                 </section>
                 <section id="certificates" class="my-5">
-                    <h2 ref="certs" class="h4 border-bottom border-info pb-2" style="color: #0ff">{{ t('certificates') }}</h2>
-                    <ul>
-                        <li v-for="cert in currentTranslations.certs_list" :key="cert.file">
-                            <a href="#" @click.prevent="openImage(cert)">{{ cert.name }}</a>
-                        </li>
-                    </ul>
+                    <h2 class="h4 border-bottom border-info pb-2" style="color: #0ff">{{ t('certs') }}</h2>
+                    <div class="certificates-grid">
+                        <div ref="certs" class="cert-card" v-for="cert in currentTranslations.certs_list" :key="cert.file" @click="openImage(cert)" tabindex="0" @keydown.enter.prevent="openImage(cert)" role="button" :title="cert.name">{{ cert.name }}</div>
+                    </div>
                 </section>
 
                 <section id="projects" class="my-5">
@@ -369,6 +434,17 @@
                                     desc: "Issued for completing a comprehensive course in full-cycle web development — including frontend (HTML, CSS, JavaScript, UI/UX) and backend (PHP, Python, databases) — as well as mobile app creation using Progressive Web Apps (PWA) technology.",
                                 },
                                 {
+                                    name: "Cisco CCNA 1: Introduction to Networks",
+                                    file: "./cert/Cisco/CCNA1.png",
+                                    desc: "Certifies successful completion of the first of three courses in the CCNA certification pathway. Covers networking fundamentals including network architecture, OSI model, IPv4/IPv6 addressing, routing, Ethernet protocols, and basic device configuration using Cisco CLI.",
+                                },
+                                {
+                                    name: "Cisco IT Essentials: PC Hardware and Software",
+                                    file: "./cert/Cisco/IT_Essentials.png",
+                                    desc: "Certifies successful completion of the Cisco IT Essentials course. Covers fundamentals of PC and mobile device hardware and software: internal components, system assembly, OS and application installation, hardware/software troubleshooting and maintenance, printers and mobile devices, basic networking and security, virtualization and cloud computing.",
+                                },
+
+                                {
                                     name: "OOP Programmer Certificate",
                                     file: "./cert/Carlos/programadorOOP.png",
                                     desc: "Covers core concepts of object-oriented programming (OOP), such as encapsulation, inheritance, polymorphism, and abstraction, with practical implementation in high-level languages.",
@@ -396,7 +472,7 @@
                             ],
 
                             degree: "Degree",
-                            degree_text: "Final semester of university — almost graduated!",
+                            degree_text: "Final semester of university - almost graduated!",
                         },
 
                         es: {
@@ -418,6 +494,17 @@
                                     file: "./cert/Carlos/diplomeDev.png",
                                     desc: "Certifica la finalización de un curso completo en desarrollo web full-stack — incluyendo frontend (HTML, CSS, JavaScript, UI/UX) y backend (PHP, Python, bases de datos) — y en creación de aplicaciones móviles usando tecnología PWA (Progressive Web Apps).",
                                 },
+                                {
+                                    name: "Cisco CCNA 1: Introducción a las Redes",
+                                    file: "./cert/Cisco/CCNA1.png",
+                                    desc: "Certifica la finalización exitosa del primero de tres cursos en la ruta hacia la certificación CCNA. Cubre los fundamentos de redes, incluyendo la arquitectura de red, el modelo OSI, direccionamiento IPv4/IPv6, enrutamiento, protocolos Ethernet y configuración básica de dispositivos con Cisco CLI.",
+                                },
+                                {
+                                    name: "Cisco IT Essentials: Hardware y Software de PC",
+                                    file: "./cert/Cisco/IT_Essentials.png",
+                                    desc: "Certifica la finalización exitosa del curso Cisco IT Essentials. Cubre fundamentos del hardware y software de PC y dispositivos móviles: componentes internos, ensamblaje del sistema, instalación de sistemas operativos y aplicaciones, mantenimiento y solución de problemas de hardware/software, impresoras y dispositivos móviles, redes básicas y seguridad, virtualización y computación en la nube.",
+                                },
+
                                 {
                                     name: "Certificado de Programador OOP",
                                     file: "./cert/Carlos/programadorOOP.png",
@@ -446,7 +533,7 @@
                             ],
 
                             degree: "Título universitario",
-                            degree_text: "Último semestre de la universidad — ¡casi graduado!",
+                            degree_text: "Último semestre de la universidad - ¡casi graduado!",
                         },
 
                         ru: {
@@ -468,6 +555,17 @@
                                     file: "./cert/Carlos/diplomeDev.png",
                                     desc: "Подтверждает успешное прохождение курса по созданию веб-сайтов с применением технологий как фронтенд (HTML, CSS, JavaScript, UI/UX), так и бэкенд (PHP, Python, базы данных), а также разработке мобильных приложений с использованием PWA (Progressive Web Apps).",
                                 },
+                                {
+                                    name: "Cisco CCNA 1: Введение в сети",
+                                    file: "./cert/Cisco/CCNA1.png",
+                                    desc: "Подтверждает успешное завершение первого из трёх курсов программы подготовки к сертификации CCNA. Освоены основы сетевых технологий, включая архитектуру сетей, модель OSI, адресацию IPv4/IPv6, маршрутизацию, протоколы Ethernet и настройку сетевых устройств с использованием Cisco CLI.",
+                                },
+                                {
+                                    name: "Cisco IT Essentials: Аппаратное и программное обеспечение ПК",
+                                    file: "./cert/Cisco/IT_Essentials.png", // замени путь, если нужно
+                                    desc: "Подтверждает успешное завершение курса Cisco IT Essentials. Освоены основы работы ПК и мобильных устройств: понимание внутренней архитектуры, сборка, установка ОС и приложений, профилактика и устранение неисправностей аппаратной и программной части, принтеров, мобильных устройств, базовые сетевые и меры безопасности, а также основы виртуализации и облачных технологий.",
+                                },
+
                                 {
                                     name: "Программист ООП",
                                     file: "./cert/Carlos/programadorOOP.png",
@@ -495,7 +593,7 @@
                                 },
                             ],
                             degree: "Диплом",
-                            degree_text: "Последний семестр университета — почти выпустился!",
+                            degree_text: "Последний семестр университета - почти выпустился!",
                         },
                     },
 
@@ -547,8 +645,10 @@
                         };
                         animate();
                     },
+
                     setLang(language) {
-                        const textKeys = ["degree", "title", "intro", "skills", "skills_list", "projects", "project_list", "tools", "certs", "certs_list", "degree", "degree_text"];
+                        const textKeys = ["degree", "degree_text", "title", "intro", "skills", "skills_list", "projects", "project_list", "tools", "certs", "certs_list", "degree", "degree_text"];
+
                         textKeys.forEach((key) => {
                             const el = this.$refs[key];
                             if (!el) return;
@@ -561,18 +661,43 @@
                             ["languagesList", "languages_list"],
                             ["frameworksList", "frameworks_list"],
                             ["toolsList", "tools_list"],
-                            ["certsList", "certs_list", "degrees"],
+                            ["certsList", "certs_list"],
                         ];
                         listMappings.forEach(([refName, transKey]) => {
                             if (this.$refs[refName]) {
                                 this.animateList(this.$refs[refName], this.translations[language][transKey]);
                             }
                         });
-                        const degreeText = this.translations[language].degree_text;
+                        this.updateCertsTexts(this.translations[language]);
+                        const degreeText = this.translations[language].certs_list;
                         if (this.$refs.degreeText) {
-                            this.scrambleText(this.translations[this.lang].degree_text, degreeText, this.$refs.degreeText);
+                            this.scrambleTextSimple(this.translations[this.lang].degree_text, degreeText, this.$refs.degreeText);
                         }
                         this.lang = language;
+                    },
+                    scrambleTextSimple(element, newText) {
+                        element.classList.add("flash-effect");
+                        setTimeout(() => {
+                            element.textContent = newText;
+                        }, 200);
+                        setTimeout(() => {
+                            element.classList.remove("flash-effect");
+                        }, 400);
+                    },
+
+                    updateCertsTexts(texts) {
+                        const elements = this.$refs.certs;
+                        if (!elements) return;
+                        const elems = Array.isArray(elements) ? elements : [elements];
+
+                        // Берём массив сертификатов из объекта texts
+                        const certsArray = texts.certs_list || [];
+
+                        elems.forEach((el, i) => {
+                            if (certsArray[i]) {
+                                this.scrambleTextSimple(el, certsArray[i].name);
+                            }
+                        });
                     },
                     animateList(ulElement, items) {
                         ulElement.innerHTML = "";
