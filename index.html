@@ -346,6 +346,30 @@
                 height: 260px;
             }
             /* Остальные стили модалки, модал-контента, кнопки и т.д. — оставь свои */
+
+            body::before {
+                content: "";
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100%;
+                z-index: -1;
+                background: radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.1) 0%, transparent 20%), radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.1) 0%, transparent 20%);
+                animation: float 15s infinite alternate ease-in-out;
+            }
+
+            @keyframes float {
+                0% {
+                    transform: translate(0, 0);
+                }
+                50% {
+                    transform: translate(-5%, 5%);
+                }
+                100% {
+                    transform: translate(5%, -5%);
+                }
+            }
         </style>
     </head>
     <body>
@@ -360,7 +384,10 @@
             </nav>
 
             <div class="container py-5 animate__animated animate__fadeIn">
-                <h1 ref="title" id="title" class="display-4 neon-text mb-4">{{ t('title') }}</h1>
+                <div class="d-flex align-items-center mb-4">
+                    <img src="./src/avatar.png" alt="Egor Pavlov" class="rounded-circle neon-glow mr-3" />
+                    <h1 ref="title" id="title" class="display-4 neon-text mb-0">{{ t('title') }}</h1>
+                </div>
                 <p ref="intro" class="lead">{{ t('intro') }}</p>
 
                 <section class="my-5 skills">
@@ -602,6 +629,12 @@
                     modalImage: "",
                     modalDesc: "",
                     animationClass: "",
+                    currentAnimation: null,
+                    currentAnimation: null,
+                    activeTimeouts: [],
+                    currentAnimations: new WeakMap(),
+                    activeTimeouts: new WeakMap(),
+                    listAnimations: new WeakMap(),
                 },
                 computed: {
                     t() {
@@ -612,6 +645,19 @@
                     },
                 },
                 methods: {
+                    clearAnimationForElement(el) {
+                        const anim = this.currentAnimations.get(el);
+                        if (anim) {
+                            cancelAnimationFrame(anim);
+                            this.currentAnimations.delete(el);
+                        }
+
+                        // Очищаем таймеры scrambleTextSimple
+                        const timeouts = this.activeTimeouts.get(el) || [];
+                        timeouts.forEach((t) => clearTimeout(t));
+                        this.activeTimeouts.delete(el);
+                    },
+
                     getRandomColor() {
                         const colors = ["#0ff", "#00ffff", "#ff00ff", "#ff69b4", "#39ff14", "#ff1493", "#00ffff"];
                         return colors[Math.floor(Math.random() * colors.length)];
@@ -620,6 +666,9 @@
                         const chars = "!<>-_\\/[]{}—=+*^?#________";
                         let frame = 0;
                         const length = newText.length;
+
+                        this.clearAnimationForElement(element);
+
                         const animate = () => {
                             let output = "";
                             for (let i = 0; i < length; i++) {
@@ -633,7 +682,8 @@
                             element.innerHTML = output;
                             frame++;
                             if (frame <= length) {
-                                requestAnimationFrame(animate);
+                                const anim = requestAnimationFrame(animate);
+                                this.currentAnimations.set(element, anim);
                             } else {
                                 const finalColor = "#00ffff";
                                 element.innerHTML = newText
@@ -641,6 +691,7 @@
                                     .map((ch) => `<span style="color:${finalColor}; text-shadow: 0 0 5px ${finalColor}, 0 0 10px ${finalColor}">${ch}</span>`)
                                     .join("");
                                 if (callback) callback();
+                                this.currentAnimations.delete(element);
                             }
                         };
                         animate();
@@ -676,34 +727,47 @@
                         this.lang = language;
                     },
                     scrambleTextSimple(element, newText) {
+                        this.clearAnimationForElement(element);
+
+                        element.classList.remove("flash-effect");
+                        void element.offsetWidth;
                         element.classList.add("flash-effect");
-                        setTimeout(() => {
+
+                        const t1 = setTimeout(() => {
                             element.textContent = newText;
                         }, 200);
-                        setTimeout(() => {
+                        const t2 = setTimeout(() => {
                             element.classList.remove("flash-effect");
                         }, 400);
+
+                        this.activeTimeouts.set(element, [t1, t2]);
                     },
 
                     updateCertsTexts(texts) {
                         const elements = this.$refs.certs;
                         if (!elements) return;
                         const elems = Array.isArray(elements) ? elements : [elements];
-
-                        // Берём массив сертификатов из объекта texts
                         const certsArray = texts.certs_list || [];
 
                         elems.forEach((el, i) => {
-                            if (certsArray[i]) {
-                                this.scrambleTextSimple(el, certsArray[i].name);
-                            }
+                            if (certsArray[i]) this.scrambleTextSimple(el, certsArray[i].name);
                         });
                     },
+
                     animateList(ulElement, items) {
+                        // Отменяем текущую анимацию списка
+                        const prev = this.listAnimations.get(ulElement);
+                        if (prev) prev.stop = true;
+                        this.listAnimations.set(ulElement, { stop: false });
+
+                        const state = this.listAnimations.get(ulElement);
                         ulElement.innerHTML = "";
                         let index = 0;
+
                         const addNext = () => {
+                            if (state.stop) return; // остановка цепочки
                             if (index >= items.length) return;
+
                             const li = document.createElement("li");
                             ulElement.appendChild(li);
                             this.scrambleText("", items[index], li, () => {
@@ -713,6 +777,7 @@
                         };
                         addNext();
                     },
+
                     initScrollAnimations() {
                         const observer = new IntersectionObserver(
                             (entries) => {
@@ -774,6 +839,62 @@
                     }
                     this.initScrollAnimations();
                 },
+            });
+        </script>
+
+        <div id="particles-js" style="position: fixed; top: 0; left: 0; width: 100%; height: 100%; z-index: -1"></div>
+
+        <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+        <script>
+            // Инициализация частиц как фона
+            particlesJS("particles-js", {
+                particles: {
+                    number: { value: 60, density: { enable: true, value_area: 800 } },
+                    color: { value: "#00ffff" },
+                    shape: { type: "circle" },
+                    opacity: {
+                        value: 0.5,
+                        random: true,
+                        anim: { enable: true, speed: 1, opacity_min: 0.1, sync: false },
+                    },
+                    size: {
+                        value: 3,
+                        random: true,
+                        anim: { enable: true, speed: 2, size_min: 0.1 },
+                    },
+                    line_linked: {
+                        enable: true,
+                        distance: 150,
+                        color: "#00ffff",
+                        opacity: 0.2,
+                        width: 1,
+                    },
+                    move: {
+                        enable: true,
+                        speed: 2,
+                        direction: "none",
+                        random: true,
+                        straight: false,
+                        out_mode: "out",
+                    },
+                },
+                interactivity: {
+                    detect_on: "canvas",
+                    events: {
+                        onhover: { enable: true, mode: "repulse" },
+                        onclick: { enable: true, mode: "push" },
+                    },
+                    modes: {
+                        repulse: { distance: 100, duration: 0.4 },
+                        push: { particles_nb: 4 },
+                    },
+                },
+                retina_detect: true,
+            });
+
+            // Ресайз при изменении размера окна
+            window.addEventListener("resize", function () {
+                particlesJS("particles-js", particlesJSConfig);
             });
         </script>
     </body>
