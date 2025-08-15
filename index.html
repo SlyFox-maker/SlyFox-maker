@@ -7,6 +7,11 @@
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+        <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
         <style>
             body {
                 background-color: #0e0e0e;
@@ -106,6 +111,7 @@
                 max-width: 1000px; /* жёсткий максимум по ширине */
                 width: 90vw; /* адаптивная ширина */
                 max-height: 80vh; /* ограничиваем высоту */
+                height: 700px; /* фиксированная высота */
                 overflow: hidden; /* скрываем лишнее */
                 color: #0ff;
                 position: relative;
@@ -370,6 +376,17 @@
                     transform: translate(5%, -5%);
                 }
             }
+            .span-points {
+                width: 10px;
+                height: 10px;
+                border-radius: 50%;
+                background: #444;
+                cursor: pointer;
+                display: inline-block;
+            }
+            .active-dot {
+                background: #0ff;
+            }
         </style>
     </head>
     <body>
@@ -407,9 +424,8 @@
                 </section>
 
                 <section id="projects" class="my-5">
-                    <h2 ref="projects" class="h4 border-bottom border-info pb-2" style="color: #0ff">{{ t('projects') }}</h2>
-                    <div class="project-card" onclick="openProject('Cyber CRM', 'Моя кастомная CRM с интеграцией в Bitrix24.', 'img/cybercrm.png')">Cyber CRM</div>
-                    <div class="project-card" onclick="openProject('Flang Delivery', 'Платформа для доставки еды с API.', 'img/flang.png')">Flang Delivery</div>
+                    <h2 class="h4 border-bottom border-info pb-2" style="color: #0ff">{{ t('projects') }}</h2>
+                    <div ref="projects" class="project-card" v-for="project in currentTranslations.project_list" :key="project.file" @click="openImageProject(project)" tabindex="0" @keydown.enter.prevent="openImageProject(project)" role="button" :title="project.name">{{ project.name }}</div>
                 </section>
 
                 <div class="contact-info">
@@ -425,6 +441,31 @@
                         <div id="modal-body" class="modal-body">
                             <img :src="modalImage" alt="Certificate" class="modal-img" />
                             <div class="modal-desc" ref="descText"></div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Модалка -->
+                <div class="modal" v-show="projectModalVisible" @click.self="closeProjectModal">
+                    <div class="modal-content" :key="projectModalIndex + projectModalVisible" :class="animationClass" @animationend="onAnimationEnd">
+                        <button class="modal-close" @click="closeProjectModal">&times;</button>
+
+                        <div class="modal-body" style="display: flex; gap: 20px">
+                            <!-- Левая картинка -->
+                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center">
+                                <!-- Картинка текущего слайда -->
+                                <a :href="projectModalImages[projectModalIndex]" class="glightbox" :data-gallery="'project-gallery'">
+                                    <img :src="projectModalImages[projectModalIndex]" class="modal-img" />
+                                </a>
+
+                                <!-- Точки / мини-превью -->
+                                <div style="margin-top: 10px; display: flex; gap: 5px">
+                                    <span class="span-points" v-for="(img, idx) in projectModalImages" :key="idx" :class="{ 'active-dot': idx === projectModalIndex }" @click="goToImage(idx)"> </span>
+                                </div>
+                            </div>
+
+                            <!-- Текст справа -->
+                            <div class="modal-desc" ref="projectDescText" style="flex: 1; overflow-y: auto; max-height: 75vh">{{ projectModalDesc }}</div>
                         </div>
                     </div>
                 </div>
@@ -447,12 +488,30 @@
                             skills: "Key Skills",
                             skills_list: ["Fullstack development (frontend + backend)", "Languages: C++, C#, Python, Java, JavaScript, PHP", "Frameworks & libraries: Django, Vue.js, Node.js, Qt, .NET", "Desktop apps: Qt, WinForms, JavaFX, .NET", "DevOps: Linux, Git, Docker, CI/CD, automation", "CRM/API integrations (Bitrix24, amoCRM, custom webhooks)", "Databases: PostgreSQL, MySQL, SQLite, MongoDB", "Working with REST APIs, JSON, XML, WebSocket"],
                             projects: "Projects",
+
                             project_list: [
-                                { title: "Minecraft Plugin", desc: "A survival overhaul with custom NPCs and storylines." },
-                                { title: "File Sharing Site", desc: "My own Google Drive clone using Django." },
-                                { title: "CRM Automation", desc: "Bitrix/Kommo integrations and workflow automation." },
-                                { title: "Booking Platform", desc: "Current development for internal company booking tool." },
+                                {
+                                    name: "Online Booking and Access Control (SCUD) Integration Platform",
+                                    file: ["./projects/24reson/1.png", "./projects/24reson/2.png", "./projects/24reson/3.png"],
+                                    desc: "Commercial project for a company combining online meeting room and tariff booking with integration into the access control system (SCUD) and Bitrix24 CRM. I implemented the backend in Django using Docker, ensuring convenient deployment and environment management. The system includes user registration, personal dashboard, booking calendar, and data synchronization with Bitrix24. Configured automatic creation of client, deal, and product cards in the CRM, as well as access management to premises via SCUD. Developed a SCUD server in pure PHP with command exchange via WebSocket and logging of all access events. The system supports bidirectional synchronization, payment processing, and dynamic management of branches, tariffs, and rooms. Led a team of 3 people, handling most of the backend and frontend work.",
+                                },
+                                {
+                                    name: "PWA Application for Client Notifications and Legal Support",
+                                    file: ["./projects/pwa_site/1.png"],
+                                    desc: "Commercial Progressive Web App project for client interaction with the company’s legal department. Developed an API server in Flask (Python) using Docker as the central component to integrate the app with Bitrix24 CRM and a Telegram bot. Clients can view debts, receive notifications, pay for services, and contact lawyers directly through their personal dashboard. Each client has an individual case with status tracking. Frontend was developed in Vue.js (Vite); I personally handled backend integration and business logic. Worked in a team of 3 people, responsible for the entire server side, Docker setup, and backend integration with the layout made by other developers.",
+                                },
+                                {
+                                    name: "Story-driven Minecraft Mod with Unique Gameplay Mechanics",
+                                    file: ["./projects/strangers_in_rosaville/1.png", "./projects/strangers_in_rosaville/2.png", "./projects/strangers_in_rosaville/3.png", "./projects/strangers_in_rosaville/4.png"],
+                                    desc: "Java Spigot project for Minecraft servers turning the game into a full-fledged adventure with story, secrets, and dynamic events. Developed a background music system that changes depending on location and map triggers. Created friendly NPCs that can talk, follow the player, and assist in progression, as well as enemy NPCs with unique personalities and possible plot twists (an enemy can become an ally). Implemented boss fights, multiple endings, and interactive mechanics, including custom tools and skins. Worked in a team of 2: I handled all programming and coding, while another developer worked on skins, design, and story. I also contributed to content and story creation. The project showcases skills in complex game system development, event management, and integration of various mechanics.",
+                                },
+                                {
+                                    name: "Personal Cloud Storage (Google Drive Alternative)",
+                                    file: ["./projects/fileExchange/1.png", "./projects/fileExchange/2.png", "./projects/fileExchange/3.png"],
+                                    desc: "Personal project in Django with Docker, Bootstrap, and jQuery functioning as personal cloud storage with features similar to Google Drive. Implemented allocated storage control for users, display of remaining space in a clear interface, and file management capabilities: move, copy, rename, delete, and view details. Includes an admin system for managing users and storage. The project demonstrates skills in complex web application development, server-side logic handling, frontend-backend integration, and managing large amounts of data. Fully developed by me, including Docker setup and both frontend and backend development.",
+                                },
                             ],
+
                             certs: "Certificates",
                             certs_list: [
                                 {
@@ -509,10 +568,26 @@
                             skills_list: ["Desarrollo fullstack (frontend + backend)", "Lenguajes: C++, C#, Python, Java, JavaScript, PHP", "Frameworks y librerías: Django, Vue.js, Node.js, Qt, .NET", "Aplicaciones de escritorio: Qt, WinForms, JavaFX, .NET", "DevOps: Linux, Git, Docker, CI/CD, automatización", "Integraciones CRM/API (Bitrix24, amoCRM, webhooks personalizados)", "Bases de datos: PostgreSQL, MySQL, SQLite, MongoDB", "Trabajo con REST APIs, JSON, XML, WebSocket"],
                             projects: "Proyectos",
                             project_list: [
-                                { title: "Plugin para Minecraft", desc: "Una revisión completa con NPCs personalizados y narrativa." },
-                                { title: "Sitio para compartir archivos", desc: "Mi clon personal de Google Drive en Django." },
-                                { title: "Automatización de CRM", desc: "Integraciones Bitrix/Kommo y automatización de flujos." },
-                                { title: "Plataforma de reservas", desc: "Desarrollo en curso para mi empresa." },
+                                {
+                                    name: "Plataforma de integración de reservas en línea y control de acceso (SCUD)",
+                                    file: ["./projects/24reson/1.png", "./projects/24reson/2.png", "./projects/24reson/3.png"],
+                                    desc: "Proyecto comercial para una empresa que combina la reserva en línea de salas de reuniones y tarifas con integración en el sistema de control de acceso (SCUD) y CRM Bitrix24. Desarrollé el backend en Django utilizando Docker, garantizando un despliegue conveniente y gestión del entorno. El sistema incluye registro de usuarios, panel personal, calendario de reservas y sincronización de datos con Bitrix24. Configuré la creación automática de tarjetas de clientes, negocios y productos en el CRM, así como la gestión de acceso a las instalaciones a través del SCUD. Desarrollé un servidor SCUD en PHP puro con intercambio de comandos vía WebSocket y registro de todos los eventos de acceso. El sistema soporta sincronización bidireccional, procesamiento de pagos y gestión dinámica de sucursales, tarifas y salas. Dirigí un equipo de 3 personas, realizando la mayor parte del backend y frontend.",
+                                },
+                                {
+                                    name: "Aplicación PWA para notificaciones a clientes y soporte legal",
+                                    file: ["./projects/pwa_site/1.png"],
+                                    desc: "Proyecto comercial en formato Progressive Web App para la interacción de clientes con el departamento legal de la empresa. Desarrollé un servidor API en Flask (Python) utilizando Docker como pieza central para integrar la aplicación con el CRM Bitrix24 y un bot de Telegram. Los clientes, a través de su panel personal, pueden consultar deudas, recibir notificaciones, pagar servicios y comunicarse directamente con los abogados. Para cada cliente se lleva un caso individual con seguimiento de estado. El frontend fue desarrollado en Vue.js (Vite); me encargué personalmente de la integración con el backend y la lógica de negocio. Trabajé en un equipo de 3 personas, siendo responsable de toda la parte del servidor, configuración de Docker y conexión del backend con el maquetado hecho por otros desarrolladores.",
+                                },
+                                {
+                                    name: "Mod de Minecraft con historia y mecánica de juego única",
+                                    file: ["./projects/strangers_in_rosaville/1.png", "./projects/strangers_in_rosaville/2.png", "./projects/strangers_in_rosaville/3.png", "./projects/strangers_in_rosaville/4.png"],
+                                    desc: "Proyecto en Java Spigot para servidores de Minecraft que convierte el juego en una aventura completa con historia, secretos y eventos dinámicos. Desarrollé un sistema de música de fondo que cambia según la ubicación y los activadores en el mapa. Se crearon NPC amistosos que pueden dialogar, seguir al jugador y ayudar en la aventura, así como NPC enemigos con personalidad única y posibles giros de trama (el enemigo puede convertirse en aliado). Implementé batallas contra jefes, varios finales y mecánicas interactivas, incluyendo herramientas y skins personalizados. El trabajo se realizó en un equipo de 2 personas: me encargué completamente de la programación y código, mientras que otro desarrollador trabajó en skins, diseño e historia. También participé en la creación de contenido y guion. El proyecto demuestra habilidades en desarrollo de sistemas de juego complejos, gestión de eventos e integración de diversas mecánicas.",
+                                },
+                                {
+                                    name: "Almacenamiento en la nube personal (similar a Google Drive)",
+                                    file: ["./projects/fileExchange/1.png", "./projects/fileExchange/2.png", "./projects/fileExchange/3.png"],
+                                    desc: "Proyecto personal en Django con Docker, Bootstrap y jQuery que funciona como almacenamiento en la nube personal con funcionalidades similares a Google Drive. Implementé control de espacio asignado para usuarios, visualización del espacio restante en una interfaz clara, así como gestión de archivos: mover, copiar, renombrar, eliminar y ver información. Incluye sistema de administración para gestión de usuarios y almacenamiento. El proyecto demuestra habilidades en desarrollo de aplicaciones web complejas, trabajo con lógica de servidor, integración del frontend con el backend y manejo de grandes volúmenes de datos. Fue desarrollado completamente por mí, incluyendo configuración de Docker y desarrollo frontend y backend.",
+                                },
                             ],
                             certs: "Certificados",
                             certs_list: [
@@ -570,10 +645,27 @@
                             skills_list: ["Фуллстек-разработка (frontend + backend)", "Языки: C++, C#, Python, Java, JavaScript, PHP", "Фреймворки и библиотеки: Django, Vue.js, Node.js, Qt, .NET", "Десктоп-приложения (Qt, WinForms, JavaFX, .NET)", "DevOps: Linux, Git, Docker, CI/CD, автоматизация процессов", "Интеграции с CRM (Bitrix24, amoCRM), API, вебхуки", "Базы данных: PostgreSQL, MySQL, SQLite, MongoDB", "Работа с REST API, JSON, XML, WebSocket"],
                             projects: "Проекты",
                             project_list: [
-                                { title: "Плагин для Minecraft", desc: "Модификация выживания с кастомными NPC и сюжетом." },
-                                { title: "Сайт для обмена файлами", desc: "Мой аналог Google Drive на Django." },
-                                { title: "Автоматизация CRM", desc: "Интеграции с Bitrix/Kommo и автоматизация процессов." },
-                                { title: "Система бронирования", desc: "Текущий проект по внутреннему бронированию услуг." },
+                                {
+                                    name: "Платформа интеграции онлайн-бронирования и СКУД",
+                                    file: ["./projects/24reson/1.png", "./projects/24reson/2.png", "./projects/24reson/3.png"],
+                                    desc: "Коммерческий проект для компании, совмещающий онлайн-бронирование переговорных комнат и тарифов с интеграцией в систему контроля доступа (СКУД) и CRM Битрикс24. Реализовал backend на Django с использованием Docker, обеспечив удобный деплой и управление окружением. Система включает регистрацию пользователей, личный кабинет, календарь бронирований и синхронизацию данных с Битрикс24. Настроил автоматическое создание карточек клиентов, сделок и товаров в CRM, а также управление доступом к помещениям через СКУД. Разработал сервер СКУД на чистом PHP с обменом командами по WebSocket и логированием всех событий доступа. Система поддерживает двустороннюю синхронизацию, обработку платежей и динамическое управление филиалами, тарифами и комнатами. Руководил командой из 3 человек, выполняя основную часть backend и frontend-разработки.",
+                                },
+                                {
+                                    name: "PWA-приложение для уведомлений клиентов и юридической поддержки",
+                                    file: ["./projects/pwa_site/1.png"],
+                                    desc: "Коммерческий проект в формате Progressive Web App для взаимодействия клиентов с юридическим отделом компании. Реализовал API-сервер на Flask (Python) с использованием Docker как центральное звено для интеграции приложения с CRM Битрикс24 и Telegram-ботом. Клиенты через личный кабинет могут просматривать свои задолженности, получать уведомления, оплачивать услуги и связываться с юристами напрямую. Для каждого клиента в системе ведётся индивидуальный кейс с отслеживанием статуса. Frontend разработан на Vue.js (Vite), интеграцию с backend и бизнес-логику выполнил лично. Работал в команде из 3 человек, отвечая за всю серверную часть, Docker-настройку и стыковку backend с версткой, выполненной другими разработчиками.",
+                                },
+                                {
+                                    name: "Сюжетный Minecraft-мод с уникальной игровой механикой",
+                                    file: ["./projects/strangers_in_rosaville/1.png", "./projects/strangers_in_rosaville/2.png", "./projects/strangers_in_rosaville/3.png", "./projects/strangers_in_rosaville/4.png"],
+                                    desc: "Проект на Java Spigot для серверов Minecraft, превращающий игру в полноценное приключение с сюжетом, секретами и динамическими событиями. Разработал систему фоновой музыки, которая меняется в зависимости от локации и триггеров на карте. Созданы дружественные NPC, которые могут вести диалог, следовать за игроком и помогать в прохождении, а также вражеские NPC с уникальной личностью и возможностью сюжетных поворотов (враг может стать союзником). Реализованы босс-файты, несколько концовок и интерактивные механики, включая кастомные инструменты и скины. Работа велась командой из 2 человек: я полностью отвечал за программирование и код, другой разработчик занимался скинами, дизайном и историей, при этом я также участвовал в создании контента и сюжета. Проект демонстрирует навыки разработки сложных игровых систем, управление событиями и интеграцию различных игровых механик.",
+                                },
+
+                                {
+                                    name: "Личное облачное хранилище (аналог Google Drive)",
+                                    file: ["./projects/fileExchange/1.png", "./projects/fileExchange/2.png", "./projects/fileExchange/3.png"],
+                                    desc: "Пет-проект на Django с Docker, Bootstrap и jQuery, представляющий собой личное облачное хранилище файлов с функционалом, аналогичным Google Drive. Реализовал контроль выделяемой памяти для пользователей, отображение оставшегося пространства в удобном и наглядном интерфейсе, а также возможности управления файлами: перемещение, копирование, переименование, удаление и просмотр информации о файлах. Предусмотрена система администрирования для управления пользователями и хранилищем. Проект демонстрирует навыки разработки сложных веб-приложений, работу с серверной логикой, интеграцию интерфейса с backend и организацию хранения и обработки больших объёмов данных. Выполнен полностью мной, включая настройку Docker и разработку фронтенда и бэкенда.",
+                                },
                             ],
                             certs: "Сертификаты",
                             certs_list: [
@@ -629,6 +721,14 @@
                     modalImage: "",
                     modalDesc: "",
                     animationClass: "",
+                    projectModalVisible: false,
+                    projectModalAnimation: "",
+                    projectModalImages: [],
+                    projectModalDesc: "",
+                    projectModalIndex: 0,
+                    projectModalImage: "",
+                    lightbox: null,
+                    dragging: false,
                     currentAnimation: null,
                     currentAnimation: null,
                     activeTimeouts: [],
@@ -712,7 +812,7 @@
                             ["languagesList", "languages_list"],
                             ["frameworksList", "frameworks_list"],
                             ["toolsList", "tools_list"],
-                            ["certsList", "certs_list"],
+                            ["certsList", "certs_list", "project_list"],
                         ];
                         listMappings.forEach(([refName, transKey]) => {
                             if (this.$refs[refName]) {
@@ -720,6 +820,7 @@
                             }
                         });
                         this.updateCertsTexts(this.translations[language]);
+                        this.updateProjectsTexts(this.translations[language]);
                         const degreeText = this.translations[language].certs_list;
                         if (this.$refs.degreeText) {
                             this.scrambleTextSimple(this.translations[this.lang].degree_text, degreeText, this.$refs.degreeText);
@@ -748,6 +849,16 @@
                         if (!elements) return;
                         const elems = Array.isArray(elements) ? elements : [elements];
                         const certsArray = texts.certs_list || [];
+
+                        elems.forEach((el, i) => {
+                            if (certsArray[i]) this.scrambleTextSimple(el, certsArray[i].name);
+                        });
+                    },
+                    updateProjectsTexts(texts) {
+                        const elements = this.$refs.projects;
+                        if (!elements) return;
+                        const elems = Array.isArray(elements) ? elements : [elements];
+                        const certsArray = texts.project_list || [];
 
                         elems.forEach((el, i) => {
                             if (certsArray[i]) this.scrambleTextSimple(el, certsArray[i].name);
@@ -807,20 +918,65 @@
                             }
                         });
                     },
+                    openImageProject(project) {
+                        this.projectModalImages = project.file; // массив файлов
+                        this.projectModalDesc = project.desc || ""; // описание
+                        this.projectModalIndex = 0;
+                        this.projectModalVisible = true;
+                        this.animationClass = "cyberpunk-in"; // анимация входа
+
+                        this.$nextTick(() => {
+                            const el = this.$refs.projectDescText;
+                            if (el) this.scrambleText("", this.projectModalDesc, el);
+
+                            // Инициализация GLightbox на текущую картинку
+                            if (this.lightbox) this.lightbox.destroy();
+                            this.lightbox = GLightbox({
+                                selector: '.glightbox[data-gallery="project-gallery"]',
+                                loop: true,
+                                startAt: this.projectModalIndex,
+                            });
+                        });
+                    },
+
+                    goToImage(idx) {
+                        this.projectModalIndex = idx;
+                    },
+                    nextImage() {
+                        this.projectModalIndex = (this.projectModalIndex + 1) % this.projectModalImages.length;
+                    },
+                    prevImage() {
+                        this.projectModalIndex = (this.projectModalIndex - 1 + this.projectModalImages.length) % this.projectModalImages.length;
+                    },
+                    closeProjectModal() {
+                        this.animationClass = "cyberpunk-out"; // анимация выхода
+                    },
+
                     startClose() {
                         // Запускаем анимацию закрытия
                         this.animationClass = "cyberpunk-out";
                     },
                     onAnimationEnd(event) {
                         if (this.animationClass === "cyberpunk-out") {
-                            // После анимации закрытия скрываем модалку
-                            this.modalVisible = false;
+                            // Скрываем обе модалки, если они открыты
+                            if (this.modalVisible) {
+                                this.modalVisible = false;
+                                if (this.$refs.descText) this.$refs.descText.innerHTML = "";
+                            }
+                            if (this.projectModalVisible) {
+                                this.projectModalVisible = false;
+                                if (this.$refs.projectDescText) this.$refs.projectDescText.innerHTML = "";
+                            }
+
+                            // Сбрасываем класс анимации
                             this.animationClass = "";
-                            if (this.$refs.descText) this.$refs.descText.innerHTML = "";
                         }
                     },
                 },
                 mounted() {
+                    this.lightbox = GLightbox({
+                        selector: ".glightbox",
+                    });
                     const updateList = (refName, listKey) => {
                         if (this.$refs[refName]) {
                             const items = this.translations[this.lang][listKey];
