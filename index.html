@@ -11,7 +11,7 @@
         <script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
         <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
-
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
         <style>
             body {
                 background-color: #0e0e0e;
@@ -49,21 +49,6 @@
 
         <script src="https://cdnjs.cloudflare.com/ajax/libs/pdfobject/2.2.8/pdfobject.min.js"></script>
         <style>
-            /* Добавлено */
-            .modal {
-                display: none;
-                position: fixed;
-                z-index: 9999;
-                left: 0;
-                top: 0;
-                width: 100vw;
-                height: 100vh;
-                background-color: rgba(0, 0, 0, 0.9);
-                justify-content: center;
-                align-items: center;
-                padding: 20px;
-            }
-
             .project-card {
                 cursor: pointer;
                 padding: 15px;
@@ -91,48 +76,6 @@
                 color: #0ff;
                 text-decoration: none;
             }
-            .modal {
-                display: flex;
-                position: fixed;
-                z-index: 9999;
-                left: 0;
-                top: 0;
-                width: 100vw;
-                height: 100vh;
-                background-color: rgba(0, 0, 0, 0.9);
-                justify-content: center;
-                align-items: center;
-                padding: 20px;
-            }
-            .modal-content {
-                background-color: #111;
-                padding: 20px;
-                border-radius: 10px;
-                max-width: 1000px; /* жёсткий максимум по ширине */
-                width: 90vw; /* адаптивная ширина */
-                max-height: 80vh; /* ограничиваем высоту */
-                height: 700px; /* фиксированная высота */
-                overflow: hidden; /* скрываем лишнее */
-                color: #0ff;
-                position: relative;
-
-                display: flex;
-                flex-direction: row;
-                gap: 20px;
-                align-items: flex-start;
-                justify-content: center;
-            }
-
-            .modal-img {
-                border-radius: 10px;
-                width: 500px; /* фиксированная ширина для картинки */
-                height: auto;
-                object-fit: contain;
-                flex-shrink: 0;
-                flex-grow: 0;
-                user-select: none;
-                filter: drop-shadow(0 0 5px #0ff);
-            }
 
             .modal-desc {
                 flex-grow: 1;
@@ -145,25 +88,6 @@
             }
 
             /* --- Адаптив --- */
-            @media (max-width: 768px) {
-                .modal-content {
-                    flex-direction: column;
-                    max-width: 95vw;
-                    max-height: 90vh;
-                    padding: 15px;
-                }
-
-                .modal-img {
-                    width: 100%;
-                    max-height: 40vh;
-                    margin-bottom: 15px;
-                }
-
-                .modal-desc {
-                    max-height: 40vh;
-                    font-size: 14px;
-                }
-            }
 
             @media (max-width: 400px) {
                 .modal-content {
@@ -199,29 +123,6 @@
                 width: 24px;
                 height: 24px;
                 pointer-events: none; /* Чтобы вся кнопка реагировала, а не только SVG */
-            }
-            .modal-body {
-                display: flex;
-                flex-direction: row;
-                gap: 30px;
-                align-items: flex-start;
-                justify-content: center;
-                flex-wrap: wrap;
-                padding: 20px;
-            }
-
-            .modal-img {
-                border-radius: 10px;
-                flex-shrink: 0;
-            }
-
-            .modal-desc {
-                flex: 1;
-                font-family: "Fira Code", monospace;
-                font-size: 16px;
-                margin-top: 10px;
-                max-width: 500px;
-                word-wrap: break-word;
             }
 
             @keyframes neonFlicker {
@@ -340,16 +241,42 @@
                 animation: flashGlow 0.4s ease;
             }
             .lead {
-                height: 150px;
+                min-height: 150px; /* было height: 150px; */
+                height: auto; /* добавляем */
             }
+
             .skills {
-                height: 290px;
+                min-height: 290px; /* было height: 290px; */
+                height: auto; /* добавляем */
             }
+
             #degrees {
-                height: 100px;
+                min-height: 100px; /* было height: 100px; */
+                height: auto; /* добавляем */
             }
+
             #title {
-                height: 260px;
+                min-height: 260px; /* было height: 260px; */
+                height: auto; /* добавляем */
+            }
+            @media (max-width: 768px) {
+                .lead {
+                    min-height: 120px; /* уменьшаем на мобильных */
+                }
+
+                .skills {
+                    min-height: 200px; /* уменьшаем на мобильных */
+                }
+
+                #degrees {
+                    min-height: 80px; /* уменьшаем на мобильных */
+                }
+
+                #title {
+                    min-height: 180px; /* уменьшаем на мобильных */
+                    flex-direction: column; /* если нужно */
+                    text-align: center;
+                }
             }
             /* Остальные стили модалки, модал-контента, кнопки и т.д. — оставь свои */
 
@@ -387,6 +314,371 @@
             .active-dot {
                 background: #0ff;
             }
+            /* Базовые стили для обеих модалок */
+            .modal {
+                display: flex;
+                position: fixed;
+                z-index: 9999;
+                left: 0;
+                top: 0;
+                width: 100vw;
+                height: 100vh;
+                background-color: rgba(0, 0, 0, 0.9);
+                justify-content: center;
+                align-items: center;
+                padding: 20px;
+                /* Скрыто по умолчанию, управляется через v-show */
+                opacity: 0;
+                pointer-events: none;
+                transition: opacity 0.3s ease;
+            }
+
+            /* Класс для показа модалки */
+            .modal-visible {
+                opacity: 1;
+                pointer-events: all;
+            }
+
+            /* Контейнер контента модалки - СТАНДАРТНЫЙ ДЛЯ ОБОИХ */
+            .modal-content {
+                background-color: #111;
+                border-radius: 10px;
+                max-width: 95vw; /* Ограничиваем по ширине экрана */
+                max-height: 95vh; /* Ограничиваем по высоте экрана */
+                width: auto; /* Ширина будет подстраиваться под контент */
+                height: auto; /* Высота будет подстраиваться под контент */
+                overflow: hidden;
+                color: #0ff;
+                position: relative;
+                display: flex;
+                flex-direction: column; /* Меняем на колонку для общей структуры */
+                box-shadow: 0 0 30px #00ffff80;
+                border: 1px solid #0ff;
+            }
+
+            /* Кнопка закрытия */
+            .modal-close {
+                position: absolute;
+                top: 10px;
+                right: 15px;
+                width: 32px;
+                height: 32px;
+                cursor: pointer;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                z-index: 1000;
+                background-color: transparent;
+                border: none;
+                padding: 0;
+                color: #0ff;
+                font-size: 28px;
+                text-shadow: 0 0 5px #0ff;
+            }
+
+            /* 2. Модалка для проектов (галерея + текст) */
+
+            #project-modal .modal-body {
+                display: flex;
+                flex-direction: row;
+                gap: 20px;
+                padding: 20px;
+                align-items: stretch; /* ← Измени на stretch */
+                height: calc(100% - 40px); /* ← Добавь высоту */
+                box-sizing: border-box;
+            }
+
+            #project-modal .gallery-side {
+                flex: 1 1 60%;
+                display: flex;
+                flex-direction: column;
+                gap: 10px;
+                min-height: 0; /* ← Важно для flex-внутри */
+            }
+
+            #project-modal .gallery-main-img {
+                width: 100%;
+                height: 100%; /* ← Замени на 100% */
+                max-height: none; /* ← Убери ограничение */
+                object-fit: contain;
+                border-radius: 5px;
+                cursor: pointer;
+                filter: drop-shadow(0 0 5px #0ff);
+                flex: 1; /* ← Добавь */
+            }
+
+            #project-modal .gallery-thumbnails {
+                display: flex;
+                gap: 5px;
+                justify-content: center;
+                flex-wrap: wrap;
+            }
+
+            #project-modal .gallery-thumb {
+                width: 50px;
+                height: 50px;
+                object-fit: cover;
+                border-radius: 3px;
+                cursor: pointer;
+                opacity: 0.6;
+                transition: opacity 0.3s ease;
+                border: 1px solid transparent;
+            }
+
+            #project-modal .gallery-thumb:hover,
+            #project-modal .gallery-thumb.active {
+                opacity: 1;
+                border-color: #0ff;
+            }
+
+            #project-modal .modal-desc {
+                flex: 1 1 40%;
+                font-family: "Fira Code", monospace;
+                font-size: 16px;
+                overflow-y: auto;
+                max-height: none; /* ← Убери ограничение */
+                word-wrap: break-word;
+                min-height: 0; /* ← Добавь */
+            }
+            #project-modal .modal-content {
+                /* Добавь фиксированные размеры */
+                width: 90vw;
+                max-width: 1200px;
+                height: 80vh;
+                max-height: 800px;
+                /* Остальное оставь как есть */
+                background-color: #111;
+                border-radius: 10px;
+                overflow: hidden;
+                color: #0ff;
+                position: relative;
+                display: flex;
+                flex-direction: column;
+                box-shadow: 0 0 30px #00ffff80;
+                border: 1px solid #0ff;
+            }
+
+            /* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
+            @media (max-width: 768px) {
+                /* Общие стили для модалок на мобильных */
+                .modal-content {
+                    max-width: 98vw;
+                    max-height: 98vh;
+                }
+
+                /* Для обеих модалок меняем направление на колонку */
+                #modal .modal-body,
+                #project-modal .modal-body {
+                    flex-direction: column;
+                    padding: 15px;
+                }
+
+                /* На мобильных картинка и текст занимают 100% ширины */
+                #modal .modal-img,
+                #project-modal .gallery-side,
+                #modal .modal-desc,
+                #project-modal .modal-desc {
+                    flex: 1 1 100%;
+                    max-width: 100%;
+                }
+
+                /* Убираем максимальную высоту у галереи */
+                #project-modal .gallery-main-img {
+                    max-height: none;
+                }
+
+                /* Уменьшаем отступы */
+                #modal .modal-body,
+                #project-modal .modal-body {
+                    gap: 15px;
+                }
+
+                /* Уменьшаем размер превью */
+                #project-modal .gallery-thumb {
+                    width: 40px;
+                    height: 40px;
+                }
+            }
+            /* Стили для модалки сертификатов - бок о бок */
+            /* Контейнер для изображения */
+            .image-container {
+                flex: 0 0 48%; /* Такая же ширина как у изображения */
+                max-width: 48%;
+                display: flex;
+                justify-content: center;
+                align-items: flex-start;
+                overflow: hidden;
+            }
+
+            #modal .modal-img {
+                width: 100%; /* Занимает всю ширину контейнера */
+                height: auto;
+                max-height: 75vh;
+                object-fit: contain;
+                border-radius: 8px;
+                user-select: none;
+                filter: drop-shadow(0 0 8px #0ff);
+                border: 1px solid #0ff;
+            }
+
+            /* Обновим структуру модалки */
+            #modal .modal-body {
+                display: flex;
+                flex-direction: row;
+                gap: 15px; /* Немного увеличим отступ для баланса */
+                padding: 15px;
+                align-items: flex-start;
+                justify-content: center; /* Центрируем содержимое */
+                width: 100%;
+                box-sizing: border-box;
+            }
+
+            #modal .modal-desc {
+                flex: 0 0 45%; /* Немного уменьшим ширину текста */
+                max-width: 45%;
+                /* остальные стили остаются */
+            }
+
+            /* Адаптивность */
+            @media (max-width: 768px) {
+                .image-container {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
+
+                #modal .modal-desc {
+                    flex: 0 0 100%;
+                    max-width: 100%;
+                }
+            }
+            .modal-content {
+                max-width: 1200px; /* Фиксированная максимальная ширина */
+                width: 90vw;
+                margin: 0 auto;
+            }
+            .contact-info {
+                margin-top: 60px;
+                border-top: 1px solid #0ff;
+                padding-top: 20px;
+                display: flex;
+                flex-wrap: wrap;
+                gap: 15px;
+                justify-content: center;
+                font-size: 1.1rem;
+            }
+
+            .contact-btn {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 12px 22px;
+                background: rgba(0, 255, 255, 0.1);
+                border: 2px solid #0ff;
+                border-radius: 25px;
+                color: #0ff;
+                text-decoration: none;
+                transition: all 0.3s ease;
+                box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+                position: relative;
+                overflow: hidden;
+            }
+
+            .contact-btn::before {
+                content: "";
+                position: absolute;
+                top: 0;
+                left: -100%;
+                width: 100%;
+                height: 100%;
+                background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+                transition: left 0.5s ease;
+            }
+
+            .contact-btn:hover::before {
+                left: 100%;
+            }
+
+            .contact-btn:hover {
+                background: rgba(0, 255, 255, 0.2);
+                transform: translateY(-3px);
+                box-shadow: 0 0 20px #0ff, 0 0 30px #0ff inset;
+            }
+
+            .contact-icon {
+                font-size: 1.3rem;
+                filter: drop-shadow(0 0 3px #0ff);
+                width: 20px;
+                text-align: center;
+                transition: transform 0.3s ease, color 0.3s ease;
+            }
+
+            .contact-btn:hover .contact-icon {
+                transform: scale(1.1);
+            }
+
+            /* Цвета иконок при наведении */
+            .contact-btn:nth-child(1):hover .contact-icon {
+                color: #ea4335;
+            } /* Email */
+            .contact-btn:nth-child(2):hover .contact-icon {
+                color: #0088cc;
+            } /* Telegram */
+            .contact-btn:nth-child(3):hover .contact-icon {
+                color: #0077b5;
+            } /* LinkedIn */
+            .contact-btn:nth-child(4):hover .contact-icon {
+                color: #6cc644;
+            } /* GitHub */
+
+            .contact-text {
+                font-family: "Fira Code", monospace;
+                font-weight: 500;
+            }
+
+            /* Адаптивность */
+            @media (max-width: 768px) {
+                .contact-info {
+                    flex-direction: column;
+                    align-items: center;
+                    gap: 12px;
+                }
+
+                .contact-btn {
+                    width: 220px;
+                    justify-content: center;
+                }
+            }
+
+            /* Анимация появления */
+            .contact-btn {
+                animation: fadeInUp 0.6s ease-out;
+                opacity: 0;
+                animation-fill-mode: forwards;
+            }
+
+            .contact-btn:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+            .contact-btn:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+            .contact-btn:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+            .contact-btn:nth-child(4) {
+                animation-delay: 0.4s;
+            }
+
+            @keyframes fadeInUp {
+                from {
+                    opacity: 0;
+                    transform: translateY(20px);
+                }
+                to {
+                    opacity: 1;
+                    transform: translateY(0);
+                }
+            }
         </style>
     </head>
     <body>
@@ -419,59 +711,76 @@
                 <section id="certificates" class="my-5">
                     <h2 class="h4 border-bottom border-info pb-2" style="color: #0ff">{{ t('certs') }}</h2>
                     <div class="certificates-grid">
-                        <div ref="certs" class="cert-card" v-for="cert in currentTranslations.certs_list" :key="cert.file" @click="openImage(cert)" tabindex="0" @keydown.enter.prevent="openImage(cert)" role="button" :title="cert.name">{{ cert.name }}</div>
+                        <div ref="certs" class="cert-card" v-for="(cert, index) in currentTranslations.certs_list" :key="'cert-' + index" @click="openImage(cert)" tabindex="0" @keydown.enter.prevent="openImage(cert)" role="button" :title="cert.name">{{ cert.name }}</div>
                     </div>
                 </section>
 
                 <section id="projects" class="my-5">
                     <h2 class="h4 border-bottom border-info pb-2" style="color: #0ff">{{ t('projects') }}</h2>
-                    <div ref="projects" class="project-card" v-for="project in currentTranslations.project_list" :key="project.file" @click="openImageProject(project)" tabindex="0" @keydown.enter.prevent="openImageProject(project)" role="button" :title="project.name">{{ project.name }}</div>
+                    <div ref="projects" class="project-card" v-for="(project, index) in currentTranslations.project_list" :key="'project-' + index" @click="openImageProject(project)" tabindex="0" @keydown.enter.prevent="openImageProject(project)" role="button" :title="project.name">{{ project.name }}</div>
                 </section>
 
                 <div class="contact-info">
-                    <a href="mailto:egor@example.com"><i class="fa fa-envelope"></i> Email</a>
-                    <a href="https://t.me/egor_pavlov"><i class="fa fa-paper-plane"></i> Telegram</a>
-                    <a href="https://github.com/egorpavlov"><i class="fa fa-github"></i> GitHub</a>
+                    <a href="mailto:egorpavlov024@gmail.com" target="_blank" class="contact-btn">
+                        <span class="contact-icon"><i class="fas fa-envelope"></i></span>
+                        <span class="contact-text">Email</span>
+                    </a>
+
+                    <a href="https://t.me/Slyfoxy" target="_blank" class="contact-btn">
+                        <span class="contact-icon"><i class="fab fa-telegram-plane"></i></span>
+                        <span class="contact-text">Telegram</span>
+                    </a>
+
+                    <a href="https://www.linkedin.com/in/egor-pavlov-824b02281/" target="_blank" class="contact-btn">
+                        <span class="contact-icon"><i class="fab fa-linkedin"></i></span>
+                        <span class="contact-text">LinkedIn</span>
+                    </a>
+
+                    <a href="https://github.com/SlyFox-maker/SlyFox-maker" target="_blank" class="contact-btn">
+                        <span class="contact-icon"><i class="fab fa-github"></i></span>
+                        <span class="contact-text">GitHub</span>
+                    </a>
                 </div>
 
                 <!-- Модалка -->
-                <div id="modal" class="modal" v-show="modalVisible" @click.self="startClose">
+                <!-- Модалка для сертификатов -->
+                <div id="modal" class="modal" v-show="modalVisible" @click.self="startClose" :class="{ 'modal-visible': modalVisible }">
                     <div class="modal-content" :class="animationClass" @animationend="onAnimationEnd">
                         <button class="modal-close" @click="startClose">&times;</button>
-                        <div id="modal-body" class="modal-body">
-                            <img :src="modalImage" alt="Certificate" class="modal-img" />
+                        <div class="modal-body">
+                            <div class="image-container">
+                                <img :src="modalImage" alt="Certificate" class="modal-img" />
+                            </div>
                             <div class="modal-desc" ref="descText"></div>
                         </div>
                     </div>
                 </div>
-
                 <!-- Модалка -->
-                <div class="modal" v-show="projectModalVisible" @click.self="closeProjectModal">
-                    <div class="modal-content" :key="projectModalIndex + projectModalVisible" :class="animationClass" @animationend="onAnimationEnd">
+                <!-- Модалка для проектов (галерея) -->
+                <div id="project-modal" class="modal" v-show="projectModalVisible" @click.self="closeProjectModal" :class="{ 'modal-visible': projectModalVisible }">
+                    <div class="modal-content" :class="animationClass" @animationend="onAnimationEnd">
                         <button class="modal-close" @click="closeProjectModal">&times;</button>
 
-                        <div class="modal-body" style="display: flex; gap: 20px">
-                            <!-- Левая картинка -->
-                            <div style="flex: 1; display: flex; flex-direction: column; align-items: center">
-                                <!-- Картинка текущего слайда -->
-                                <a :href="projectModalImages[projectModalIndex]" class="glightbox" :data-gallery="'project-gallery'">
-                                    <img :src="projectModalImages[projectModalIndex]" class="modal-img" />
-                                </a>
+                        <div class="modal-body">
+                            <!-- Левая часть - галерея -->
+                            <div class="gallery-side">
+                                <!-- Основное изображение -->
+                                <img :src="projectModalImages[projectModalIndex]" :alt="'Project image ' + (projectModalIndex + 1)" class="gallery-main-img" @click="lightbox.openAt(projectModalIndex)" />
 
-                                <!-- Точки / мини-превью -->
-                                <div style="margin-top: 10px; display: flex; gap: 5px">
-                                    <span class="span-points" v-for="(img, idx) in projectModalImages" :key="idx" :class="{ 'active-dot': idx === projectModalIndex }" @click="goToImage(idx)"> </span>
+                                <!-- Миниатюры -->
+                                <div class="gallery-thumbnails">
+                                    <img v-for="(img, idx) in projectModalImages" :key="idx" :src="img" :alt="'Thumbnail ' + (idx + 1)" class="gallery-thumb" :class="{ active: idx === projectModalIndex }" @click="goToImage(idx)" />
                                 </div>
                             </div>
 
-                            <!-- Текст справа -->
-                            <div class="modal-desc" ref="projectDescText" style="flex: 1; overflow-y: auto; max-height: 75vh">{{ projectModalDesc }}</div>
+                            <!-- Правая часть - описание -->
+                            <div class="modal-desc" ref="projectDescText">{{ projectModalDesc }}</div>
                         </div>
                     </div>
                 </div>
 
                 <footer class="text-center mt-5 pt-3 border-top border-info">
-                    <small>© 2025 Egor Pavlov — <a href="https://github.com/your-username" target="_blank">GitHub</a></small>
+                    <small>© 2025 Egor Pavlov — <a href="https://github.com/SlyFox-maker/SlyFox-maker" target="_blank">GitHub</a></small>
                 </footer>
             </div>
         </div>
@@ -730,8 +1039,6 @@
                     lightbox: null,
                     dragging: false,
                     currentAnimation: null,
-                    currentAnimation: null,
-                    activeTimeouts: [],
                     currentAnimations: new WeakMap(),
                     activeTimeouts: new WeakMap(),
                     listAnimations: new WeakMap(),
@@ -742,6 +1049,12 @@
                     },
                     currentTranslations() {
                         return this.translations[this.lang];
+                    },
+                    modalVisibleClass() {
+                        return this.modalVisible ? "modal-visible" : "";
+                    },
+                    projectModalVisibleClass() {
+                        return this.projectModalVisible ? "modal-visible" : "";
                     },
                 },
                 methods: {
@@ -906,6 +1219,7 @@
                         });
                     },
                     openImage(cert) {
+                        console.log("Opening image:", cert); // Добавьте эту строку для отладки
                         this.modalImage = cert.file;
                         this.modalVisible = true;
                         // Запускаем анимацию открытия
@@ -919,23 +1233,33 @@
                         });
                     },
                     openImageProject(project) {
-                        this.projectModalImages = project.file; // массив файлов
-                        this.projectModalDesc = project.desc || ""; // описание
-                        this.projectModalIndex = 0;
-                        this.projectModalVisible = true;
-                        this.animationClass = "cyberpunk-in"; // анимация входа
+                        // Сначала скрываем модалку чтобы установить размеры контента
+                        this.projectModalVisible = false;
 
                         this.$nextTick(() => {
+                            // Устанавливаем контент
+                            this.projectModalImages = project.file;
+                            this.projectModalDesc = project.desc || "";
+                            this.projectModalIndex = 0;
+
+                            // Показываем модалку и запускаем анимацию
+                            this.projectModalVisible = true;
+                            this.animationClass = "cyberpunk-in";
+
                             const el = this.$refs.projectDescText;
                             if (el) this.scrambleText("", this.projectModalDesc, el);
 
-                            // Инициализация GLightbox на текущую картинку
-                            if (this.lightbox) this.lightbox.destroy();
-                            this.lightbox = GLightbox({
-                                selector: '.glightbox[data-gallery="project-gallery"]',
-                                loop: true,
-                                startAt: this.projectModalIndex,
-                            });
+                            // Переинициализация GLightbox
+                            setTimeout(() => {
+                                if (this.lightbox) {
+                                    this.lightbox.destroy();
+                                }
+                                // Обновляем селектор для новой структуры
+                                this.lightbox = GLightbox({
+                                    selector: "#project-modal .gallery-main-img",
+                                    loop: true,
+                                });
+                            }, 100);
                         });
                     },
 
@@ -972,8 +1296,42 @@
                             this.animationClass = "";
                         }
                     },
+                    handleKeydown(e) {
+                        if (this.projectModalVisible) {
+                            if (e.key === "ArrowLeft") this.prevImage();
+                            if (e.key === "ArrowRight") this.nextImage();
+                            if (e.key === "Escape") this.closeProjectModal();
+                        }
+                        if (this.modalVisible && e.key === "Escape") {
+                            this.startClose();
+                        }
+                    },
+
+                    initModalListeners() {
+                        window.addEventListener("keydown", this.handleKeydown);
+                    },
+
+                    destroyModalListeners() {
+                        window.removeEventListener("keydown", this.handleKeydown);
+                    },
                 },
                 mounted() {
+                    this.$nextTick(() => {
+                        setTimeout(() => {
+                            const userLang = navigator.language || navigator.userLanguage;
+                            const supportedLangs = ["en", "es", "ru"];
+                            let targetLang = "en";
+
+                            if (userLang) {
+                                const baseLang = userLang.split("-")[0].toLowerCase();
+                                if (supportedLangs.includes(baseLang)) {
+                                    targetLang = baseLang;
+                                }
+                            }
+
+                            this.setLang(targetLang);
+                        }, 300);
+                    });
                     this.lightbox = GLightbox({
                         selector: ".glightbox",
                     });
@@ -994,6 +1352,7 @@
                         this.$refs.degreeText.innerText = this.translations[this.lang].degree_text;
                     }
                     this.initScrollAnimations();
+                    this.initModalListeners(); // Добавь эту строку
                 },
             });
         </script>
@@ -1003,7 +1362,8 @@
         <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
         <script>
             // Инициализация частиц как фона
-            particlesJS("particles-js", {
+            // Конфигурация частиц
+            const particlesJSConfig = {
                 particles: {
                     number: { value: 60, density: { enable: true, value_area: 800 } },
                     color: { value: "#00ffff" },
@@ -1046,11 +1406,16 @@
                     },
                 },
                 retina_detect: true,
-            });
+            };
 
-            // Ресайз при изменении размера окна
+            // Инициализация частиц
+            particlesJS("particles-js", particlesJSConfig);
+
+            // Ресайз с проверкой существования конфига
             window.addEventListener("resize", function () {
-                particlesJS("particles-js", particlesJSConfig);
+                if (typeof particlesJSConfig !== "undefined") {
+                    particlesJS("particles-js", particlesJSConfig);
+                }
             });
         </script>
     </body>
