@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
@@ -20,7 +20,10 @@
             }
             .neon-text {
                 color: #00ffff;
-                text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff;
+                text-shadow:
+                    0 0 5px #0ff,
+                    0 0 10px #0ff,
+                    0 0 20px #0ff;
             }
             a {
                 color: #00bcd4;
@@ -34,11 +37,25 @@
             @keyframes neonGlow {
                 0%,
                 100% {
-                    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #00ffff, 0 0 40px #00ffff, 0 0 50px #00ffff, 0 0 60px #00ffff;
+                    text-shadow:
+                        0 0 5px #0ff,
+                        0 0 10px #0ff,
+                        0 0 20px #0ff,
+                        0 0 30px #00ffff,
+                        0 0 40px #00ffff,
+                        0 0 50px #00ffff,
+                        0 0 60px #00ffff;
                     color: #00ffff;
                 }
                 50% {
-                    text-shadow: 0 0 5px #ff00ff, 0 0 10px #ff00ff, 0 0 20px #ff00ff, 0 0 30px #ff69b4, 0 0 40px #ff69b4, 0 0 50px #ff69b4, 0 0 60px #ff69b4;
+                    text-shadow:
+                        0 0 5px #ff00ff,
+                        0 0 10px #ff00ff,
+                        0 0 20px #ff00ff,
+                        0 0 30px #ff69b4,
+                        0 0 40px #ff69b4,
+                        0 0 50px #ff69b4,
+                        0 0 60px #ff69b4;
                     color: #ff69b4;
                 }
             }
@@ -128,12 +145,29 @@
             @keyframes neonFlicker {
                 0%,
                 100% {
-                    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 55px #0ff, 0 0 75px #0ff;
-                    box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+                    text-shadow:
+                        0 0 5px #0ff,
+                        0 0 10px #0ff,
+                        0 0 20px #0ff,
+                        0 0 30px #0ff,
+                        0 0 40px #0ff,
+                        0 0 55px #0ff,
+                        0 0 75px #0ff;
+                    box-shadow:
+                        0 0 10px #0ff,
+                        0 0 20px #0ff,
+                        0 0 30px #0ff;
                 }
                 50% {
-                    text-shadow: 0 0 3px #0ff, 0 0 6px #0ff, 0 0 10px #0ff, 0 0 15px #0ff, 0 0 20px #0ff;
-                    box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+                    text-shadow:
+                        0 0 3px #0ff,
+                        0 0 6px #0ff,
+                        0 0 10px #0ff,
+                        0 0 15px #0ff,
+                        0 0 20px #0ff;
+                    box-shadow:
+                        0 0 5px #0ff,
+                        0 0 10px #0ff;
                 }
             }
 
@@ -148,13 +182,17 @@
                 50% {
                     opacity: 1;
                     transform: translateY(0) skew(0deg);
-                    box-shadow: 0 0 5px #0ff, 0 0 5px #0ff inset;
+                    box-shadow:
+                        0 0 5px #0ff,
+                        0 0 5px #0ff inset;
                     filter: drop-shadow(0 0 5px #0ff);
                 }
                 100% {
                     opacity: 1;
                     transform: translateY(0) skew(0deg);
-                    box-shadow: 0 0 10px #0ff, 0 0 10px #0ff inset;
+                    box-shadow:
+                        0 0 10px #0ff,
+                        0 0 10px #0ff inset;
                     filter: drop-shadow(0 0 10px #0ff);
                 }
             }
@@ -164,7 +202,9 @@
                 0% {
                     opacity: 1;
                     transform: translateY(0) skew(0deg);
-                    box-shadow: 0 0 30px #0ff, 0 0 40px #0ff inset;
+                    box-shadow:
+                        0 0 30px #0ff,
+                        0 0 40px #0ff inset;
                 }
                 100% {
                     opacity: 0;
@@ -184,12 +224,29 @@
             @keyframes neonFlicker {
                 0%,
                 100% {
-                    text-shadow: 0 0 5px #0ff, 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff, 0 0 40px #0ff, 0 0 55px #0ff, 0 0 75px #0ff;
-                    box-shadow: 0 0 10px #0ff, 0 0 20px #0ff, 0 0 30px #0ff;
+                    text-shadow:
+                        0 0 5px #0ff,
+                        0 0 10px #0ff,
+                        0 0 20px #0ff,
+                        0 0 30px #0ff,
+                        0 0 40px #0ff,
+                        0 0 55px #0ff,
+                        0 0 75px #0ff;
+                    box-shadow:
+                        0 0 10px #0ff,
+                        0 0 20px #0ff,
+                        0 0 30px #0ff;
                 }
                 50% {
-                    text-shadow: 0 0 3px #0ff, 0 0 6px #0ff, 0 0 10px #0ff, 0 0 15px #0ff, 0 0 20px #0ff;
-                    box-shadow: 0 0 5px #0ff, 0 0 10px #0ff;
+                    text-shadow:
+                        0 0 3px #0ff,
+                        0 0 6px #0ff,
+                        0 0 10px #0ff,
+                        0 0 15px #0ff,
+                        0 0 20px #0ff;
+                    box-shadow:
+                        0 0 5px #0ff,
+                        0 0 10px #0ff;
                 }
             }
             .certificates-grid {
@@ -215,13 +272,18 @@
                 justify-content: center;
                 text-align: center;
                 box-shadow: 0 0 10px #0ff33aa;
-                transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+                transition:
+                    transform 0.3s ease,
+                    box-shadow 0.3s ease,
+                    background-color 0.3s ease;
             }
 
             .cert-card:hover,
             .cert-card:focus {
                 background-color: rgba(0, 255, 255, 0.25);
-                box-shadow: 0 0 20px #00ffffcc, 0 0 30px #00ffffcc inset;
+                box-shadow:
+                    0 0 20px #00ffffcc,
+                    0 0 30px #00ffffcc inset;
                 transform: scale(1.05);
                 outline: none;
             }
@@ -232,7 +294,9 @@
                     transform: scale(1);
                 }
                 50% {
-                    box-shadow: 0 0 20px #00ffffcc, 0 0 30px #00ffffcc inset;
+                    box-shadow:
+                        0 0 20px #00ffffcc,
+                        0 0 30px #00ffffcc inset;
                     transform: scale(0.95);
                 }
             }
@@ -601,7 +665,9 @@
             .contact-btn:hover {
                 background: rgba(0, 255, 255, 0.2);
                 transform: translateY(-3px);
-                box-shadow: 0 0 20px #0ff, 0 0 30px #0ff inset;
+                box-shadow:
+                    0 0 20px #0ff,
+                    0 0 30px #0ff inset;
             }
 
             .contact-icon {
@@ -609,7 +675,9 @@
                 filter: drop-shadow(0 0 3px #0ff);
                 width: 20px;
                 text-align: center;
-                transition: transform 0.3s ease, color 0.3s ease;
+                transition:
+                    transform 0.3s ease,
+                    color 0.3s ease;
             }
 
             .contact-btn:hover .contact-icon {
@@ -873,7 +941,7 @@
                             ],
 
                             degree: "Degree",
-                            degree_text: "Final semester at university - almost graduated!\n\nI study at Universidad del Valle de México (UVM), in the program Executive Bachelor’s Degree in Software and Network Engineering (Online).\nI began my studies in May 2023.\n\nDuring the program I completed courses in OOP, algorithms, cybersecurity, networking, computer architecture, and databases.\nI learned programming languages such as C++, C, Java, Python, and SQL.\nI specialized in software development, networking technologies (CCNA I–IV), information security, mobile programming, web services, and data visualization.\nI mastered methodologies like Agile, Scrum, and DevOps, project management, and working with modern IT platforms.\nI also gained experience with certifications from Coursera and Cisco.",
+                            degree_text: "Final semester at university - almost graduated!\n\nI study at Universidad del Valle de México (UVM), in the program Executive Bachelor’s Degree in Software and Network Engineering.\nI began my studies in May 2023.\n\nDuring the program I completed courses in OOP, algorithms, cybersecurity, networking, computer architecture, and databases.\nI learned programming languages such as C++, C, Java, Python, and SQL.\nI specialized in software development, networking technologies (CCNA I–IV), information security, mobile programming, web services, and data visualization.\nI mastered methodologies like Agile, Scrum, and DevOps, project management, and working with modern IT platforms.\nI also gained experience with certifications from Coursera and Cisco.",
                         },
 
                         es: {
@@ -955,7 +1023,7 @@
                             ],
 
                             degree: "Título universitario",
-                            degree_text: "Último semestre universitario - ¡casi graduado!\n\nEstudio en la Universidad del Valle de México (UVM), en el programa Licenciatura Ejecutiva en Ingeniería en Diseño de Software y Redes (Online).\nInicié mis estudios en mayo de 2023.\n\nDurante la carrera cursé asignaturas de POO, algoritmos, ciberseguridad, redes, arquitectura de computadoras y bases de datos.\nAprendí lenguajes como C++, C, Java, Python y SQL.\nMe especialicé en desarrollo de software, tecnologías de redes (CCNA I–IV), seguridad informática, programación móvil, servicios web y visualización de datos.\nDomino metodologías Agile, Scrum y DevOps, gestión de proyectos y el uso de plataformas tecnológicas modernas.\nTambién adquirí experiencia con certificaciones de Coursera y Cisco.",
+                            degree_text: "Último semestre universitario - ¡casi graduado!\n\nEstudio en la Universidad del Valle de México (UVM), en el programa Licenciatura Ejecutiva en Ingeniería en Diseño de Software y Redes.\nInicié mis estudios en mayo de 2023.\n\nDurante la carrera cursé asignaturas de POO, algoritmos, ciberseguridad, redes, arquitectura de computadoras y bases de datos.\nAprendí lenguajes como C++, C, Java, Python y SQL.\nMe especialicé en desarrollo de software, tecnologías de redes (CCNA I–IV), seguridad informática, programación móvil, servicios web y visualización de datos.\nDomino metodologías Agile, Scrum y DevOps, gestión de proyectos y el uso de plataformas tecnológicas modernas.\nTambién adquirí experiencia con certificaciones de Coursera y Cisco.",
                         },
 
                         ru: {
@@ -1037,7 +1105,7 @@
                                 },
                             ],
                             degree: "Диплом",
-                            degree_text: "Последний семестр университета - почти выпустился!\n\nУчусь в Universidad del Valle de México (UVM), программа Исполнительская (заочная/гибкая) степень бакалавра в области инженерии в проектировании программного обеспечения и сетей».\nНачал обучение в мае 2023 года.\n\nЗа время учёбы прошёл дисциплины по ООП, алгоритмам, кибербезопасности, сети, архитектуре компьютеров и базам данных.\nИзучил языки C++, C, Java, Python и SQL.\nУглубился в разработку ПО, сетевые технологии (CCNA I–IV), информационную безопасность, мобильное программирование, веб-сервисы и визуализацию данных.\nОсвоил методологии Agile, Scrum и DevOps, управление проектами и работу с современными IT-платформами.\nТакже получил опыт работы с сертификациями Coursera и Cisco.",
+                            degree_text: "Последний семестр университета - почти выпустился!\n\nУчусь в Universidad del Valle de México (UVM), степень бакалавра в области инженерии в проектировании программного обеспечения и сетей».\nНачал обучение в мае 2023 года.\n\nЗа время учёбы прошёл дисциплины по ООП, алгоритмам, кибербезопасности, сети, архитектуре компьютеров и базам данных.\nИзучил языки C++, C, Java, Python и SQL.\nУглубился в разработку ПО, сетевые технологии (CCNA I–IV), информационную безопасность, мобильное программирование, веб-сервисы и визуализацию данных.\nОсвоил методологии Agile, Scrum и DevOps, управление проектами и работу с современными IT-платформами.\nТакже получил опыт работы с сертификациями Coursera и Cisco.",
                         },
                     },
 
@@ -1228,7 +1296,7 @@
                                     }
                                 });
                             },
-                            { threshold: 0.2 }
+                            { threshold: 0.2 },
                         );
                         this.$el.querySelectorAll(".scroll-animate").forEach((el) => {
                             observer.observe(el);
