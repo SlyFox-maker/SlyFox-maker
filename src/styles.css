@@ -1,0 +1,744 @@
+/* Base and UI styles for the portfolio. */
+body {
+    background-color: #0e0e0e;
+    color: #f0f0f0;
+    font-family: "Fira Code", monospace;
+}
+.neon-text {
+    color: #00ffff;
+    text-shadow:
+        0 0 5px #0ff,
+        0 0 10px #0ff,
+        0 0 20px #0ff;
+}
+a {
+    color: #00bcd4;
+}
+.navbar {
+    background: #000 !important;
+}
+.card {
+    background-color: #1b1b1b;
+}
+.section-title {
+    color: #0ff;
+}
+@keyframes neonGlow {
+    0%,
+    100% {
+        text-shadow:
+            0 0 5px #0ff,
+            0 0 10px #0ff,
+            0 0 20px #0ff,
+            0 0 30px #00ffff,
+            0 0 40px #00ffff,
+            0 0 50px #00ffff,
+            0 0 60px #00ffff;
+        color: #00ffff;
+    }
+    50% {
+        text-shadow:
+            0 0 5px #ff00ff,
+            0 0 10px #ff00ff,
+            0 0 20px #ff00ff,
+            0 0 30px #ff69b4,
+            0 0 40px #ff69b4,
+            0 0 50px #ff69b4,
+            0 0 60px #ff69b4;
+        color: #ff69b4;
+    }
+}
+.neon-glow {
+    animation: neonGlow 2s infinite alternate;
+}
+
+.project-card {
+    cursor: pointer;
+    padding: 15px;
+    margin: 10px 0;
+    background: rgba(0, 255, 255, 0.1);
+    border: 1px solid #0ff;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+}
+.project-card:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: scale(1.02);
+}
+.contact-info {
+    margin-top: 60px;
+    border-top: 1px solid #0ff;
+    padding-top: 20px;
+    display: flex;
+    gap: 20px;
+    justify-content: center;
+    font-size: 1.2rem;
+    color: #0ff;
+}
+.contact-info a {
+    color: #0ff;
+    text-decoration: none;
+}
+
+.modal-desc {
+    flex-grow: 1;
+    font-family: "Fira Code", monospace;
+    font-size: 16px;
+    overflow-y: auto;
+    max-height: 75vh;
+    word-wrap: break-word;
+    padding-right: 10px;
+}
+
+/* --- Адаптив --- */
+
+@media (max-width: 400px) {
+    .modal-content {
+        max-width: 98vw;
+        max-height: 85vh;
+        padding: 10px;
+    }
+
+    .modal-desc {
+        font-size: 13px;
+    }
+}
+
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000; /* Поверх всего */
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    color: white;
+    font-size: 28px;
+}
+
+.modal-close svg {
+    width: 24px;
+    height: 24px;
+    pointer-events: none; /* Чтобы вся кнопка реагировала, а не только SVG */
+}
+
+@keyframes neonFlicker {
+    0%,
+    100% {
+        text-shadow:
+            0 0 5px #0ff,
+            0 0 10px #0ff,
+            0 0 20px #0ff,
+            0 0 30px #0ff,
+            0 0 40px #0ff,
+            0 0 55px #0ff,
+            0 0 75px #0ff;
+        box-shadow:
+            0 0 10px #0ff,
+            0 0 20px #0ff,
+            0 0 30px #0ff;
+    }
+    50% {
+        text-shadow:
+            0 0 3px #0ff,
+            0 0 6px #0ff,
+            0 0 10px #0ff,
+            0 0 15px #0ff,
+            0 0 20px #0ff;
+        box-shadow:
+            0 0 5px #0ff,
+            0 0 10px #0ff;
+    }
+}
+
+/* Киберпанк-анимация входа */
+@keyframes cyberpunkIn {
+    0% {
+        opacity: 0;
+        transform: translateY(-50px) skew(-5deg);
+        box-shadow: 0 0 0px #0ff;
+        filter: drop-shadow(0 0 0px #0ff);
+    }
+    50% {
+        opacity: 1;
+        transform: translateY(0) skew(0deg);
+        box-shadow:
+            0 0 5px #0ff,
+            0 0 5px #0ff inset;
+        filter: drop-shadow(0 0 5px #0ff);
+    }
+    100% {
+        opacity: 1;
+        transform: translateY(0) skew(0deg);
+        box-shadow:
+            0 0 10px #0ff,
+            0 0 10px #0ff inset;
+        filter: drop-shadow(0 0 10px #0ff);
+    }
+}
+
+/* Киберпанк-анимация выхода */
+@keyframes cyberpunkOut {
+    0% {
+        opacity: 1;
+        transform: translateY(0) skew(0deg);
+        box-shadow:
+            0 0 30px #0ff,
+            0 0 40px #0ff inset;
+    }
+    100% {
+        opacity: 0;
+        transform: translateY(-50px) skew(5deg);
+        box-shadow: 0 0 5px #0ff;
+    }
+}
+
+/* Классы для применения анимации */
+.cyberpunk-in {
+    animation: cyberpunkIn 0.5s forwards ease-out;
+}
+
+.cyberpunk-out {
+    animation: cyberpunkOut 0.4s forwards ease-in;
+}
+@keyframes neonFlicker {
+    0%,
+    100% {
+        text-shadow:
+            0 0 5px #0ff,
+            0 0 10px #0ff,
+            0 0 20px #0ff,
+            0 0 30px #0ff,
+            0 0 40px #0ff,
+            0 0 55px #0ff,
+            0 0 75px #0ff;
+        box-shadow:
+            0 0 10px #0ff,
+            0 0 20px #0ff,
+            0 0 30px #0ff;
+    }
+    50% {
+        text-shadow:
+            0 0 3px #0ff,
+            0 0 6px #0ff,
+            0 0 10px #0ff,
+            0 0 15px #0ff,
+            0 0 20px #0ff;
+        box-shadow:
+            0 0 5px #0ff,
+            0 0 10px #0ff;
+    }
+}
+.certificates-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+    gap: 20px;
+    justify-items: stretch; /* карточки растягиваются по ширине */
+}
+
+.cert-card {
+    background: rgba(0, 255, 255, 0.1);
+    border: 2px solid #0ff;
+    border-radius: 10px;
+    padding: 20px;
+    cursor: pointer;
+    user-select: none;
+    font-family: "Fira Code", monospace;
+    font-weight: 600;
+    color: #0ff;
+    height: 120px; /* фиксированная высота для карточек */
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    box-shadow: 0 0 10px #0ff33aa;
+    transition:
+        transform 0.3s ease,
+        box-shadow 0.3s ease,
+        background-color 0.3s ease;
+}
+
+.cert-card:hover,
+.cert-card:focus {
+    background-color: rgba(0, 255, 255, 0.25);
+    box-shadow:
+        0 0 20px #00ffffcc,
+        0 0 30px #00ffffcc inset;
+    transform: scale(1.05);
+    outline: none;
+}
+@keyframes flashGlow {
+    0%,
+    100% {
+        box-shadow: 0 0 10px #0ff33aa;
+        transform: scale(1);
+    }
+    50% {
+        box-shadow:
+            0 0 20px #00ffffcc,
+            0 0 30px #00ffffcc inset;
+        transform: scale(0.95);
+    }
+}
+
+.flash-effect {
+    animation: flashGlow 0.4s ease;
+}
+.lead {
+    min-height: 150px; /* было height: 150px; */
+    height: auto; /* добавляем */
+}
+
+.skills {
+    min-height: 290px; /* было height: 290px; */
+    height: auto; /* добавляем */
+}
+
+#degrees {
+    min-height: 100px; /* было height: 100px; */
+    height: auto; /* добавляем */
+}
+
+#title {
+    min-height: 260px; /* было height: 260px; */
+    height: auto; /* добавляем */
+}
+@media (max-width: 768px) {
+    .lead {
+        min-height: 120px; /* уменьшаем на мобильных */
+    }
+
+    .skills {
+        min-height: 200px; /* уменьшаем на мобильных */
+    }
+
+    #degrees {
+        min-height: 80px; /* уменьшаем на мобильных */
+    }
+
+    #title {
+        min-height: 180px; /* уменьшаем на мобильных */
+        flex-direction: column; /* если нужно */
+        text-align: center;
+    }
+}
+/* Остальные стили модалки, модал-контента, кнопки и т.д. — оставь свои */
+
+body::before {
+    content: "";
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+    background: radial-gradient(circle at 20% 30%, rgba(0, 255, 255, 0.1) 0%, transparent 20%), radial-gradient(circle at 80% 70%, rgba(255, 0, 255, 0.1) 0%, transparent 20%);
+    animation: float 15s infinite alternate ease-in-out;
+}
+
+@keyframes float {
+    0% {
+        transform: translate(0, 0);
+    }
+    50% {
+        transform: translate(-5%, 5%);
+    }
+    100% {
+        transform: translate(5%, -5%);
+    }
+}
+.span-points {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: #444;
+    cursor: pointer;
+    display: inline-block;
+}
+.active-dot {
+    background: #0ff;
+}
+/* Базовые стили для обеих модалок */
+.modal {
+    display: flex;
+    position: fixed;
+    z-index: 9999;
+    left: 0;
+    top: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(0, 0, 0, 0.9);
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* Скрыто по умолчанию, управляется через v-show */
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.3s ease;
+}
+
+/* Класс для показа модалки */
+.modal-visible {
+    opacity: 1;
+    pointer-events: all;
+}
+
+/* Контейнер контента модалки - СТАНДАРТНЫЙ ДЛЯ ОБОИХ */
+.modal-content {
+    background-color: #111;
+    border-radius: 10px;
+    max-width: 95vw; /* Ограничиваем по ширине экрана */
+    max-height: 95vh; /* Ограничиваем по высоте экрана */
+    width: auto; /* Ширина будет подстраиваться под контент */
+    height: auto; /* Высота будет подстраиваться под контент */
+    overflow: hidden;
+    color: #0ff;
+    position: relative;
+    display: flex;
+    flex-direction: column; /* Меняем на колонку для общей структуры */
+    box-shadow: 0 0 30px #00ffff80;
+    border: 1px solid #0ff;
+}
+
+/* Кнопка закрытия */
+.modal-close {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    width: 32px;
+    height: 32px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    background-color: transparent;
+    border: none;
+    padding: 0;
+    color: #0ff;
+    font-size: 28px;
+    text-shadow: 0 0 5px #0ff;
+}
+
+/* 2. Модалка для проектов (галерея + текст) */
+
+#project-modal .modal-body {
+    display: flex;
+    flex-direction: row;
+    gap: 20px;
+    padding: 20px;
+    align-items: stretch; /* ← Измени на stretch */
+    height: calc(100% - 40px); /* ← Добавь высоту */
+    box-sizing: border-box;
+}
+
+#project-modal .gallery-side {
+    flex: 1 1 60%;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-height: 0; /* ← Важно для flex-внутри */
+}
+
+#project-modal .gallery-main-img {
+    width: 100%;
+    height: 100%; /* ← Замени на 100% */
+    max-height: none; /* ← Убери ограничение */
+    object-fit: contain;
+    border-radius: 5px;
+    cursor: pointer;
+    filter: drop-shadow(0 0 5px #0ff);
+    flex: 1; /* ← Добавь */
+}
+
+#project-modal .gallery-thumbnails {
+    display: flex;
+    gap: 5px;
+    justify-content: center;
+    flex-wrap: wrap;
+}
+
+#project-modal .gallery-thumb {
+    width: 50px;
+    height: 50px;
+    object-fit: cover;
+    border-radius: 3px;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.3s ease;
+    border: 1px solid transparent;
+}
+
+#project-modal .gallery-thumb:hover,
+#project-modal .gallery-thumb.active {
+    opacity: 1;
+    border-color: #0ff;
+}
+
+#project-modal .modal-desc {
+    flex: 1 1 40%;
+    font-family: "Fira Code", monospace;
+    font-size: 16px;
+    overflow-y: auto;
+    max-height: none; /* ← Убери ограничение */
+    word-wrap: break-word;
+    min-height: 0; /* ← Добавь */
+}
+#project-modal .modal-content {
+    /* Добавь фиксированные размеры */
+    width: 90vw;
+    max-width: 1200px;
+    height: 80vh;
+    max-height: 800px;
+    /* Остальное оставь как есть */
+    background-color: #111;
+    border-radius: 10px;
+    overflow: hidden;
+    color: #0ff;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    box-shadow: 0 0 30px #00ffff80;
+    border: 1px solid #0ff;
+}
+
+/* АДАПТИВНОСТЬ ДЛЯ МОБИЛЬНЫХ УСТРОЙСТВ */
+@media (max-width: 768px) {
+    /* Общие стили для модалок на мобильных */
+    .modal-content {
+        max-width: 98vw;
+        max-height: 98vh;
+    }
+
+    /* Для обеих модалок меняем направление на колонку */
+    #modal .modal-body,
+    #project-modal .modal-body {
+        flex-direction: column;
+        padding: 15px;
+    }
+
+    /* На мобильных картинка и текст занимают 100% ширины */
+    #modal .modal-img,
+    #project-modal .gallery-side,
+    #modal .modal-desc,
+    #project-modal .modal-desc {
+        flex: 1 1 100%;
+        max-width: 100%;
+    }
+
+    /* Убираем максимальную высоту у галереи */
+    #project-modal .gallery-main-img {
+        max-height: none;
+    }
+
+    /* Уменьшаем отступы */
+    #modal .modal-body,
+    #project-modal .modal-body {
+        gap: 15px;
+    }
+
+    /* Уменьшаем размер превью */
+    #project-modal .gallery-thumb {
+        width: 40px;
+        height: 40px;
+    }
+}
+/* Стили для модалки сертификатов - бок о бок */
+/* Контейнер для изображения */
+.image-container {
+    flex: 0 0 48%; /* Такая же ширина как у изображения */
+    max-width: 48%;
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    overflow: hidden;
+}
+
+#modal .modal-img {
+    width: 100%; /* Занимает всю ширину контейнера */
+    height: auto;
+    max-height: 75vh;
+    object-fit: contain;
+    border-radius: 8px;
+    user-select: none;
+    filter: drop-shadow(0 0 8px #0ff);
+    border: 1px solid #0ff;
+}
+
+/* Обновим структуру модалки */
+#modal .modal-body {
+    display: flex;
+    flex-direction: row;
+    gap: 15px; /* Немного увеличим отступ для баланса */
+    padding: 15px;
+    align-items: flex-start;
+    justify-content: center; /* Центрируем содержимое */
+    width: 100%;
+    box-sizing: border-box;
+}
+
+#modal .modal-desc {
+    flex: 0 0 45%; /* Немного уменьшим ширину текста */
+    max-width: 45%;
+    /* остальные стили остаются */
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .image-container {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+
+    #modal .modal-desc {
+        flex: 0 0 100%;
+        max-width: 100%;
+    }
+}
+.modal-content {
+    max-width: 1200px; /* Фиксированная максимальная ширина */
+    width: 90vw;
+    margin: 0 auto;
+}
+.contact-info {
+    margin-top: 60px;
+    border-top: 1px solid #0ff;
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 15px;
+    justify-content: center;
+    font-size: 1.1rem;
+}
+
+.contact-btn {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 22px;
+    background: rgba(0, 255, 255, 0.1);
+    border: 2px solid #0ff;
+    border-radius: 25px;
+    color: #0ff;
+    text-decoration: none;
+    transition: all 0.3s ease;
+    box-shadow: 0 0 10px rgba(0, 255, 255, 0.3);
+    position: relative;
+    overflow: hidden;
+}
+
+.contact-btn::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, transparent, rgba(0, 255, 255, 0.2), transparent);
+    transition: left 0.5s ease;
+}
+
+.contact-btn:hover::before {
+    left: 100%;
+}
+
+.contact-btn:hover {
+    background: rgba(0, 255, 255, 0.2);
+    transform: translateY(-3px);
+    box-shadow:
+        0 0 20px #0ff,
+        0 0 30px #0ff inset;
+}
+
+.contact-icon {
+    font-size: 1.3rem;
+    filter: drop-shadow(0 0 3px #0ff);
+    width: 20px;
+    text-align: center;
+    transition:
+        transform 0.3s ease,
+        color 0.3s ease;
+}
+
+.contact-btn:hover .contact-icon {
+    transform: scale(1.1);
+}
+
+/* Цвета иконок при наведении */
+.contact-btn:nth-child(1):hover .contact-icon {
+    color: #ea4335;
+} /* Email */
+.contact-btn:nth-child(2):hover .contact-icon {
+    color: #0088cc;
+} /* Telegram */
+.contact-btn:nth-child(3):hover .contact-icon {
+    color: #0077b5;
+} /* LinkedIn */
+.contact-btn:nth-child(4):hover .contact-icon {
+    color: #6cc644;
+} /* GitHub */
+
+.contact-text {
+    font-family: "Fira Code", monospace;
+    font-weight: 500;
+}
+
+/* Адаптивность */
+@media (max-width: 768px) {
+    .contact-info {
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+    }
+
+    .contact-btn {
+        width: 220px;
+        justify-content: center;
+    }
+}
+
+/* Анимация появления */
+.contact-btn {
+    animation: fadeInUp 0.6s ease-out;
+    opacity: 0;
+    animation-fill-mode: forwards;
+}
+
+.contact-btn:nth-child(1) {
+    animation-delay: 0.1s;
+}
+.contact-btn:nth-child(2) {
+    animation-delay: 0.2s;
+}
+.contact-btn:nth-child(3) {
+    animation-delay: 0.3s;
+}
+.contact-btn:nth-child(4) {
+    animation-delay: 0.4s;
+}
+
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -1;
+}
