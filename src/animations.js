@@ -12,14 +12,15 @@ window.portfolioAnimations = {
             this.activeTimeouts.delete(el);
         },
 
-        getRandomColor() {
-            const colors = ["#0ff", "#00ffff", "#ff00ff", "#ff69b4", "#39ff14", "#ff1493", "#00ffff"];
-            return colors[Math.floor(Math.random() * colors.length)];
+        getRandomColorClass() {
+            const colorClasses = ["scramble-cyan", "scramble-aqua", "scramble-magenta", "scramble-pink", "scramble-green", "scramble-hot-pink", "scramble-aqua"];
+            return colorClasses[Math.floor(Math.random() * colorClasses.length)];
         },
         scrambleText(oldText, newText, element, callback) {
             const chars = "!<>-_\\/[]{}—=+*^?#________";
             let frame = 0;
             const length = newText.length;
+            const charsPerFrame = 3;
 
             this.clearAnimationForElement(element);
 
@@ -27,22 +28,20 @@ window.portfolioAnimations = {
                 let output = "";
                 for (let i = 0; i < length; i++) {
                     if (i < frame) {
-                        const color = this.getRandomColor();
-                        output += `<span style="color:${color}; text-shadow: 0 0 5px ${color}, 0 0 10px ${color}">${newText[i]}</span>`;
+                        output += `<span class="${this.getRandomColorClass()}">${newText[i]}</span>`;
                     } else {
                         output += chars[Math.floor(Math.random() * chars.length)];
                     }
                 }
                 element.innerHTML = output;
-                frame++;
+                frame += charsPerFrame;
                 if (frame <= length) {
                     const anim = requestAnimationFrame(animate);
                     this.currentAnimations.set(element, anim);
                 } else {
-                    const finalColor = "#00ffff";
                     element.innerHTML = newText
                         .split("")
-                        .map((ch) => `<span style="color:${finalColor}; text-shadow: 0 0 5px ${finalColor}, 0 0 10px ${finalColor}">${ch}</span>`)
+                        .map((ch) => `<span class="scramble-final">${ch}</span>`)
                         .join("");
                     if (callback) callback();
                     this.currentAnimations.delete(element);
