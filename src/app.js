@@ -33,8 +33,8 @@ new Vue({
         },
     },
     methods: Object.assign({}, window.portfolioAnimations, {
-        setLang(language) {
-            if (!this.translations[language] || this.lang === language) return;
+        setLang(language, forceAnimation = false) {
+            if (!this.translations[language] || (!forceAnimation && this.lang === language)) return;
 
             const textKeys = ["title", "intro", "skills", "degree", "degree_text"];
 
@@ -155,7 +155,7 @@ new Vue({
                     }
                 }
 
-                this.setLang(targetLang);
+                this.setLang(targetLang, true);
             }, 300);
         });
         this.lightbox = GLightbox({
