@@ -64,6 +64,16 @@ window.portfolioContent = {
                     desc: "Issued for completing a comprehensive course in full-cycle web development — including frontend (HTML, CSS, JavaScript, UI/UX) and backend (PHP, Python, databases) — as well as mobile app creation using Progressive Web Apps (PWA) technology.",
                 },
                 {
+                    name: "Cisco CCNA 4: CyberOps Associate",
+                    file: "./cert/Cisco/CCNA4.png",
+                    desc: "Confirms successful completion of the Cisco CyberOps Associate course focused on cybersecurity operations and Security Operations Center (SOC) practices. Covered network monitoring, threat and incident analysis, network protocols, and attack detection techniques. Gained hands-on experience in digital forensics, endpoint protection, network traffic analysis, and the use of tools such as Wireshark, SIEM platforms, and incident response technologies.",
+                },
+                {
+                    name: "Cisco CCNA 3: Enterprise Networking, Security and Automation",
+                    file: "./cert/Cisco/CCNA3.png",
+                    desc: "Confirms successful completion of the third course in the CCNA certification preparation program. Covered enterprise networking technologies, OSPF routing, WAN infrastructure, network security fundamentals, and automation concepts. Gained hands-on experience with securing network devices and traffic, configuring ACLs, VPNs and SSH, as well as modern SDN, virtualization, and network infrastructure automation approaches.",
+                },
+                {
                     name: "Cisco CCNA 2: Switching, Routing, and Wireless Essentials",
                     file: "./cert/Cisco/CCNA2.png",
                     desc: "Certifies the successful completion of the second course in the CCNA certification training program. Covers key switching, routing, and wireless networking technologies. Includes configuration and management of VLANs, inter-VLAN routing, STP and EtherChannel protocols, setup of Cisco routers and switches, as well as fundamentals of LAN/WLAN design and security.",
@@ -79,7 +89,26 @@ window.portfolioContent = {
                     file: "./cert/Cisco/IT_Essentials.png",
                     desc: "Certifies successful completion of the Cisco IT Essentials course. Covers fundamentals of PC and mobile device hardware and software: internal components, system assembly, OS and application installation, hardware/software troubleshooting and maintenance, printers and mobile devices, basic networking and security, virtualization and cloud computing.",
                 },
-
+                {
+                    name: "IBM Data Visualization with Python",
+                    file: "./cert/IBM/Data Visualization with Python.png",
+                    desc: "Confirms successful completion of the IBM Data Visualization with Python course. Covered data visualization and analysis techniques using Python and libraries such as Matplotlib, Seaborn, Plotly, and Folium. Gained hands-on experience in creating interactive charts, dashboards, maps, diagrams, and visual reports, as well as presenting and interpreting data for Data Science and analytics projects.",
+                },
+                {
+                    name: "IBM Python 101 for Data Science",
+                    file: "./cert/IBM/Python 101 for Data Science.png",
+                    desc: "Confirms successful completion of the IBM Python 101 for Data Science course. Covered Python programming fundamentals, data structures, functions, loops, file handling, and object-oriented programming. Gained hands-on experience with Pandas and NumPy, working in Jupyter Notebook environments, data processing and analysis, as well as basic automation and data preparation techniques for Data Science projects.",
+                },
+                {
+                    name: "UCI Project Initiation and Planning",
+                    file: "./cert/Coursera/Inicio y planificación de proyectos.png",
+                    desc: "Confirms successful completion of the UCI Project Initiation and Planning course by the University of California, Irvine. Covered project management fundamentals, project planning and goal definition, stakeholder management, scope management, and Work Breakdown Structure (WBS) development. Gained practical knowledge in project documentation, risk evaluation, organizational structures, and effective collaboration within project teams.",
+                },
+                {
+                    name: "Microsoft & UCI Project Management Fundamentals",
+                    file: "./cert/Coursera/Project Management Fundamentals.png",
+                    desc: "Confirms successful completion of the Project Management Fundamentals course by Microsoft. Covered core project management principles, project lifecycle, task and resource planning, risk management, scheduling, and budgeting. Gained practical knowledge in team collaboration, project tracking, documentation, and the use of modern project management tools and methodologies.",
+                },
                 {
                     name: "OOP Programmer Certificate",
                     file: "./cert/Carlos/programadorOOP.png",
@@ -147,6 +176,16 @@ window.portfolioContent = {
                     desc: "Certifica la finalización de un curso completo en desarrollo web full-stack — incluyendo frontend (HTML, CSS, JavaScript, UI/UX) y backend (PHP, Python, bases de datos) — y en creación de aplicaciones móviles usando tecnología PWA (Progressive Web Apps).",
                 },
                 {
+                    name: "Cisco CCNA 4: CyberOps Associate",
+                    file: "./cert/Cisco/CCNA4.png",
+                    desc: "Certifica la finalización exitosa del curso Cisco CyberOps Associate enfocado en operaciones de ciberseguridad y trabajo en un Security Operations Center (SOC). Se estudiaron monitoreo de redes, análisis de amenazas e incidentes, protocolos de red y métodos de detección de ataques. Se adquirieron habilidades en análisis forense digital, protección de endpoints, análisis de tráfico de red y uso de herramientas como Wireshark, SIEM y tecnologías de respuesta a incidentes.",
+                },
+                {
+                    name: "Cisco CCNA 3: Enterprise Networking, Security and Automation",
+                    file: "./cert/Cisco/CCNA3.png",
+                    desc: "Certifica la finalización exitosa del tercer curso del programa de preparación para la certificación CCNA. Se estudiaron tecnologías de redes empresariales, enrutamiento OSPF, infraestructura WAN, fundamentos de seguridad de red y automatización. Se adquirieron habilidades en protección de dispositivos y tráfico de red, uso de ACL, VPN y SSH, así como conceptos modernos de SDN, virtualización y automatización de infraestructura de red.",
+                },
+                {
                     name: "Cisco CCNA 2: Conmutación, Enrutamiento y Fundamentos de Redes Inalámbricas",
                     file: "./cert/Cisco/CCNA2.png",
                     desc: "Certifica la finalización exitosa del segundo curso del programa de formación para la certificación CCNA. Se estudiaron las tecnologías clave de conmutación, enrutamiento y redes inalámbricas. Incluye la configuración y administración de VLAN, el enrutamiento inter-VLAN, los protocolos STP y EtherChannel, la configuración de routers y switches Cisco, así como los fundamentos del diseño y la seguridad de redes LAN y WLAN.",
@@ -161,7 +200,26 @@ window.portfolioContent = {
                     file: "./cert/Cisco/IT_Essentials.png",
                     desc: "Certifica la finalización exitosa del curso Cisco IT Essentials. Cubre fundamentos del hardware y software de PC y dispositivos móviles: componentes internos, ensamblaje del sistema, instalación de sistemas operativos y aplicaciones, mantenimiento y solución de problemas de hardware/software, impresoras y dispositivos móviles, redes básicas y seguridad, virtualización y computación en la nube.",
                 },
-
+                {
+                    name: "IBM Data Visualization with Python",
+                    file: "./cert/IBM/Data Visualization with Python.png",
+                    desc: "Certifica la finalización exitosa del curso IBM Data Visualization with Python. Se estudiaron técnicas de visualización y análisis de datos utilizando Python y librerías como Matplotlib, Seaborn, Plotly y Folium. Se adquirieron habilidades en la creación de gráficos interactivos, dashboards, mapas, diagramas y reportes visuales, así como métodos de interpretación y presentación de datos para Data Science y analítica.",
+                },
+                {
+                    name: "IBM Python 101 for Data Science",
+                    file: "./cert/IBM/Python 101 for Data Science.png",
+                    desc: "Certifica la finalización exitosa del curso IBM Python 101 for Data Science. Se estudiaron fundamentos de programación en Python, estructuras de datos, funciones, ciclos, manejo de archivos y programación orientada a objetos. Se adquirieron habilidades en el uso de Pandas y NumPy, trabajo en Jupyter Notebook, procesamiento y análisis de datos, así como métodos básicos de automatización y preparación de datos para Data Science.",
+                },
+                {
+                    name: "UCI Inicio y Planificación de Proyectos",
+                    file: "./cert/Coursera/Inicio y planificación de proyectos.png",
+                    desc: "Certifica la finalización exitosa del curso UCI Inicio y Planificación de Proyectos de University of California, Irvine. Se estudiaron fundamentos de gestión de proyectos, planificación y definición de objetivos, gestión de stakeholders, administración del alcance y creación de estructuras Work Breakdown Structure (WBS). Se adquirieron habilidades en documentación de proyectos, evaluación de riesgos, estructuras organizacionales y colaboración efectiva dentro de equipos de proyecto.",
+                },
+                {
+                    name: "Microsoft & UCI Project Management Fundamentals",
+                    file: "./cert/Coursera/Project Management Fundamentals.png",
+                    desc: "Certifica la finalización exitosa del curso Project Management Fundamentals de Microsoft. Se estudiaron principios fundamentales de gestión de proyectos, ciclo de vida del proyecto, planificación de tareas y recursos, gestión de riesgos, tiempos y presupuestos. Se adquirieron habilidades en colaboración de equipos, seguimiento de proyectos, documentación y uso de herramientas modernas de project management.",
+                },
                 {
                     name: "Certificado de Programador OOP",
                     file: "./cert/Carlos/programadorOOP.png",
@@ -230,6 +288,16 @@ window.portfolioContent = {
                     desc: "Подтверждает успешное прохождение курса по созданию веб-сайтов с применением технологий как фронтенд (HTML, CSS, JavaScript, UI/UX), так и бэкенд (PHP, Python, базы данных), а также разработке мобильных приложений с использованием PWA (Progressive Web Apps).",
                 },
                 {
+                    name: "Cisco CCNA 4: CyberOps Associate",
+                    file: "./cert/Cisco/CCNA4.png",
+                    desc: "Подтверждает успешное завершение курса Cisco CyberOps Associate, посвящённого операциям кибербезопасности и работе Security Operations Center (SOC). Изучены мониторинг сетей, анализ угроз и инцидентов, сетевые протоколы и методы обнаружения атак. Освоены основы цифровой криминалистики, защиты конечных устройств, анализа сетевого трафика, а также использование инструментов Wireshark, SIEM и технологий реагирования на инциденты.",
+                },
+                {
+                    name: "Cisco CCNA 3: Enterprise Networking, Security and Automation",
+                    file: "./cert/Cisco/CCNA3.png",
+                    desc: "Подтверждает успешное завершение третьего курса программы подготовки к сертификации CCNA. Изучены технологии корпоративных сетей, маршрутизация OSPF, WAN-инфраструктура, основы сетевой безопасности и автоматизации. Освоены методы защиты сетевых устройств и трафика, работа с ACL, VPN и SSH, а также современные подходы к SDN, виртуализации и автоматизации сетевой инфраструктуры.",
+                },
+                {
                     name: "Cisco CCNA 2: Коммутация, маршрутизация и основы беспроводных сетей",
                     file: "./cert/Cisco/CCNA2.png",
                     desc: "Подтверждает успешное завершение второго курса программы подготовки к сертификации CCNA. Изучены ключевые технологии коммутации, маршрутизации и беспроводных сетей. Освоены конфигурация и управление VLAN, межвлановая маршрутизация, протоколы STP и EtherChannel, настройка маршрутизаторов и коммутаторов Cisco, а также основы проектирования и защиты локальных сетей и WLAN.",
@@ -244,7 +312,26 @@ window.portfolioContent = {
                     file: "./cert/Cisco/IT_Essentials.png", // замени путь, если нужно
                     desc: "Подтверждает успешное завершение курса Cisco IT Essentials. Освоены основы работы ПК и мобильных устройств: понимание внутренней архитектуры, сборка, установка ОС и приложений, профилактика и устранение неисправностей аппаратной и программной части, принтеров, мобильных устройств, базовые сетевые и меры безопасности, а также основы виртуализации и облачных технологий.",
                 },
-
+                {
+                    name: "IBM Data Visualization with Python",
+                    file: "./cert/IBM/Data Visualization with Python.png",
+                    desc: "Подтверждает успешное завершение курса IBM Data Visualization with Python. Изучены методы визуализации и анализа данных с использованием Python и библиотек Matplotlib, Seaborn, Plotly и Folium. Освоено создание интерактивных графиков, дашбордов, карт, диаграмм и визуальных отчётов, а также методы представления и интерпретации данных для Data Science и аналитики.",
+                },
+                {
+                    name: "IBM Python 101 for Data Science",
+                    file: "./cert/IBM/Python 101 for Data Science.png",
+                    desc: "Подтверждает успешное завершение курса IBM Python 101 for Data Science. Изучены основы программирования на Python, структуры данных, функции, циклы, работа с файлами и объектно-ориентированное программирование. Освоены библиотеки Pandas и NumPy, работа в Jupyter Notebook, обработка и анализ данных, а также базовые методы автоматизации и подготовки данных для Data Science.",
+                },
+                {
+                    name: "UCI Project Initiation and Planning",
+                    file: "./cert/Coursera/Inicio y planificación de proyectos.png",
+                    desc: "Подтверждает успешное завершение курса UCI Project Initiation and Planning от University of California, Irvine. Изучены основы управления проектами, планирование и определение целей проекта, работа со stakeholder’ами, управление scope и построение Work Breakdown Structure (WBS). Освоены методы проектной документации, оценки рисков, организационных структур и эффективного взаимодействия внутри проектной команды.",
+                },
+                {
+                    name: "Microsoft & UCI Project Management Fundamentals",
+                    file: "./cert/Coursera/Project Management Fundamentals.png",
+                    desc: "Подтверждает успешное завершение курса Project Management Fundamentals от Microsoft. Изучены ключевые принципы управления проектами, жизненный цикл проекта, планирование задач и ресурсов, управление рисками, сроками и бюджетом. Освоены методы командного взаимодействия, контроля выполнения проектов, работы с документацией и использования современных инструментов project management.",
+                },
                 {
                     name: "Программист ООП",
                     file: "./cert/Carlos/programadorOOP.png",
