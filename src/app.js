@@ -7,19 +7,13 @@ new Vue({
         contacts: window.portfolioContent.contacts,
 
         modalVisible: false,
-        modalContent: "",
         modalImage: "",
-        modalDesc: "",
         animationClass: "",
         projectModalVisible: false,
-        projectModalAnimation: "",
         projectModalImages: [],
         projectModalDesc: "",
         projectModalIndex: 0,
-        projectModalImage: "",
         lightbox: null,
-        dragging: false,
-        currentAnimation: null,
         currentAnimations: new WeakMap(),
         activeTimeouts: new WeakMap(),
         listAnimations: new WeakMap(),
@@ -40,7 +34,9 @@ new Vue({
     },
     methods: Object.assign({}, window.portfolioAnimations, {
         setLang(language) {
-            const textKeys = ["degree", "degree_text", "title", "intro", "skills", "skills_list", "projects", "project_list", "tools", "certs", "certs_list", "degree", "degree_text"];
+            if (!this.translations[language] || this.lang === language) return;
+
+            const textKeys = ["title", "intro", "skills", "degree", "degree_text"];
 
             textKeys.forEach((key) => {
                 const el = this.$refs[key];
@@ -49,52 +45,17 @@ new Vue({
                 if (Array.isArray(newText)) return;
                 this.scrambleText(this.translations[this.lang][key], newText, el);
             });
-            const listMappings = [
-                ["skillsList", "skills_list"],
-                ["languagesList", "languages_list"],
-                ["frameworksList", "frameworks_list"],
-                ["toolsList", "tools_list"],
-                ["certsList", "certs_list", "project_list"],
-            ];
-            listMappings.forEach(([refName, transKey]) => {
-                if (this.$refs[refName]) {
-                    this.animateList(this.$refs[refName], this.translations[language][transKey]);
-                }
-            });
-            this.updateCertsTexts(this.translations[language]);
-            this.updateProjectsTexts(this.translations[language]);
-            const degreeText = this.translations[language].certs_list;
-            if (this.$refs.degreeText) {
-                this.scrambleTextSimple(this.translations[this.lang].degree_text, degreeText, this.$refs.degreeText);
+
+            if (this.$refs.skillsList) {
+                this.animateList(this.$refs.skillsList, this.translations[language].skills_list);
             }
+
             this.lang = language;
-        },
-        updateCertsTexts(texts) {
-            const elements = this.$refs.certs;
-            if (!elements) return;
-            const elems = Array.isArray(elements) ? elements : [elements];
-            const certsArray = texts.certs_list || [];
-
-            elems.forEach((el, i) => {
-                if (certsArray[i]) this.scrambleTextSimple(el, certsArray[i].name);
-            });
-        },
-        updateProjectsTexts(texts) {
-            const elements = this.$refs.projects;
-            if (!elements) return;
-            const elems = Array.isArray(elements) ? elements : [elements];
-            const certsArray = texts.project_list || [];
-
-            elems.forEach((el, i) => {
-                if (certsArray[i]) this.scrambleTextSimple(el, certsArray[i].name);
-            });
         },
 
         openImage(cert) {
-            console.log("Opening image:", cert); // Добавьте эту строку для отладки
             this.modalImage = cert.file;
             this.modalVisible = true;
-            // Запускаем анимацию открытия
             this.animationClass = "cyberpunk-in";
 
             this.$nextTick(() => {
@@ -105,16 +66,13 @@ new Vue({
             });
         },
         openImageProject(project) {
-            // Сначала скрываем модалку чтобы установить размеры контента
             this.projectModalVisible = false;
 
             this.$nextTick(() => {
-                // Устанавливаем контент
                 this.projectModalImages = project.file;
                 this.projectModalDesc = project.desc || "";
                 this.projectModalIndex = 0;
 
-                // Показываем модалку и запускаем анимацию
                 this.projectModalVisible = true;
                 this.animationClass = "cyberpunk-in";
 
@@ -126,7 +84,6 @@ new Vue({
                     if (this.lightbox) {
                         this.lightbox.destroy();
                     }
-                    // Обновляем селектор для новой структуры
                     this.lightbox = GLightbox({
                         selector: "#project-modal .gallery-main-img",
                         loop: true,
@@ -145,16 +102,14 @@ new Vue({
             this.projectModalIndex = (this.projectModalIndex - 1 + this.projectModalImages.length) % this.projectModalImages.length;
         },
         closeProjectModal() {
-            this.animationClass = "cyberpunk-out"; // анимация выхода
+            this.animationClass = "cyberpunk-out";
         },
 
         startClose() {
-            // Запускаем анимацию закрытия
             this.animationClass = "cyberpunk-out";
         },
         onAnimationEnd(event) {
             if (this.animationClass === "cyberpunk-out") {
-                // Скрываем обе модалки, если они открыты
                 if (this.modalVisible) {
                     this.modalVisible = false;
                     if (this.$refs.descText) this.$refs.descText.innerHTML = "";
@@ -164,7 +119,6 @@ new Vue({
                     if (this.$refs.projectDescText) this.$refs.projectDescText.innerHTML = "";
                 }
 
-                // Сбрасываем класс анимации
                 this.animationClass = "";
             }
         },
@@ -207,23 +161,10 @@ new Vue({
         this.lightbox = GLightbox({
             selector: ".glightbox",
         });
-        const updateList = (refName, listKey) => {
-            if (this.$refs[refName]) {
-                const items = this.translations[this.lang][listKey];
-                this.$refs[refName].innerHTML = items.map((item) => `<li>${item}</li>`).join("");
-            }
-        };
-        [
-            ["skillsList", "skills_list"],
-            ["languagesList", "languages_list"],
-            ["frameworksList", "frameworks_list"],
-            ["toolsList", "tools_list"],
-            ["certsList", "certs_list"],
-        ].forEach(([ref, key]) => updateList(ref, key));
-        if (this.$refs.degreeText) {
-            this.$refs.degreeText.innerText = this.translations[this.lang].degree_text;
+        if (this.$refs.skillsList) {
+            this.$refs.skillsList.innerHTML = this.translations[this.lang].skills_list.map((item) => `<li>${item}</li>`).join("");
         }
         this.initScrollAnimations();
-        this.initModalListeners(); // Добавь эту строку
+        this.initModalListeners();
     },
 });
