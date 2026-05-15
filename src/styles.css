@@ -158,6 +158,7 @@ h2 {
     overflow: hidden;
     border-radius: 8px;
     flex-direction: column;
+    position: relative;
 }
 
 .project-card:hover,
@@ -190,6 +191,34 @@ h2 {
 
 .project-card:hover .project-preview img {
     transform: scale(1.04);
+}
+
+.open-indicator {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    width: 36px;
+    height: 36px;
+    z-index: 2;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    border: 1px solid rgba(0, 240, 255, 0.62);
+    border-radius: 50%;
+    color: var(--cyan);
+    background: rgba(2, 10, 14, 0.82);
+    box-shadow: 0 0 16px rgba(0, 240, 255, 0.26);
+    transition: transform 0.22s ease, color 0.22s ease, background 0.22s ease, box-shadow 0.22s ease;
+}
+
+.project-card:hover .open-indicator,
+.project-card:focus .open-indicator,
+.cert-card:hover .open-indicator,
+.cert-card:focus .open-indicator {
+    color: #031114;
+    background: var(--cyan);
+    box-shadow: 0 0 22px rgba(0, 240, 255, 0.62);
+    transform: scale(1.08);
 }
 
 .project-content {
@@ -246,17 +275,26 @@ h2 {
 
 .cert-card {
     min-height: 112px;
-    padding: 18px;
+    padding: 22px 46px 22px 18px;
     border-radius: 8px;
     color: var(--cyan);
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
+    position: relative;
     text-align: center;
     font-size: 0.92rem;
     font-weight: 600;
     user-select: none;
+}
+
+.cert-card .open-indicator {
+    top: 10px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
+    font-size: 0.78rem;
 }
 
 .contact-info {

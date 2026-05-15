@@ -44,6 +44,7 @@
                     <h2 class="h4 border-bottom border-info pb-2 section-title">{{ t('projects') }}</h2>
                     <div class="projects-grid">
                         <article ref="projects" class="project-card" v-for="(project, index) in currentTranslations.project_list" :key="'project-' + index" @click="openImageProject(project)" tabindex="0" @keydown.enter.prevent="openImageProject(project)" role="button" :title="project.name">
+                            <span class="open-indicator" aria-hidden="true"><i class="fas fa-up-right-and-down-left-from-center"></i></span>
                             <div class="project-preview">
                                 <img :src="project.file[0]" :alt="project.name" loading="lazy" />
                             </div>
@@ -67,7 +68,10 @@
                 <section id="certificates" class="my-5">
                     <h2 class="h4 border-bottom border-info pb-2 section-title">{{ t('certs') }}</h2>
                     <div class="certificates-grid">
-                        <div ref="certs" class="cert-card" v-for="(cert, index) in currentTranslations.certs_list" :key="'cert-' + index" @click="openImage(cert)" tabindex="0" @keydown.enter.prevent="openImage(cert)" role="button" :title="cert.name">{{ cert.name }}</div>
+                        <div ref="certs" class="cert-card" v-for="(cert, index) in currentTranslations.certs_list" :key="'cert-' + index" @click="openImage(cert)" tabindex="0" @keydown.enter.prevent="openImage(cert)" role="button" :title="cert.name">
+                            <span class="open-indicator" aria-hidden="true"><i class="fas fa-eye"></i></span>
+                            <span>{{ cert.name }}</span>
+                        </div>
                     </div>
                 </section>
 
