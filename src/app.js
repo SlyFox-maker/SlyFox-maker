@@ -12,11 +12,18 @@ new Vue({
         projectModalVisible: false,
         projectModalImages: [],
         projectModalDesc: "",
+        projectModalSections: [],
         projectModalIndex: 0,
         lightbox: null,
         currentAnimations: new WeakMap(),
         activeTimeouts: new WeakMap(),
         listAnimations: new WeakMap(),
+        degreeCelebrationVisible: false,
+        activeEducationId: "",
+        degreeFireworks: [],
+        degreeCelebrationTimer: null,
+        degreeBurstTimer: null,
+        currentServerDate: new Date(),
     },
     computed: {
         t() {
@@ -24,6 +31,16 @@ new Vue({
         },
         currentTranslations() {
             return this.translations[this.lang];
+        },
+        educationPrograms() {
+            const programs = this.currentTranslations.education_programs || [];
+            return programs.map((program) => {
+                const progress = this.calculateProgramProgress(program.start, program.end);
+                return Object.assign({}, program, {
+                    progress,
+                    progressText: `${progress}%`,
+                });
+            });
         },
         modalVisibleClass() {
             return this.modalVisible ? "modal-visible" : "";
@@ -36,6 +53,10 @@ new Vue({
         setLang(language, forceAnimation = false) {
             if (!this.translations[language] || (!forceAnimation && this.lang === language)) return;
 
+            const scrollPosition = {
+                left: window.pageXOffset,
+                top: window.pageYOffset,
+            };
             const textKeys = ["title", "intro", "skills", "degree", "degree_text"];
 
             textKeys.forEach((key) => {
@@ -51,6 +72,11 @@ new Vue({
             }
 
             this.lang = language;
+            this.$nextTick(() => {
+                requestAnimationFrame(() => {
+                    window.scrollTo(scrollPosition.left, scrollPosition.top);
+                });
+            });
         },
 
         openImage(cert) {
@@ -65,19 +91,92 @@ new Vue({
                 }
             });
         },
+        calculateProgramProgress(start, end) {
+            const startDate = this.parseEducationMonth(start);
+            const endDate = this.parseEducationMonth(end, true);
+            const currentDate = this.currentServerDate || new Date();
+
+            if (!startDate || !endDate || endDate <= startDate) return 0;
+            if (currentDate <= startDate) return 0;
+            if (currentDate >= endDate) return 100;
+
+            const total = endDate.getTime() - startDate.getTime();
+            const elapsed = currentDate.getTime() - startDate.getTime();
+            return Math.max(0, Math.min(100, Math.round((elapsed / total) * 100)));
+        },
+        parseEducationMonth(value, endOfMonth = false) {
+            if (!value) return null;
+            const parts = value.split("-").map((part) => Number(part));
+            if (parts.length < 2 || parts.some(Number.isNaN)) return null;
+            return new Date(parts[0], parts[1] - 1 + (endOfMonth ? 1 : 0), 1);
+        },
+        async syncServerDate() {
+            try {
+                const response = await fetch("https://worldtimeapi.org/api/ip", { cache: "no-store" });
+                if (!response.ok) throw new Error("Time API unavailable");
+                const data = await response.json();
+                const serverDate = new Date(data.datetime || data.utc_datetime);
+                if (!Number.isNaN(serverDate.getTime())) {
+                    this.currentServerDate = serverDate;
+                }
+            } catch (error) {
+                this.currentServerDate = new Date();
+            }
+        },
+        triggerEducationCelebration(program, event) {
+            if (this.degreeCelebrationTimer) clearTimeout(this.degreeCelebrationTimer);
+            if (this.degreeBurstTimer) clearTimeout(this.degreeBurstTimer);
+
+            const sparkColors = ["#00f0ff", "#ff4fd8", "#66ff99", "#eef7f8"];
+            this.degreeFireworks = Array.from({ length: 28 }, (_, index) => {
+                const angle = (Math.PI * 2 * index) / 28;
+                const distance = 70 + Math.random() * 86;
+                return {
+                    id: `${Date.now()}-${index}`,
+                    style: {
+                        "--spark-x": `${Math.cos(angle) * distance}px`,
+                        "--spark-y": `${Math.sin(angle) * distance}px`,
+                        "--spark-color": sparkColors[index % sparkColors.length],
+                        "--spark-delay": `${Math.random() * 0.14}s`,
+                    },
+                };
+            });
+
+            this.degreeCelebrationVisible = true;
+            this.activeEducationId = program.id;
+
+            this.$nextTick(() => {
+                const panel = event.currentTarget.closest(".university-panel");
+                const el = panel ? panel.querySelector(".degree-celebration-text") : null;
+                if (el) this.scrambleText("", program.celebration, el);
+            });
+
+            this.degreeBurstTimer = setTimeout(() => {
+                this.degreeFireworks = [];
+            }, 1200);
+
+            this.degreeCelebrationTimer = setTimeout(() => {
+                this.degreeCelebrationVisible = false;
+                this.activeEducationId = "";
+                const panel = event.currentTarget.closest(".university-panel");
+                const el = panel ? panel.querySelector(".degree-celebration-text") : null;
+                if (el) el.innerHTML = "";
+            }, 3600);
+        },
         openImageProject(project) {
             this.projectModalVisible = false;
 
             this.$nextTick(() => {
                 this.projectModalImages = project.file;
                 this.projectModalDesc = project.desc || "";
+                this.projectModalSections = project.sections || [];
                 this.projectModalIndex = 0;
 
                 this.projectModalVisible = true;
                 this.animationClass = "cyberpunk-in";
 
                 const el = this.$refs.projectDescText;
-                if (el) this.scrambleText("", this.projectModalDesc, el);
+                if (el && !this.projectModalSections.length) this.scrambleText("", this.projectModalDesc, el);
 
                 // Переинициализация GLightbox
                 setTimeout(() => {
@@ -116,6 +215,7 @@ new Vue({
                 }
                 if (this.projectModalVisible) {
                     this.projectModalVisible = false;
+                    this.projectModalSections = [];
                     if (this.$refs.projectDescText) this.$refs.projectDescText.innerHTML = "";
                 }
 
@@ -166,5 +266,6 @@ new Vue({
         }
         this.initScrollAnimations();
         this.initModalListeners();
+        this.syncServerDate();
     },
 });

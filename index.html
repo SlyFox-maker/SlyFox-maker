@@ -63,6 +63,45 @@
                 <section id="degrees" class="my-5">
                     <h2 ref="degree" class="h4 border-bottom border-info pb-2">{{ t('degree') }}</h2>
                     <p ref="degree_text">{{ t('degree_text') }}</p>
+                    <div class="education-tags-block">
+                        <div class="education-tags-title">{{ t('degree_tags_title') }}</div>
+                        <div class="education-tags">
+                            <span v-for="tag in currentTranslations.degree_tags" :key="'degree-tag-' + tag">{{ tag }}</span>
+                        </div>
+                    </div>
+                    <div class="university-panel" v-for="program in educationPrograms" :key="program.id" :class="{ celebrating: activeEducationId === program.id }">
+                        <div class="education-program-top">
+                            <div class="education-program-main">
+                                <span class="education-school">{{ program.school }}</span>
+                                <h3>{{ program.title }}</h3>
+                            </div>
+                            <div v-if="program.grade" class="education-grade">
+                                <span>{{ program.gradeLabel }}</span>
+                                <strong>{{ program.grade }}</strong>
+                            </div>
+                        </div>
+                        <div class="university-progress-zone" @click="triggerEducationCelebration(program, $event)" tabindex="0" @keydown.enter.prevent="triggerEducationCelebration(program, $event)" role="button" :aria-label="program.celebration">
+                            <div class="university-progress-head">
+                                <span class="university-progress-label">{{ program.label }}</span>
+                                <span class="university-progress-value">{{ program.progressText }}</span>
+                            </div>
+                            <div class="university-progress-meta">
+                                <span>{{ program.period }}</span>
+                                <span>{{ program.status }}</span>
+                            </div>
+                            <div class="university-progress-track" aria-hidden="true">
+                                <div class="university-progress-fill" :style="{ width: program.progress + '%' }"></div>
+                            </div>
+                            <div class="degree-celebration-text" :class="{ visible: activeEducationId === program.id && degreeCelebrationVisible }"></div>
+                        </div>
+                        <button v-if="program.document" class="degree-proof-btn" type="button" @click.stop="openImage(program.document)">
+                            <span><i class="fas fa-scroll"></i></span>
+                            {{ program.document.name }}
+                        </button>
+                        <div v-if="activeEducationId === program.id" class="degree-fireworks" aria-hidden="true">
+                            <span v-for="spark in degreeFireworks" :key="spark.id" class="degree-spark" :style="spark.style"></span>
+                        </div>
+                    </div>
                 </section>
 
                 <section id="certificates" class="my-5">
@@ -107,7 +146,13 @@
                                 </div>
                             </div>
 
-                            <div class="modal-desc" ref="projectDescText">{{ projectModalDesc }}</div>
+                            <div class="modal-desc project-case-study" v-if="projectModalSections.length">
+                                <section v-for="section in projectModalSections" :key="section.title" class="project-case-section">
+                                    <h4>{{ section.title }}</h4>
+                                    <p>{{ section.text }}</p>
+                                </section>
+                            </div>
+                            <div class="modal-desc" v-else ref="projectDescText">{{ projectModalDesc }}</div>
                         </div>
                     </div>
                 </div>

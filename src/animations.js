@@ -16,6 +16,46 @@ window.portfolioAnimations = {
             const colorClasses = ["scramble-cyan", "scramble-aqua", "scramble-magenta", "scramble-pink", "scramble-green", "scramble-hot-pink", "scramble-aqua"];
             return colorClasses[Math.floor(Math.random() * colorClasses.length)];
         },
+        lockTextHeight(element, newText) {
+            const currentHeight = element.getBoundingClientRect().height;
+            const clone = element.cloneNode(false);
+
+            clone.style.position = "absolute";
+            clone.style.left = "-9999px";
+            clone.style.top = "0";
+            clone.style.visibility = "hidden";
+            clone.style.pointerEvents = "none";
+            clone.style.width = `${element.getBoundingClientRect().width}px`;
+            clone.textContent = newText;
+
+            element.parentNode.appendChild(clone);
+            const nextHeight = clone.getBoundingClientRect().height;
+            clone.remove();
+
+            element.style.minHeight = `${Math.ceil(Math.max(currentHeight, nextHeight))}px`;
+        },
+        lockListHeight(ulElement, items) {
+            const currentHeight = ulElement.getBoundingClientRect().height;
+            const clone = ulElement.cloneNode(false);
+
+            clone.style.position = "absolute";
+            clone.style.left = "-9999px";
+            clone.style.top = "0";
+            clone.style.visibility = "hidden";
+            clone.style.pointerEvents = "none";
+            clone.style.width = `${ulElement.getBoundingClientRect().width}px`;
+            items.forEach((item) => {
+                const li = document.createElement("li");
+                li.textContent = item;
+                clone.appendChild(li);
+            });
+
+            ulElement.parentNode.appendChild(clone);
+            const nextHeight = clone.getBoundingClientRect().height;
+            clone.remove();
+
+            ulElement.style.minHeight = `${Math.ceil(Math.max(currentHeight, nextHeight))}px`;
+        },
         scrambleText(oldText, newText, element, callback) {
             const chars = "!<>-_\\/[]{}—=+*^?#________";
             let frame = 0;
@@ -23,11 +63,14 @@ window.portfolioAnimations = {
             const charsPerFrame = 3;
 
             this.clearAnimationForElement(element);
+            this.lockTextHeight(element, newText);
 
             const animate = () => {
                 let output = "";
                 for (let i = 0; i < length; i++) {
-                    if (i < frame) {
+                    if (/\s/.test(newText[i])) {
+                        output += newText[i];
+                    } else if (i < frame) {
                         output += `<span class="${this.getRandomColorClass()}">${newText[i]}</span>`;
                     } else {
                         output += chars[Math.floor(Math.random() * chars.length)];
@@ -73,22 +116,19 @@ window.portfolioAnimations = {
             if (prev) prev.stop = true;
             this.listAnimations.set(ulElement, { stop: false });
 
+            this.lockListHeight(ulElement, items);
             const state = this.listAnimations.get(ulElement);
             ulElement.innerHTML = "";
-            let index = 0;
-
-            const addNext = () => {
-                if (state.stop) return; // остановка цепочки
-                if (index >= items.length) return;
-
+            const listItems = items.map(() => {
                 const li = document.createElement("li");
                 ulElement.appendChild(li);
-                this.scrambleText("", items[index], li, () => {
-                    index++;
-                    addNext();
-                });
-            };
-            addNext();
+                return li;
+            });
+
+            listItems.forEach((li, index) => {
+                if (state.stop) return;
+                this.scrambleText("", items[index], li);
+            });
         },
 
         initScrollAnimations() {

@@ -27,7 +27,7 @@ window.portfolioContent = {
     ],
     translations: {
         en: {
-            title: "Versatile Fullstack & DevOps Engineer",
+            title: "Full Stack Engineer | Django, Node.js, Vue.js | DevOps, Linux, Docker | C++, C#, Python, JavaScript",
             intro: "Hi! I'm Egor Pavlov — a full-cycle developer working across web, desktop, and infrastructure layers. I design and build end-to-end software solutions with a focus on architecture, efficiency, and visual polish. Whether it's a complex integration, backend logic, or automation pipeline — I bring the code to life with engineering mindset and creative precision.",
             skills: "Key Skills",
             skills_list: ["Fullstack development (frontend + backend)", "Languages: C++, C#, Python, Java, JavaScript, PHP", "Frameworks & libraries: Django, Vue.js, Node.js, Qt, .NET", "Desktop apps: Qt, WinForms, JavaFX, .NET", "DevOps: Linux, Git, Docker, CI/CD, automation", "CRM/API integrations (Bitrix24, amoCRM, custom webhooks)", "Databases: PostgreSQL, MySQL, SQLite, MongoDB", "Working with REST APIs, JSON, XML, WebSocket"],
@@ -41,6 +41,20 @@ window.portfolioContent = {
                     stack: ["Django", "Docker", "Bitrix24", "PHP", "WebSocket"],
                     file: ["./projects/24reson/1.png", "./projects/24reson/2.png", "./projects/24reson/3.png"],
                     desc: "Commercial project for a company combining online meeting room and tariff booking with integration into the access control system (SCUD) and Bitrix24 CRM. I implemented the backend in Django using Docker, ensuring convenient deployment and environment management. The system includes user registration, personal dashboard, booking calendar, and data synchronization with Bitrix24. Configured automatic creation of client, deal, and product cards in the CRM, as well as access management to premises via SCUD. Developed a SCUD server in pure PHP with command exchange via WebSocket and logging of all access events. The system supports bidirectional synchronization, payment processing, and dynamic management of branches, tariffs, and rooms. Led a team of 3 people, handling most of the backend and frontend work.",
+                    sections: [
+                        {
+                            title: "What it is",
+                            text: "A commercial system for booking meeting rooms and managing tariffs, payments, CRM records, and physical access to rooms. The idea was to make the online booking flow, Bitrix24 CRM, and the SCUD access-control layer work together instead of being handled as separate processes.",
+                        },
+                        {
+                            title: "What I did",
+                            text: "I built most of the product end-to-end: Django backend, frontend flows, Docker deployment, authentication, personal dashboards, booking calendar, and management tools for branches, tariffs, and rooms. I set up real-time synchronization with Bitrix24 and automated the creation of clients, deals, products, and booking-related CRM data. I also connected payments and user roles to access permissions, then built a separate SCUD service in pure PHP with WebSocket command exchange and real-time logs for door/access events.",
+                        },
+                        {
+                            title: "Impact",
+                            text: "The system removed a lot of manual coordination between bookings, CRM, payments, and room access. Staff can manage branches, tariffs, rooms, users, access events, and CRM data from one place, while the platform keeps the booking system, Bitrix24, payment logic, and access-control service synchronized.",
+                        },
+                    ],
                 },
                 {
                     name: "PWA Application for Client Notifications and Legal Support",
@@ -49,6 +63,20 @@ window.portfolioContent = {
                     stack: ["Flask", "Docker", "Vue", "Bitrix24", "Telegram API"],
                     file: ["./projects/pwa_site/1.png"],
                     desc: "Commercial Progressive Web App project for client interaction with the company’s legal department. Developed an API server in Flask (Python) using Docker as the central component to integrate the app with Bitrix24 CRM and a Telegram bot. Clients can view debts, receive notifications, pay for services, and contact lawyers directly through their personal dashboard. Each client has an individual case with status tracking. Frontend was developed in Vue.js (Vite); I personally handled backend integration and business logic. Worked in a team of 3 people, responsible for the entire server side, Docker setup, and backend integration with the layout made by other developers.",
+                    sections: [
+                        {
+                            title: "What it is",
+                            text: "A commercial PWA for communication between clients and a legal services department. Clients use a personal dashboard to follow their legal case, see payment-related information, receive updates, and contact lawyers directly.",
+                        },
+                        {
+                            title: "What I did",
+                            text: "I designed and implemented the Flask backend: REST API structure, business logic, service-to-service data flow, Bitrix24 CRM integration, and a Telegram notification bot. I containerized the backend with Docker and connected it to a Vue.js (Vite) frontend built by the team. My part included wiring screens to API endpoints, case status logic, payment data, notifications, and client communication flows. I worked in a 3-person team and owned the backend architecture, API design, Docker setup, and deployment pipeline.",
+                        },
+                        {
+                            title: "Impact",
+                            text: "Clients got a clearer way to track their case, receive updates, manage payments, and communicate with the legal team. For internal staff, the project reduced manual status updates and made CRM synchronization, notifications, and case tracking part of one workflow.",
+                        },
+                    ],
                 },
                 {
                     name: "Story-driven Minecraft Mod with Unique Gameplay Mechanics",
@@ -57,6 +85,20 @@ window.portfolioContent = {
                     stack: ["Java", "Spigot", "Game Logic", "Events"],
                     file: ["./projects/strangers_in_rosaville/1.png", "./projects/strangers_in_rosaville/2.png", "./projects/strangers_in_rosaville/3.png", "./projects/strangers_in_rosaville/4.png"],
                     desc: "Java Spigot project for Minecraft servers turning the game into a full-fledged adventure with story, secrets, and dynamic events. Developed a background music system that changes depending on location and map triggers. Created friendly NPCs that can talk, follow the player, and assist in progression, as well as enemy NPCs with unique personalities and possible plot twists (an enemy can become an ally). Implemented boss fights, multiple endings, and interactive mechanics, including custom tools and skins. Worked in a team of 2: I handled all programming and coding, while another developer worked on skins, design, and story. I also contributed to content and story creation. The project showcases skills in complex game system development, event management, and integration of various mechanics.",
+                    sections: [
+                        {
+                            title: "What it is",
+                            text: "A Java Spigot pet project for a Minecraft server. We wanted to make the server feel more like a small adventure: with story moments, secrets, dynamic events, progression, and custom interactions.",
+                        },
+                        {
+                            title: "What I built",
+                            text: "I handled the code and gameplay logic in a 2-person team. I made adaptive music that changes by location and triggers, friendly NPCs with dialogue and companion behavior, enemies with their own personality and possible relationship changes, boss fights, multiple endings, custom tools, skins, and scripted world interactions. I also helped with content and story ideas while my teammate focused more on skins, design, and narrative material.",
+                        },
+                        {
+                            title: "What it shows",
+                            text: "It was a fun project, but it had real technical depth. I practiced event-driven gameplay, NPC logic, trigger systems, branching outcomes, and interactive mechanics in Java while turning a regular server into something closer to a small story-driven game.",
+                        },
+                    ],
                 },
                 {
                     name: "Personal Cloud Storage (Google Drive Alternative)",
@@ -65,11 +107,30 @@ window.portfolioContent = {
                     stack: ["Django", "Docker", "Bootstrap", "jQuery"],
                     file: ["./projects/fileExchange/1.png", "./projects/fileExchange/2.png", "./projects/fileExchange/3.png"],
                     desc: "Personal project in Django with Docker, Bootstrap, and jQuery functioning as personal cloud storage with features similar to Google Drive. Implemented allocated storage control for users, display of remaining space in a clear interface, and file management capabilities: move, copy, rename, delete, and view details. Includes an admin system for managing users and storage. The project demonstrates skills in complex web application development, server-side logic handling, frontend-backend integration, and managing large amounts of data. Fully developed by me, including Docker setup and both frontend and backend development.",
+                    sections: [
+                        {
+                            title: "What it is",
+                            text: "A personal cloud storage pet project, close in idea to a small Google Drive-style system. I built it to practice user storage limits, file workflows, and admin-side management.",
+                        },
+                        {
+                            title: "What I built",
+                            text: "I built the full application myself with Django, Docker, Bootstrap, and jQuery. It includes user storage quotas, remaining-space display, admin tools for users and storage, and file operations such as move, copy, rename, delete, and viewing file details. I handled both backend and frontend, including server-side logic, UI integration, and Docker setup.",
+                        },
+                        {
+                            title: "What it shows",
+                            text: "It shows practical full-stack work: user management, storage quotas, file flows, admin features, frontend-backend integration, and working with file-oriented data beyond a simple static website.",
+                        },
+                    ],
                 },
             ],
 
             certs: "Certificates",
             certs_list: [
+                {
+                    name: "UVM EGEL Final Exam Certificate",
+                    file: "./cert/uvm/Egel.png",
+                    desc: "Confirms completion of the EGEL final exam at Universidad del Valle de México (UVM), serving as the current supporting document for my completed university studies.",
+                },
                 {
                     name: "Web & Mobile Application Developer Diploma",
                     file: "./cert/Carlos/diplomeDev.png",
@@ -149,11 +210,45 @@ window.portfolioContent = {
             ],
 
             degree: "Degree",
-            degree_text: "Final semester at university - almost graduated!\n\nI study at Universidad del Valle de México (UVM), in the program Executive Bachelor’s Degree in Software and Network Engineering.\nI began my studies in May 2023.\n\nDuring the program I completed courses in OOP, algorithms, cybersecurity, networking, computer architecture, and databases.\nI learned programming languages such as C++, C, Java, Python, and SQL.\nI specialized in software development, networking technologies (CCNA I–IV), information security, mobile programming, web services, and data visualization.\nI mastered methodologies like Agile, Scrum, and DevOps, project management, and working with modern IT platforms.\nI also gained experience with certifications from Coursera and Cisco.",
+            degree_text: "I earned a Bachelor’s Degree in Software and Network Engineering from Universidad del Valle de México (UVM), where I received both theoretical and hands-on training in modern software development, systems engineering, and IT infrastructure.\n\nDuring my studies, I combined academic training with freelance and professional industry experience, which allowed me to apply technical knowledge in real-world environments and develop a practical, well-rounded engineering skill set.\n\nCurrently pursuing a Master’s degree in Engineering with a specialization in Artificial Intelligence at UVM. The program focuses on machine learning, intelligent systems, data-driven solutions, and modern software engineering practices. I am developing advanced technical skills and applying AI methods to real-world problems.",
+            degree_tags_title: "Key areas of study",
+            degree_tags: ["C", "C++", "C#", "Java", "Python", "SQL", "Relational databases", "Android", "Mobile development", "Network infrastructure", "Operating systems", "Automation", "Computer architecture", "Software engineering", "System analysis", "Modeling", "Cybersecurity", "Data communication protocols"],
+            education_programs: [
+                {
+                    id: "uvm-bachelor",
+                    label: "UVM Bachelor’s Degree",
+                    school: "Universidad del Valle de México",
+                    title: "Bachelor’s Degree, Ingeniero en Diseño de Redes y Software",
+                    period: "May 2023 - May 2026",
+                    status: "Completed",
+                    gradeLabel: "Grade",
+                    grade: "9.71",
+                    start: "2023-05",
+                    end: "2026-05",
+                    celebration: "University completed. Software and Network Engineering unlocked.",
+                    document: {
+                        name: "EGEL final exam certificate",
+                        file: "./cert/uvm/Egel.png",
+                        desc: "Confirms completion of the EGEL final exam at Universidad del Valle de México (UVM), serving as the current supporting document for my completed university studies.",
+                    },
+                },
+                {
+                    id: "masters-current",
+                    label: "UVM Master’s Degree",
+                    school: "Universidad del Valle de México",
+                    title: "Master’s Degree in Engineering with a Specialization in Artificial Intelligence",
+                    period: "Jun 2026 - Jul 2028",
+                    status: "In progress",
+                    start: "2026-06",
+                    end: "2028-07",
+                    celebration: "Master’s degree in Artificial Intelligence in progress. Next academic chapter is online.",
+                    document: null,
+                },
+            ],
         },
 
         es: {
-            title: "Ingeniero Fullstack y DevOps versátil",
+            title: "Ingeniero Full Stack | Django, Node.js, Vue.js | DevOps, Linux, Docker | C++, C#, Python, JavaScript",
             intro: "¡Hola! Soy Egor Pavlov — un desarrollador de ciclo completo que trabaja en todos los niveles: web, escritorio e infraestructura. Diseño y creo soluciones tecnológicas completas, con enfoque en arquitectura, eficiencia y una presentación cuidada. Ya sea una integración compleja, lógica backend o automatización — transformo ideas en software funcional y sólido.",
             skills: "Habilidades Clave",
             skills_list: ["Desarrollo fullstack (frontend + backend)", "Lenguajes: C++, C#, Python, Java, JavaScript, PHP", "Frameworks y librerías: Django, Vue.js, Node.js, Qt, .NET", "Aplicaciones de escritorio: Qt, WinForms, JavaFX, .NET", "DevOps: Linux, Git, Docker, CI/CD, automatización", "Integraciones CRM/API (Bitrix24, amoCRM, webhooks personalizados)", "Bases de datos: PostgreSQL, MySQL, SQLite, MongoDB", "Trabajo con REST APIs, JSON, XML, WebSocket"],
@@ -166,6 +261,20 @@ window.portfolioContent = {
                     stack: ["Django", "Docker", "Bitrix24", "PHP", "WebSocket"],
                     file: ["./projects/24reson/1.png", "./projects/24reson/2.png", "./projects/24reson/3.png"],
                     desc: "Proyecto comercial para una empresa que combina la reserva en línea de salas de reuniones y tarifas con integración en el sistema de control de acceso (SCUD) y CRM Bitrix24. Desarrollé el backend en Django utilizando Docker, garantizando un despliegue conveniente y gestión del entorno. El sistema incluye registro de usuarios, panel personal, calendario de reservas y sincronización de datos con Bitrix24. Configuré la creación automática de tarjetas de clientes, negocios y productos en el CRM, así como la gestión de acceso a las instalaciones a través del SCUD. Desarrollé un servidor SCUD en PHP puro con intercambio de comandos vía WebSocket y registro de todos los eventos de acceso. El sistema soporta sincronización bidireccional, procesamiento de pagos y gestión dinámica de sucursales, tarifas y salas. Dirigí un equipo de 3 personas, realizando la mayor parte del backend y frontend.",
+                    sections: [
+                        {
+                            title: "Qué es",
+                            text: "Un sistema comercial para reservar salas, gestionar tarifas, pagos, registros CRM y acceso físico a las salas. La idea fue hacer que el flujo de reservas, Bitrix24 CRM y la capa de control de acceso SCUD trabajaran juntos en lugar de mantenerse como procesos separados.",
+                        },
+                        {
+                            title: "Qué hice",
+                            text: "Desarrollé la mayor parte del producto de extremo a extremo: backend en Django, flujos frontend, despliegue con Docker, autenticación, paneles personales, calendario de reservas y herramientas para gestionar sucursales, tarifas y salas. Configuré sincronización en tiempo real con Bitrix24 y automaticé la creación de clientes, negocios, productos y datos relacionados con reservas. También conecté pagos y roles de usuario con permisos de acceso físico, y desarrollé un servicio SCUD en PHP puro con comandos por WebSocket y registros de eventos de acceso en tiempo real.",
+                        },
+                        {
+                            title: "Impacto",
+                            text: "El sistema redujo mucha coordinación manual entre reservas, CRM, pagos y acceso a salas. El equipo puede gestionar sucursales, tarifas, salas, usuarios, eventos de acceso y datos CRM desde un solo lugar, mientras la plataforma mantiene sincronizados el sistema de reservas, Bitrix24, pagos y control de acceso.",
+                        },
+                    ],
                 },
                 {
                     name: "Aplicación PWA para notificaciones a clientes y soporte legal",
@@ -174,6 +283,20 @@ window.portfolioContent = {
                     stack: ["Flask", "Docker", "Vue", "Bitrix24", "Telegram API"],
                     file: ["./projects/pwa_site/1.png"],
                     desc: "Proyecto comercial en formato Progressive Web App para la interacción de clientes con el departamento legal de la empresa. Desarrollé un servidor API en Flask (Python) utilizando Docker como pieza central para integrar la aplicación con el CRM Bitrix24 y un bot de Telegram. Los clientes, a través de su panel personal, pueden consultar deudas, recibir notificaciones, pagar servicios y comunicarse directamente con los abogados. Para cada cliente se lleva un caso individual con seguimiento de estado. El frontend fue desarrollado en Vue.js (Vite); me encargué personalmente de la integración con el backend y la lógica de negocio. Trabajé en un equipo de 3 personas, siendo responsable de toda la parte del servidor, configuración de Docker y conexión del backend con el maquetado hecho por otros desarrolladores.",
+                    sections: [
+                        {
+                            title: "Qué es",
+                            text: "Una PWA comercial para la comunicación entre clientes y un departamento de servicios legales. Los clientes usan un panel personal para seguir su caso, ver información relacionada con pagos, recibir actualizaciones y contactar directamente con abogados.",
+                        },
+                        {
+                            title: "Qué hice",
+                            text: "Diseñé e implementé el backend en Flask: estructura REST API, lógica de negocio, intercambio de datos entre servicios, integración con Bitrix24 CRM y un bot de Telegram para notificaciones. Empaqueté el backend con Docker y lo conecté con un frontend Vue.js (Vite) desarrollado por el equipo. Mi parte incluyó conectar pantallas con endpoints, estados de casos, datos de pagos, notificaciones y flujos de comunicación con clientes. Trabajé en un equipo de 3 personas y fui responsable de la arquitectura backend, diseño de API, configuración Docker y pipeline de despliegue.",
+                        },
+                        {
+                            title: "Impacto",
+                            text: "Los clientes obtuvieron una forma más clara de seguir su caso, recibir actualizaciones, gestionar pagos y comunicarse con el equipo legal. Para el equipo interno, el proyecto redujo actualizaciones manuales y juntó CRM, notificaciones y seguimiento de casos en un mismo flujo de trabajo.",
+                        },
+                    ],
                 },
                 {
                     name: "Mod de Minecraft con historia y mecánica de juego única",
@@ -182,6 +305,20 @@ window.portfolioContent = {
                     stack: ["Java", "Spigot", "Game Logic", "Events"],
                     file: ["./projects/strangers_in_rosaville/1.png", "./projects/strangers_in_rosaville/2.png", "./projects/strangers_in_rosaville/3.png", "./projects/strangers_in_rosaville/4.png"],
                     desc: "Proyecto en Java Spigot para servidores de Minecraft que convierte el juego en una aventura completa con historia, secretos y eventos dinámicos. Desarrollé un sistema de música de fondo que cambia según la ubicación y los activadores en el mapa. Se crearon NPC amistosos que pueden dialogar, seguir al jugador y ayudar en la aventura, así como NPC enemigos con personalidad única y posibles giros de trama (el enemigo puede convertirse en aliado). Implementé batallas contra jefes, varios finales y mecánicas interactivas, incluyendo herramientas y skins personalizados. El trabajo se realizó en un equipo de 2 personas: me encargué completamente de la programación y código, mientras que otro desarrollador trabajó en skins, diseño e historia. También participé en la creación de contenido y guion. El proyecto demuestra habilidades en desarrollo de sistemas de juego complejos, gestión de eventos e integración de diversas mecánicas.",
+                    sections: [
+                        {
+                            title: "Qué es",
+                            text: "Un pet project en Java Spigot para un servidor de Minecraft. Queríamos que el servidor se sintiera más como una pequeña aventura: con historia, secretos, eventos dinámicos, progresión e interacciones personalizadas.",
+                        },
+                        {
+                            title: "Qué construí",
+                            text: "Me encargué del código y de la lógica gameplay en un equipo de 2 personas. Hice música adaptativa por ubicación y triggers, NPC amistosos con diálogo y comportamiento de acompañante, enemigos con personalidad y posibles cambios de relación, jefes, varios finales, herramientas, skins e interacciones del mundo por eventos. También aporté ideas de contenido e historia, mientras mi compañero se enfocó más en skins, diseño y material narrativo.",
+                        },
+                        {
+                            title: "Qué demuestra",
+                            text: "Fue un proyecto divertido, pero con bastante parte técnica. Practiqué gameplay por eventos, lógica de NPC, sistemas de triggers, resultados ramificados y mecánicas interactivas en Java mientras convertíamos un servidor normal en algo más cercano a una pequeña aventura narrativa.",
+                        },
+                    ],
                 },
                 {
                     name: "Almacenamiento en la nube personal (similar a Google Drive)",
@@ -190,10 +327,29 @@ window.portfolioContent = {
                     stack: ["Django", "Docker", "Bootstrap", "jQuery"],
                     file: ["./projects/fileExchange/1.png", "./projects/fileExchange/2.png", "./projects/fileExchange/3.png"],
                     desc: "Proyecto personal en Django con Docker, Bootstrap y jQuery que funciona como almacenamiento en la nube personal con funcionalidades similares a Google Drive. Implementé control de espacio asignado para usuarios, visualización del espacio restante en una interfaz clara, así como gestión de archivos: mover, copiar, renombrar, eliminar y ver información. Incluye sistema de administración para gestión de usuarios y almacenamiento. El proyecto demuestra habilidades en desarrollo de aplicaciones web complejas, trabajo con lógica de servidor, integración del frontend con el backend y manejo de grandes volúmenes de datos. Fue desarrollado completamente por mí, incluyendo configuración de Docker y desarrollo frontend y backend.",
+                    sections: [
+                        {
+                            title: "Qué es",
+                            text: "Un pet project de almacenamiento en la nube personal, parecido en idea a un pequeño Google Drive. Lo hice para practicar límites de almacenamiento por usuario, flujos de archivos y administración.",
+                        },
+                        {
+                            title: "Qué construí",
+                            text: "Construí toda la aplicación con Django, Docker, Bootstrap y jQuery. Incluye cuotas de almacenamiento por usuario, visualización del espacio restante, herramientas de administración para usuarios y almacenamiento, y operaciones de archivos como mover, copiar, renombrar, eliminar y ver detalles. Me encargué tanto del backend como del frontend, incluyendo lógica del servidor, integración UI y configuración Docker.",
+                        },
+                        {
+                            title: "Qué demuestra",
+                            text: "Muestra trabajo fullstack práctico: gestión de usuarios, cuotas, flujos de archivos, administración, integración frontend-backend y manejo de datos orientados a archivos, más allá de una página estática simple.",
+                        },
+                    ],
                 },
             ],
             certs: "Certificados",
             certs_list: [
+                {
+                    name: "Certificado EGEL de examen final UVM",
+                    file: "./cert/uvm/Egel.png",
+                    desc: "Confirma la realización del examen final EGEL en la Universidad del Valle de México (UVM) y funciona como documento de respaldo actual para mis estudios universitarios completados.",
+                },
                 {
                     name: "Diploma de Desarrollador de Sitios Web y Aplicaciones Móviles",
                     file: "./cert/Carlos/diplomeDev.png",
@@ -272,11 +428,45 @@ window.portfolioContent = {
             ],
 
             degree: "Título universitario",
-            degree_text: "Último semestre universitario - ¡casi graduado!\n\nEstudio en la Universidad del Valle de México (UVM), en el programa Licenciatura Ejecutiva en Ingeniería en Diseño de Software y Redes.\nInicié mis estudios en mayo de 2023.\n\nDurante la carrera cursé asignaturas de POO, algoritmos, ciberseguridad, redes, arquitectura de computadoras y bases de datos.\nAprendí lenguajes como C++, C, Java, Python y SQL.\nMe especialicé en desarrollo de software, tecnologías de redes (CCNA I–IV), seguridad informática, programación móvil, servicios web y visualización de datos.\nDomino metodologías Agile, Scrum y DevOps, gestión de proyectos y el uso de plataformas tecnológicas modernas.\nTambién adquirí experiencia con certificaciones de Coursera y Cisco.",
+            degree_text: "Obtuve una Licenciatura en Ingeniería en Software y Redes en la Universidad del Valle de México (UVM), donde recibí formación teórica y práctica en desarrollo de software moderno, ingeniería de sistemas e infraestructura de TI.\n\nDurante mis estudios combiné la formación académica con experiencia freelance y profesional en la industria, lo que me permitió aplicar conocimientos técnicos en entornos reales y desarrollar un perfil de ingeniería práctico y completo.\n\nActualmente curso una Maestría en Ingeniería con especialización en Inteligencia Artificial en UVM. El programa se enfoca en machine learning, sistemas inteligentes, soluciones basadas en datos y prácticas modernas de ingeniería de software. Estoy desarrollando habilidades técnicas avanzadas y aplicando métodos de IA a problemas reales.",
+            degree_tags_title: "Áreas clave de estudio",
+            degree_tags: ["C", "C++", "C#", "Java", "Python", "SQL", "Bases de datos relacionales", "Android", "Desarrollo móvil", "Infraestructura de redes", "Sistemas operativos", "Automatización", "Arquitectura de computadoras", "Ingeniería de software", "Análisis de sistemas", "Modelado", "Ciberseguridad", "Protocolos de comunicación de datos"],
+            education_programs: [
+                {
+                    id: "uvm-bachelor",
+                    label: "Licenciatura UVM",
+                    school: "Universidad del Valle de México",
+                    title: "Licenciatura, Ingeniería en Diseño de Redes y Software",
+                    period: "Mayo 2023 - mayo 2026",
+                    status: "Completada",
+                    gradeLabel: "Promedio",
+                    grade: "9.71",
+                    start: "2023-05",
+                    end: "2026-05",
+                    celebration: "Universidad completada. Ingeniería en Diseño de Software y Redes desbloqueada.",
+                    document: {
+                        name: "Certificado del examen final EGEL",
+                        file: "./cert/uvm/Egel.png",
+                        desc: "Confirma la realización del examen final EGEL en la Universidad del Valle de México (UVM) y funciona como documento de respaldo actual para mis estudios universitarios completados.",
+                    },
+                },
+                {
+                    id: "masters-current",
+                    label: "Maestría UVM",
+                    school: "Universidad del Valle de México",
+                    title: "Maestría en Ingeniería con especialización en Inteligencia Artificial",
+                    period: "Junio 2026 - julio 2028",
+                    status: "En curso",
+                    start: "2026-06",
+                    end: "2028-07",
+                    celebration: "Maestría en Inteligencia Artificial en curso. El siguiente capítulo académico está activo.",
+                    document: null,
+                },
+            ],
         },
 
         ru: {
-            title: "Фуллстек разработчик, DevOps-инженер и разработчик десктоп-приложений",
+            title: "Full Stack инженер | Django, Node.js, Vue.js | DevOps, Linux, Docker | C++, C#, Python, JavaScript",
             intro: "Я — Егор Павлов, инженер полного цикла. Мой стек охватывает всё: от фронтенда до серверной логики, от десктопа до DevOps-инфраструктуры. Я разрабатываю не просто интерфейсы или бэкенд — я создаю законченные технологические продукты. Умею решать сложные задачи, интегрировать системы, оптимизировать процессы и доводить всё до блеска. В моём арсенале — опыт, страсть к разработке и внимание к деталям.",
             skills: "Ключевые навыки",
             skills_list: ["Фуллстек-разработка (frontend + backend)", "Языки: C++, C#, Python, Java, JavaScript, PHP", "Фреймворки и библиотеки: Django, Vue.js, Node.js, Qt, .NET", "Десктоп-приложения (Qt, WinForms, JavaFX, .NET)", "DevOps: Linux, Git, Docker, CI/CD, автоматизация процессов", "Интеграции с CRM (Bitrix24, amoCRM), API, вебхуки", "Базы данных: PostgreSQL, MySQL, SQLite, MongoDB", "Работа с REST API, JSON, XML, WebSocket"],
@@ -289,6 +479,20 @@ window.portfolioContent = {
                     stack: ["Django", "Docker", "Битрикс24", "PHP", "WebSocket"],
                     file: ["./projects/24reson/1.png", "./projects/24reson/2.png", "./projects/24reson/3.png"],
                     desc: "Коммерческий проект для компании, совмещающий онлайн-бронирование переговорных комнат и тарифов с интеграцией в систему контроля доступа (СКУД) и CRM Битрикс24. Реализовал backend на Django с использованием Docker, обеспечив удобный деплой и управление окружением. Система включает регистрацию пользователей, личный кабинет, календарь бронирований и синхронизацию данных с Битрикс24. Настроил автоматическое создание карточек клиентов, сделок и товаров в CRM, а также управление доступом к помещениям через СКУД. Разработал сервер СКУД на чистом PHP с обменом командами по WebSocket и логированием всех событий доступа. Система поддерживает двустороннюю синхронизацию, обработку платежей и динамическое управление филиалами, тарифами и комнатами. Руководил командой из 3 человек, выполняя основную часть backend и frontend-разработки.",
+                    sections: [
+                        {
+                            title: "Что это",
+                            text: "Коммерческая система для бронирования переговорных комнат, управления тарифами, оплатами, CRM-данными и физическим доступом в помещения. Задача была в том, чтобы онлайн-бронирование, Битрикс24 и СКУД работали вместе, а не как несколько отдельных процессов.",
+                        },
+                        {
+                            title: "Что я сделал",
+                            text: "Я разработал большую часть продукта end-to-end: backend на Django, frontend-сценарии, Docker-деплой, авторизацию, личные кабинеты, календарь бронирований и инструменты для управления филиалами, тарифами и комнатами. Настроил синхронизацию с Битрикс24 и автоматическое создание клиентов, сделок, товаров и данных, связанных с бронированиями. Также связал оплаты и роли пользователей с правами физического доступа, а отдельно написал сервис СКУД на чистом PHP с командами через WebSocket и логами событий доступа в реальном времени.",
+                        },
+                        {
+                            title: "Эффект",
+                            text: "Система убрала много ручной координации между бронированиями, CRM, оплатами и доступом в комнаты. Теперь филиалы, тарифы, комнаты, пользователи, события прохода и CRM-данные можно вести из одного рабочего процесса, а платформа сама держит синхронизацию между бронированием, Битрикс24, оплатами и сервисом доступа.",
+                        },
+                    ],
                 },
                 {
                     name: "PWA-приложение для уведомлений клиентов и юридической поддержки",
@@ -297,6 +501,20 @@ window.portfolioContent = {
                     stack: ["Flask", "Docker", "Vue", "Битрикс24", "Telegram API"],
                     file: ["./projects/pwa_site/1.png"],
                     desc: "Коммерческий проект в формате Progressive Web App для взаимодействия клиентов с юридическим отделом компании. Реализовал API-сервер на Flask (Python) с использованием Docker как центральное звено для интеграции приложения с CRM Битрикс24 и Telegram-ботом. Клиенты через личный кабинет могут просматривать свои задолженности, получать уведомления, оплачивать услуги и связываться с юристами напрямую. Для каждого клиента в системе ведётся индивидуальный кейс с отслеживанием статуса. Frontend разработан на Vue.js (Vite), интеграцию с backend и бизнес-логику выполнил лично. Работал в команде из 3 человек, отвечая за всю серверную часть, Docker-настройку и стыковку backend с версткой, выполненной другими разработчиками.",
+                    sections: [
+                        {
+                            title: "Что это",
+                            text: "Коммерческое PWA-приложение для связи клиентов с юридическим отделом. Через личный кабинет клиент может следить за своим делом, видеть информацию по оплатам, получать уведомления и напрямую связываться с юристами.",
+                        },
+                        {
+                            title: "Что я сделал",
+                            text: "Я спроектировал и реализовал backend на Flask: REST API, бизнес-логику, обмен данными между сервисами, интеграцию с CRM Битрикс24 и Telegram-ботом для уведомлений. Упаковал backend в Docker и подключил его к frontend на Vue.js (Vite), который делала команда. На моей стороне были API для экранов, статусы кейсов, данные по оплатам, уведомления и сценарии коммуникации с клиентами. Работал в команде из 3 человек и отвечал за backend-архитектуру, API-дизайн, Docker-настройку и деплой.",
+                        },
+                        {
+                            title: "Эффект",
+                            text: "Клиентам стало проще понимать, что происходит с их делом: статус, обновления, оплаты и связь с юристами находятся в одном кабинете. Для внутренней команды это уменьшило ручные обновления и объединило CRM, уведомления и отслеживание кейсов в один рабочий процесс.",
+                        },
+                    ],
                 },
                 {
                     name: "Сюжетный Minecraft-мод с уникальной игровой механикой",
@@ -305,6 +523,20 @@ window.portfolioContent = {
                     stack: ["Java", "Spigot", "Game Logic", "Events"],
                     file: ["./projects/strangers_in_rosaville/1.png", "./projects/strangers_in_rosaville/2.png", "./projects/strangers_in_rosaville/3.png", "./projects/strangers_in_rosaville/4.png"],
                     desc: "Проект на Java Spigot для серверов Minecraft, превращающий игру в полноценное приключение с сюжетом, секретами и динамическими событиями. Разработал систему фоновой музыки, которая меняется в зависимости от локации и триггеров на карте. Созданы дружественные NPC, которые могут вести диалог, следовать за игроком и помогать в прохождении, а также вражеские NPC с уникальной личностью и возможностью сюжетных поворотов (враг может стать союзником). Реализованы босс-файты, несколько концовок и интерактивные механики, включая кастомные инструменты и скины. Работа велась командой из 2 человек: я полностью отвечал за программирование и код, другой разработчик занимался скинами, дизайном и историей, при этом я также участвовал в создании контента и сюжета. Проект демонстрирует навыки разработки сложных игровых систем, управление событиями и интеграцию различных игровых механик.",
+                    sections: [
+                        {
+                            title: "Что это",
+                            text: "Пет-проект на Java Spigot для Minecraft-сервера. Мы хотели сделать сервер похожим на небольшое приключение: с сюжетом, секретами, динамическими событиями, прогрессией и кастомными взаимодействиями.",
+                        },
+                        {
+                            title: "Что я собрал",
+                            text: "В команде из 2 человек я отвечал за код и gameplay-логику. Сделал адаптивную музыку по локациям и триггерам, дружественных NPC с диалогами и поведением спутников, врагов с характером и возможными изменениями отношений, босс-файты, несколько концовок, кастомные инструменты, скины и события в мире. Ещё участвовал в идеях для контента и сюжета, пока второй участник больше занимался скинами, дизайном и историей.",
+                        },
+                        {
+                            title: "Что показывает",
+                            text: "Проект был весёлый, но технически не пустой. Я получил практику с event-driven gameplay, логикой NPC, trigger-системами, ветвящимися исходами и интерактивными механиками на Java, а обычный сервер стал ближе к небольшому сюжетному приключению.",
+                        },
+                    ],
                 },
 
                 {
@@ -314,10 +546,29 @@ window.portfolioContent = {
                     stack: ["Django", "Docker", "Bootstrap", "jQuery"],
                     file: ["./projects/fileExchange/1.png", "./projects/fileExchange/2.png", "./projects/fileExchange/3.png"],
                     desc: "Пет-проект на Django с Docker, Bootstrap и jQuery, представляющий собой личное облачное хранилище файлов с функционалом, аналогичным Google Drive. Реализовал контроль выделяемой памяти для пользователей, отображение оставшегося пространства в удобном и наглядном интерфейсе, а также возможности управления файлами: перемещение, копирование, переименование, удаление и просмотр информации о файлах. Предусмотрена система администрирования для управления пользователями и хранилищем. Проект демонстрирует навыки разработки сложных веб-приложений, работу с серверной логикой, интеграцию интерфейса с backend и организацию хранения и обработки больших объёмов данных. Выполнен полностью мной, включая настройку Docker и разработку фронтенда и бэкенда.",
+                    sections: [
+                        {
+                            title: "Что это",
+                            text: "Пет-проект личного облачного хранилища, по идее похожий на небольшой Google Drive. Я делал его, чтобы отработать лимиты памяти для пользователей, файловые сценарии и администрирование.",
+                        },
+                        {
+                            title: "Что я собрал",
+                            text: "Полностью собрал приложение на Django, Docker, Bootstrap и jQuery. Реализовал квоты памяти для пользователей, отображение оставшегося пространства, админ-инструменты для управления пользователями и хранилищем, а также файловые операции: перемещение, копирование, переименование, удаление и просмотр деталей. Делал и backend, и frontend: серверную логику, интеграцию интерфейса и Docker-настройку.",
+                        },
+                        {
+                            title: "Что показывает",
+                            text: "Это практичный fullstack-проект: пользователи, квоты, файловые сценарии, админка, frontend-backend интеграция и работа с файловыми данными. Не просто статичная страница, а приложение с нормальной продуктовой логикой.",
+                        },
+                    ],
                 },
             ],
             certs: "Сертификаты",
             certs_list: [
+                {
+                    name: "Сертификат финального экзамена EGEL UVM",
+                    file: "./cert/uvm/Egel.png",
+                    desc: "Подтверждает сдачу финального экзамена EGEL в Universidad del Valle de México (UVM) и сейчас служит подтверждающим документом завершённого университетского обучения.",
+                },
                 {
                     name: "Диплом разработчика веб-сайтов и мобильных приложений",
                     file: "./cert/Carlos/diplomeDev.png",
@@ -395,7 +646,41 @@ window.portfolioContent = {
                 },
             ],
             degree: "Диплом",
-            degree_text: "Последний семестр университета - почти выпустился!\n\nУчусь в Universidad del Valle de México (UVM), степень бакалавра в области инженерии в проектировании программного обеспечения и сетей».\nНачал обучение в мае 2023 года.\n\nЗа время учёбы прошёл дисциплины по ООП, алгоритмам, кибербезопасности, сети, архитектуре компьютеров и базам данных.\nИзучил языки C++, C, Java, Python и SQL.\nУглубился в разработку ПО, сетевые технологии (CCNA I–IV), информационную безопасность, мобильное программирование, веб-сервисы и визуализацию данных.\nОсвоил методологии Agile, Scrum и DevOps, управление проектами и работу с современными IT-платформами.\nТакже получил опыт работы с сертификациями Coursera и Cisco.",
+            degree_text: "Я получил степень бакалавра в области инженерии программного обеспечения и сетей в Universidad del Valle de México (UVM), где прошёл теоретическую и практическую подготовку в современной разработке ПО, системной инженерии и IT-инфраструктуре.\n\nВо время учёбы я совмещал академическую подготовку с freelance- и профессиональным опытом в индустрии. Это позволило применять технические знания в реальных проектах и сформировать практичный, разносторонний инженерный подход.\n\nСейчас я учусь в магистратуре по инженерии со специализацией в искусственном интеллекте в UVM. Программа сфокусирована на machine learning, интеллектуальных системах, data-driven решениях и современных практиках software engineering. Я развиваю продвинутые технические навыки и применяю методы ИИ к реальным задачам.",
+            degree_tags_title: "Ключевые направления обучения",
+            degree_tags: ["C", "C++", "C#", "Java", "Python", "SQL", "Реляционные базы данных", "Android", "Мобильная разработка", "Сетевая инфраструктура", "Операционные системы", "Автоматизация", "Архитектура компьютеров", "Программная инженерия", "Системный анализ", "Моделирование", "Кибербезопасность", "Протоколы передачи данных"],
+            education_programs: [
+                {
+                    id: "uvm-bachelor",
+                    label: "Бакалавриат UVM",
+                    school: "Universidad del Valle de México",
+                    title: "Бакалавриат, Ingeniero en Diseño de Redes y Software",
+                    period: "Май 2023 - май 2026",
+                    status: "Завершено",
+                    gradeLabel: "Средний балл",
+                    grade: "9.71",
+                    start: "2023-05",
+                    end: "2026-05",
+                    celebration: "Университет закончен. Инженерия ПО и сетей разблокирована.",
+                    document: {
+                        name: "Сертификат финального экзамена EGEL",
+                        file: "./cert/uvm/Egel.png",
+                        desc: "Подтверждает сдачу финального экзамена EGEL в Universidad del Valle de México (UVM) и сейчас служит подтверждающим документом завершённого университетского обучения.",
+                    },
+                },
+                {
+                    id: "masters-current",
+                    label: "Магистратура UVM",
+                    school: "Universidad del Valle de México",
+                    title: "Магистратура по инженерии со специализацией в искусственном интеллекте",
+                    period: "Июнь 2026 - июль 2028",
+                    status: "В процессе",
+                    start: "2026-06",
+                    end: "2028-07",
+                    celebration: "Магистратура по искусственному интеллекту в процессе. Следующая академическая глава запущена.",
+                    document: null,
+                },
+            ],
         },
     },
 };
