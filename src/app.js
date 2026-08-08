@@ -17,6 +17,8 @@ new Vue({
         projectModalIndex: 0,
         lightbox: null,
         currentAnimations: new WeakMap(),
+        animationFinalTexts: new WeakMap(),
+        activeAnimationElements: new Set(),
         activeTimeouts: new WeakMap(),
         listAnimations: new WeakMap(),
         degreeCelebrationVisible: false,
@@ -25,6 +27,9 @@ new Vue({
         degreeCelebrationTimer: null,
         degreeBurstTimer: null,
         currentServerDate: new Date(),
+        activeSection: "overview",
+        pageProgress: 0,
+        showEducationDetails: false,
     },
     computed: {
         t() {
@@ -43,6 +48,27 @@ new Vue({
                 });
             });
         },
+        navigationItems() {
+            return [
+                { id: "overview", labelKey: "nav_overview" },
+                { id: "skills", labelKey: "nav_skills" },
+                { id: "projects", labelKey: "nav_projects" },
+                { id: "degrees", labelKey: "nav_education" },
+                { id: "certificates", labelKey: "nav_certificates" },
+                { id: "contact", labelKey: "nav_contact" },
+            ];
+        },
+        orderedCertificates() {
+            const certificates = this.currentTranslations.certs_list || [];
+            return certificates.slice().sort((a, b) => Number(Boolean(b.featured)) - Number(Boolean(a.featured)));
+        },
+        projectGroups() {
+            const projects = this.currentTranslations.project_list || [];
+            return [
+                { type: "commercial", labelKey: "projects_commercial", projects: projects.filter((project) => project.type === "commercial") },
+                { type: "pet", labelKey: "projects_pet", projects: projects.filter((project) => project.type === "pet") },
+            ].filter((group) => group.projects.length);
+        },
         modalVisibleClass() {
             return this.modalVisible ? "modal-visible" : "";
         },
@@ -51,6 +77,40 @@ new Vue({
         },
     },
     methods: Object.assign({}, window.portfolioAnimations, {
+        scrollToSection(id) {
+            const section = document.getElementById(id);
+            if (!section) return;
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+        },
+        updateNavigationState() {
+            const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+            const scrollableHeight = document.documentElement.scrollHeight - window.innerHeight;
+            this.pageProgress = scrollableHeight > 0 ? Math.min(100, Math.max(0, (scrollTop / scrollableHeight) * 100)) : 0;
+
+            const viewportHeight = window.innerHeight;
+            let current = "overview";
+            let bestVisibilityScore = -1;
+
+            this.navigationItems.forEach((item) => {
+                const section = document.getElementById(item.id);
+                if (!section) return;
+
+                const rect = section.getBoundingClientRect();
+                const visibleHeight = Math.max(0, Math.min(rect.bottom, viewportHeight) - Math.max(rect.top, 0));
+                const targetHeight = Math.max(1, Math.min(rect.height, viewportHeight * 0.5));
+                const visibilityScore = Math.min(1, visibleHeight / targetHeight);
+
+                if (visibilityScore > bestVisibilityScore) {
+                    bestVisibilityScore = visibilityScore;
+                    current = item.id;
+                }
+            });
+
+            if (scrollTop < 80) current = "overview";
+            if (scrollableHeight > 0 && scrollTop >= scrollableHeight - 4) current = "contact";
+
+            this.activeSection = current;
+        },
         setLang(language, forceAnimation = false) {
             if (!this.translations[language] || (!forceAnimation && this.lang === language)) return;
 
@@ -67,10 +127,6 @@ new Vue({
                 if (Array.isArray(newText)) return;
                 this.scrambleText(this.translations[this.lang][key], newText, el);
             });
-
-            if (this.$refs.skillsList) {
-                this.animateList(this.$refs.skillsList, this.translations[language].skills_list);
-            }
 
             this.lang = language;
             this.$nextTick(() => {
@@ -187,8 +243,22 @@ new Vue({
                 this.projectModalVisible = true;
                 this.animationClass = "cyberpunk-in";
 
-                const el = this.$refs.projectDescText;
-                if (el && !this.projectModalSections.length) this.scrambleText("", this.projectModalDesc, el);
+                this.$nextTick(() => {
+                    if (this.projectModalSections.length) {
+                        const titleElements = this.$refs.projectSectionTitles || [];
+                        const textElements = this.$refs.projectSectionTexts || [];
+
+                        this.projectModalSections.forEach((section, index) => {
+                            const titleElement = titleElements[index];
+                            const textElement = textElements[index];
+                            if (titleElement) this.scrambleText("", section.title, titleElement);
+                            if (textElement) this.scrambleText("", section.text, textElement);
+                        });
+                    } else {
+                        const el = this.$refs.projectDescText;
+                        if (el) this.scrambleText("", this.projectModalDesc, el);
+                    }
+                });
 
                 // Переинициализация GLightbox
                 setTimeout(() => {
@@ -213,10 +283,12 @@ new Vue({
             this.projectModalIndex = (this.projectModalIndex - 1 + this.projectModalImages.length) % this.projectModalImages.length;
         },
         closeProjectModal() {
+            this.clearAllTextAnimations(true);
             this.animationClass = "cyberpunk-out";
         },
 
         startClose() {
+            this.clearAllTextAnimations(true);
             this.animationClass = "cyberpunk-out";
         },
         onAnimationEnd(event) {
@@ -273,11 +345,17 @@ new Vue({
         this.lightbox = GLightbox({
             selector: ".glightbox",
         });
-        if (this.$refs.skillsList) {
-            this.$refs.skillsList.innerHTML = this.translations[this.lang].skills_list.map((item) => `<li>${item}</li>`).join("");
-        }
         this.initScrollAnimations();
         this.initModalListeners();
         this.syncServerDate();
+        window.addEventListener("scroll", this.updateNavigationState, { passive: true });
+        window.addEventListener("resize", this.updateNavigationState);
+        this.updateNavigationState();
+    },
+    beforeDestroy() {
+        this.clearAllTextAnimations(false);
+        this.destroyModalListeners();
+        window.removeEventListener("scroll", this.updateNavigationState);
+        window.removeEventListener("resize", this.updateNavigationState);
     },
 });

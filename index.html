@@ -25,48 +25,100 @@
                 </div>
             </nav>
 
-            <div class="container py-5 animate__animated animate__fadeIn">
-                <div class="hero-block d-flex align-items-center mb-4">
-                    <img src="./src/avatar.png" alt="Egor Pavlov" class="rounded-circle neon-glow mr-3" />
-                    <div>
-                        <p class="hero-kicker mb-2">Egor Pavlov</p>
-                        <h1 ref="title" id="title" class="display-4 neon-text mb-0">{{ t('title') }}</h1>
-                    </div>
+            <nav class="journey-nav" :aria-label="t('nav_label')">
+                <div class="journey-progress" aria-hidden="true">
+                    <span :style="{ width: pageProgress + '%' }"></span>
                 </div>
-                <p ref="intro" class="lead">{{ t('intro') }}</p>
+                <div class="journey-nav-inner">
+                    <span class="journey-prompt"><i class="fas fa-route" aria-hidden="true"></i>{{ t('nav_prompt') }}</span>
+                    <button v-for="(item, index) in navigationItems" :key="item.id" type="button" class="journey-link" :class="{ active: activeSection === item.id }" @click="scrollToSection(item.id)" :aria-current="activeSection === item.id ? 'location' : null">
+                        <span class="journey-number">0{{ index + 1 }}</span>
+                        <span>{{ t(item.labelKey) }}</span>
+                    </button>
+                </div>
+            </nav>
 
-                <section class="my-5 skills">
+            <div class="container py-5 animate__animated animate__fadeIn">
+                <header id="overview" class="page-section">
+                    <div class="hero-block d-flex align-items-center mb-4">
+                        <img src="./src/avatar.png" alt="Egor Pavlov" class="rounded-circle neon-glow mr-3" />
+                        <div>
+                            <p class="hero-kicker mb-2">Egor Pavlov</p>
+                            <h1 ref="title" id="title" class="display-4 neon-text mb-0">{{ t('title') }}</h1>
+                            <p class="hero-focus">{{ t('hero_focus') }}</p>
+                        </div>
+                    </div>
+                    <p ref="intro" class="lead">{{ t('intro') }}</p>
+                    <div class="career-facts" aria-label="Profile details">
+                        <span><i class="fas fa-house-laptop" aria-hidden="true"></i>{{ t('work_mode') }}</span>
+                        <span><i class="fas fa-location-dot" aria-hidden="true"></i>{{ t('location') }}</span>
+                        <span class="career-open"><i class="fas fa-handshake" aria-hidden="true"></i>{{ t('availability') }}</span>
+                    </div>
+                    <div class="hero-actions">
+                        <button type="button" class="primary-action-btn" @click="scrollToSection('projects')">{{ t('cta_projects') }}<i class="fas fa-arrow-down" aria-hidden="true"></i></button>
+                        <button type="button" class="secondary-action-btn" @click="scrollToSection('contact')">{{ t('cta_contact') }}<i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+                    </div>
+                </header>
+
+                <section id="skills" class="my-5 skills page-section">
                     <h2 ref="skills" class="h4 border-bottom border-info pb-2">{{ t('skills') }}</h2>
-                    <ul ref="skillsList"></ul>
-                </section>
-
-                <section id="projects" class="my-5">
-                    <h2 class="h4 border-bottom border-info pb-2 section-title">{{ t('projects') }}</h2>
-                    <div class="projects-grid">
-                        <article ref="projects" class="project-card" v-for="(project, index) in currentTranslations.project_list" :key="'project-' + index" @click="openImageProject(project)" tabindex="0" @keydown.enter.prevent="openImageProject(project)" role="button" :title="project.name">
-                            <span class="open-indicator" aria-hidden="true"><i class="fas fa-up-right-and-down-left-from-center"></i></span>
-                            <div class="project-preview">
-                                <img :src="project.file[0]" :alt="project.name" loading="lazy" />
-                            </div>
-                            <div class="project-content">
-                                <div class="project-tags">
-                                    <span v-for="tag in project.stack" :key="project.name + tag">{{ tag }}</span>
-                                </div>
-                                <h3>{{ project.name }}</h3>
-                                <p class="project-role">{{ project.role }}</p>
-                                <p class="project-impact">{{ project.impact }}</p>
-                            </div>
+                    <div class="skill-groups">
+                        <article v-for="group in currentTranslations.skill_groups" :key="group.title" class="skill-group-card">
+                            <div class="skill-group-head"><i :class="group.icon" aria-hidden="true"></i><h3>{{ group.title }}</h3></div>
+                            <div class="skill-group-tags"><span v-for="item in group.items" :key="group.title + item">{{ item }}</span></div>
                         </article>
                     </div>
                 </section>
 
-                <section id="degrees" class="my-5">
+                <section id="projects" class="my-5 page-section">
+                    <h2 class="h4 border-bottom border-info pb-2 section-title">{{ t('projects') }}</h2>
+                    <div v-for="group in projectGroups" :key="group.type" class="project-group" :class="'project-group-' + group.type">
+                        <div class="project-group-heading">
+                            <div class="project-group-title">
+                                <span class="project-group-icon"><i class="fas" :class="group.type === 'commercial' ? 'fa-briefcase' : 'fa-flask'" aria-hidden="true"></i></span>
+                                <div>
+                                    <span class="project-group-index">{{ group.type === 'commercial' ? '01' : '02' }}</span>
+                                    <h3>{{ t(group.labelKey) }}</h3>
+                                </div>
+                            </div>
+                            <span class="project-group-count">{{ group.projects.length }}</span>
+                        </div>
+                        <div class="projects-grid">
+                            <article ref="projects" class="project-card" v-for="project in group.projects" :key="group.type + '-' + project.name" @click="openImageProject(project)" tabindex="0" @keydown.enter.prevent="openImageProject(project)" role="button" :title="project.name">
+                                <span class="open-indicator" aria-hidden="true"><i class="fas fa-up-right-and-down-left-from-center"></i></span>
+                                <div class="project-preview">
+                                    <img :src="project.file[0]" :alt="project.name" loading="lazy" />
+                                </div>
+                                <div class="project-content">
+                                    <div v-if="project.areas && project.areas.length" class="project-areas">
+                                        <span v-for="area in project.areas" :key="project.name + area">{{ area }}</span>
+                                    </div>
+                                    <div class="project-tags">
+                                        <span v-for="tag in project.stack" :key="project.name + tag">{{ tag }}</span>
+                                    </div>
+                                    <h3>{{ project.name }}</h3>
+                                    <p class="project-role"><strong>{{ t('project_role_label') }}</strong>{{ project.role }}</p>
+                                    <p class="project-impact"><strong>{{ t('project_result_label') }}</strong>{{ project.impact }}</p>
+                                </div>
+                            </article>
+                        </div>
+                    </div>
+                </section>
+
+                <section id="degrees" class="my-5 page-section">
                     <h2 ref="degree" class="h4 border-bottom border-info pb-2">{{ t('degree') }}</h2>
-                    <p ref="degree_text">{{ t('degree_text') }}</p>
-                    <div class="education-tags-block">
-                        <div class="education-tags-title">{{ t('degree_tags_title') }}</div>
-                        <div class="education-tags">
-                            <span v-for="tag in currentTranslations.degree_tags" :key="'degree-tag-' + tag">{{ tag }}</span>
+                    <p class="degree-summary">{{ t('degree_summary') }}</p>
+                    <button type="button" class="education-toggle-btn" @click="showEducationDetails = !showEducationDetails" :aria-expanded="showEducationDetails.toString()">
+                        {{ showEducationDetails ? t('education_less') : t('education_more') }}
+                        <i class="fas" :class="showEducationDetails ? 'fa-chevron-up' : 'fa-chevron-down'" aria-hidden="true"></i>
+                    </button>
+                    <div v-show="showEducationDetails" class="education-details">
+                        <p ref="degree_text">{{ t('degree_text') }}</p>
+                        <div class="education-tags-block">
+                            <div class="education-tags-title">{{ t('degree_tags_title') }}</div>
+                            <div class="education-tags">
+                                <span v-for="tag in currentTranslations.degree_tags" :key="'degree-tag-' + tag">{{ tag }}</span>
+                            </div>
                         </div>
                     </div>
                     <div class="university-panel" v-for="program in educationPrograms" :key="program.id" :class="{ celebrating: activeEducationId === program.id }">
@@ -104,17 +156,17 @@
                     </div>
                 </section>
 
-                <section id="certificates" class="my-5">
+                <section id="certificates" class="my-5 page-section">
                     <h2 class="h4 border-bottom border-info pb-2 section-title">{{ t('certs') }}</h2>
                     <div class="certificates-grid">
-                        <div ref="certs" class="cert-card" v-for="(cert, index) in currentTranslations.certs_list" :key="'cert-' + index" @click="openImage(cert)" tabindex="0" @keydown.enter.prevent="openImage(cert)" role="button" :title="cert.name">
+                        <div ref="certs" class="cert-card" v-for="cert in orderedCertificates" :key="cert.name" @click="openImage(cert)" tabindex="0" @keydown.enter.prevent="openImage(cert)" role="button" :title="cert.name">
                             <span class="open-indicator" aria-hidden="true"><i class="fas fa-eye"></i></span>
                             <span>{{ cert.name }}</span>
                         </div>
                     </div>
                 </section>
 
-                <div class="contact-info">
+                <div id="contact" class="contact-info page-section">
                     <a v-for="(contact, index) in contacts" :key="'contact-' + index" :href="contact.href" target="_blank" rel="noopener" class="contact-btn">
                         <span class="contact-icon"><i :class="contact.iconClass"></i></span>
                         <span class="contact-text">{{ contact.label }}</span>
@@ -152,8 +204,8 @@
 
                             <div class="modal-desc project-case-study" v-if="projectModalSections.length">
                                 <section v-for="section in projectModalSections" :key="section.title" class="project-case-section">
-                                    <h4>{{ section.title }}</h4>
-                                    <p>{{ section.text }}</p>
+                                    <h4 ref="projectSectionTitles">{{ section.title }}</h4>
+                                    <p ref="projectSectionTexts">{{ section.text }}</p>
                                 </section>
                             </div>
                             <div class="modal-desc" v-else ref="projectDescText">{{ projectModalDesc }}</div>

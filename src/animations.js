@@ -1,5 +1,5 @@
 window.portfolioAnimations = {
-        clearAnimationForElement(el) {
+        clearAnimationForElement(el, finish = false) {
             const anim = this.currentAnimations.get(el);
             if (anim) {
                 cancelAnimationFrame(anim);
@@ -10,6 +10,35 @@ window.portfolioAnimations = {
             const timeouts = this.activeTimeouts.get(el) || [];
             timeouts.forEach((t) => clearTimeout(t));
             this.activeTimeouts.delete(el);
+
+            if (finish) {
+                const finalText = this.animationFinalTexts.get(el);
+                if (typeof finalText === "string") el.textContent = finalText;
+            }
+
+            this.animationFinalTexts.delete(el);
+            this.activeAnimationElements.delete(el);
+            el.classList.remove("scramble-active");
+        },
+        clearAllTextAnimations(finish = false) {
+            Array.from(this.activeAnimationElements).forEach((element) => {
+                this.clearAnimationForElement(element, finish);
+            });
+        },
+        prefersReducedMotion() {
+            return window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        },
+        finishScrambleText(element, newText, callback) {
+            const finalText = document.createElement("span");
+            finalText.className = "scramble-final";
+            finalText.textContent = newText;
+            element.replaceChildren(finalText);
+            element.classList.remove("scramble-active");
+
+            this.currentAnimations.delete(element);
+            this.animationFinalTexts.delete(element);
+            this.activeAnimationElements.delete(element);
+            if (callback) callback();
         },
 
         getRandomColorClass() {
@@ -58,43 +87,69 @@ window.portfolioAnimations = {
         },
         scrambleText(oldText, newText, element, callback) {
             const chars = "!<>-_\\/[]{}—=+*^?#________";
-            let frame = 0;
             const length = newText.length;
-            const charsPerFrame = 3;
+            const frameInterval = 1000 / 30;
+            const revealRate = 180;
+            let startTime = null;
+            let lastPaintTime = -Infinity;
 
             this.clearAnimationForElement(element);
-            this.lockTextHeight(element, newText);
 
-            const animate = () => {
+            if (this.prefersReducedMotion()) {
+                element.textContent = newText;
+                if (callback) callback();
+                return;
+            }
+
+            this.lockTextHeight(element, newText);
+            this.animationFinalTexts.set(element, newText);
+            this.activeAnimationElements.add(element);
+            element.classList.add("scramble-active");
+
+            const animate = (timestamp) => {
+                if (startTime === null) startTime = timestamp;
+
+                if (timestamp - lastPaintTime < frameInterval) {
+                    const anim = requestAnimationFrame(animate);
+                    this.currentAnimations.set(element, anim);
+                    return;
+                }
+
+                lastPaintTime = timestamp;
+                const revealedCharacters = Math.min(length, Math.floor(((timestamp - startTime) / 1000) * revealRate));
                 let output = "";
                 for (let i = 0; i < length; i++) {
                     if (/\s/.test(newText[i])) {
                         output += newText[i];
-                    } else if (i < frame) {
-                        output += `<span class="${this.getRandomColorClass()}">${newText[i]}</span>`;
+                    } else if (i < revealedCharacters) {
+                        output += newText[i];
                     } else {
                         output += chars[Math.floor(Math.random() * chars.length)];
                     }
                 }
-                element.innerHTML = output;
-                frame += charsPerFrame;
-                if (frame <= length) {
+                element.textContent = output;
+
+                if (revealedCharacters < length) {
                     const anim = requestAnimationFrame(animate);
                     this.currentAnimations.set(element, anim);
                 } else {
-                    element.innerHTML = newText
-                        .split("")
-                        .map((ch) => `<span class="scramble-final">${ch}</span>`)
-                        .join("");
-                    if (callback) callback();
-                    this.currentAnimations.delete(element);
+                    this.finishScrambleText(element, newText, callback);
                 }
             };
-            animate();
+            const anim = requestAnimationFrame(animate);
+            this.currentAnimations.set(element, anim);
         },
 
         scrambleTextSimple(element, newText) {
             this.clearAnimationForElement(element);
+
+            if (this.prefersReducedMotion()) {
+                element.textContent = newText;
+                return;
+            }
+
+            this.animationFinalTexts.set(element, newText);
+            this.activeAnimationElements.add(element);
 
             element.classList.remove("flash-effect");
             void element.offsetWidth;
@@ -105,6 +160,8 @@ window.portfolioAnimations = {
             }, 200);
             const t2 = setTimeout(() => {
                 element.classList.remove("flash-effect");
+                this.animationFinalTexts.delete(element);
+                this.activeAnimationElements.delete(element);
             }, 400);
 
             this.activeTimeouts.set(element, [t1, t2]);
