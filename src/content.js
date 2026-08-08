@@ -32,6 +32,7 @@ window.portfolioContent = {
             skills: "Key Skills",
             skills_list: ["Fullstack development (frontend + backend)", "Languages: C++, C#, Python, Java, JavaScript, PHP", "Frameworks & libraries: Django, Vue.js, Node.js, Qt, .NET", "Desktop apps: Qt, WinForms, JavaFX, .NET", "DevOps: Linux, Git, Docker, CI/CD, automation", "CRM/API integrations (Bitrix24, amoCRM, custom webhooks)", "Databases: PostgreSQL, MySQL, SQLite, MongoDB", "Working with REST APIs, JSON, XML, WebSocket"],
             projects: "Projects",
+            image_loading: "Loading image...",
 
             project_list: [
                 {
@@ -226,11 +227,18 @@ window.portfolioContent = {
                     start: "2023-05",
                     end: "2026-05",
                     celebration: "University completed. Software and Network Engineering unlocked.",
-                    document: {
-                        name: "EGEL final exam certificate",
-                        file: "./cert/uvm/Egel.png",
-                        desc: "Confirms completion of the EGEL final exam at Universidad del Valle de México (UVM), serving as the current supporting document for my completed university studies.",
-                    },
+                    documents: [
+                        {
+                            name: "Bachelor’s graduation certificate",
+                            file: "./cert/uvm/diploma.png",
+                            desc: "Graduation certificate issued by Universidad del Valle de México (UVM) on August 5, 2026. It confirms that I successfully completed the Bachelor’s program in Software and Network Design Engineering (Licenciatura en Ingeniería en Diseño de Software y Redes).",
+                        },
+                        {
+                            name: "EGEL final exam certificate",
+                            file: "./cert/uvm/Egel.png",
+                            desc: "Confirms completion of the EGEL final exam at Universidad del Valle de México (UVM), serving as an additional supporting document for my completed bachelor’s studies.",
+                        },
+                    ],
                 },
                 {
                     id: "masters-current",
@@ -242,7 +250,7 @@ window.portfolioContent = {
                     start: "2026-06",
                     end: "2028-07",
                     celebration: "Master’s degree in Artificial Intelligence in progress. Next academic chapter is online.",
-                    document: null,
+                    documents: [],
                 },
             ],
         },
@@ -253,6 +261,7 @@ window.portfolioContent = {
             skills: "Habilidades Clave",
             skills_list: ["Desarrollo fullstack (frontend + backend)", "Lenguajes: C++, C#, Python, Java, JavaScript, PHP", "Frameworks y librerías: Django, Vue.js, Node.js, Qt, .NET", "Aplicaciones de escritorio: Qt, WinForms, JavaFX, .NET", "DevOps: Linux, Git, Docker, CI/CD, automatización", "Integraciones CRM/API (Bitrix24, amoCRM, webhooks personalizados)", "Bases de datos: PostgreSQL, MySQL, SQLite, MongoDB", "Trabajo con REST APIs, JSON, XML, WebSocket"],
             projects: "Proyectos",
+            image_loading: "Cargando imagen...",
             project_list: [
                 {
                     name: "Plataforma de integración de reservas en línea y control de acceso (SCUD)",
@@ -444,11 +453,18 @@ window.portfolioContent = {
                     start: "2023-05",
                     end: "2026-05",
                     celebration: "Universidad completada. Ingeniería en Diseño de Software y Redes desbloqueada.",
-                    document: {
-                        name: "Certificado del examen final EGEL",
-                        file: "./cert/uvm/Egel.png",
-                        desc: "Confirma la realización del examen final EGEL en la Universidad del Valle de México (UVM) y funciona como documento de respaldo actual para mis estudios universitarios completados.",
-                    },
+                    documents: [
+                        {
+                            name: "Constancia de egreso de la licenciatura",
+                            file: "./cert/uvm/diploma.png",
+                            desc: "Constancia de Egreso expedida por la Universidad del Valle de México (UVM) el 5 de agosto de 2026. Confirma que concluí satisfactoriamente la Licenciatura en Ingeniería en Diseño de Software y Redes.",
+                        },
+                        {
+                            name: "Certificado del examen final EGEL",
+                            file: "./cert/uvm/Egel.png",
+                            desc: "Confirma la realización del examen final EGEL en la Universidad del Valle de México (UVM) y sirve como documento adicional de respaldo de mis estudios de licenciatura completados.",
+                        },
+                    ],
                 },
                 {
                     id: "masters-current",
@@ -460,7 +476,7 @@ window.portfolioContent = {
                     start: "2026-06",
                     end: "2028-07",
                     celebration: "Maestría en Inteligencia Artificial en curso. El siguiente capítulo académico está activo.",
-                    document: null,
+                    documents: [],
                 },
             ],
         },
@@ -471,6 +487,7 @@ window.portfolioContent = {
             skills: "Ключевые навыки",
             skills_list: ["Фуллстек-разработка (frontend + backend)", "Языки: C++, C#, Python, Java, JavaScript, PHP", "Фреймворки и библиотеки: Django, Vue.js, Node.js, Qt, .NET", "Десктоп-приложения (Qt, WinForms, JavaFX, .NET)", "DevOps: Linux, Git, Docker, CI/CD, автоматизация процессов", "Интеграции с CRM (Bitrix24, amoCRM), API, вебхуки", "Базы данных: PostgreSQL, MySQL, SQLite, MongoDB", "Работа с REST API, JSON, XML, WebSocket"],
             projects: "Проекты",
+            image_loading: "Загрузка изображения...",
             project_list: [
                 {
                     name: "Платформа интеграции онлайн-бронирования и СКУД",
@@ -662,11 +679,18 @@ window.portfolioContent = {
                     start: "2023-05",
                     end: "2026-05",
                     celebration: "Университет закончен. Инженерия ПО и сетей разблокирована.",
-                    document: {
-                        name: "Сертификат финального экзамена EGEL",
-                        file: "./cert/uvm/Egel.png",
-                        desc: "Подтверждает сдачу финального экзамена EGEL в Universidad del Valle de México (UVM) и сейчас служит подтверждающим документом завершённого университетского обучения.",
-                    },
+                    documents: [
+                        {
+                            name: "Подтверждение окончания бакалавриата",
+                            file: "./cert/uvm/diploma.png",
+                            desc: "Документ об окончании обучения, выданный Universidad del Valle de México (UVM) 5 августа 2026 года. Подтверждает, что я успешно завершил бакалаврскую программу по инженерии проектирования программного обеспечения и сетей (Licenciatura en Ingeniería en Diseño de Software y Redes).",
+                        },
+                        {
+                            name: "Сертификат финального экзамена EGEL",
+                            file: "./cert/uvm/Egel.png",
+                            desc: "Подтверждает сдачу финального экзамена EGEL в Universidad del Valle de México (UVM) и служит дополнительным подтверждением завершённого бакалавриата.",
+                        },
+                    ],
                 },
                 {
                     id: "masters-current",
@@ -678,7 +702,7 @@ window.portfolioContent = {
                     start: "2026-06",
                     end: "2028-07",
                     celebration: "Магистратура по искусственному интеллекту в процессе. Следующая академическая глава запущена.",
-                    document: null,
+                    documents: [],
                 },
             ],
         },

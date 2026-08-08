@@ -94,9 +94,9 @@
                             </div>
                             <div class="degree-celebration-text" :class="{ visible: activeEducationId === program.id && degreeCelebrationVisible }"></div>
                         </div>
-                        <button v-if="program.document" class="degree-proof-btn" type="button" @click.stop="openImage(program.document)">
+                        <button v-for="document in program.documents || (program.document ? [program.document] : [])" :key="program.id + '-' + document.file" class="degree-proof-btn" type="button" @click.stop="openImage(document)">
                             <span><i class="fas fa-scroll"></i></span>
-                            {{ program.document.name }}
+                            {{ document.name }}
                         </button>
                         <div v-if="activeEducationId === program.id" class="degree-fireworks" aria-hidden="true">
                             <span v-for="spark in degreeFireworks" :key="spark.id" class="degree-spark" :style="spark.style"></span>
@@ -126,7 +126,11 @@
                         <button class="modal-close" @click="startClose" aria-label="Close">&times;</button>
                         <div class="modal-body">
                             <div class="image-container">
-                                <img :src="modalImage" alt="Certificate" class="modal-img" />
+                                <div v-show="imageLoading" class="image-loader" role="status" aria-live="polite">
+                                    <span class="image-loader-core" aria-hidden="true"></span>
+                                    <span class="image-loader-text">{{ t('image_loading') }}</span>
+                                </div>
+                                <img ref="modalImg" :src="modalImage" alt="Certificate" class="modal-img" :class="{ 'image-loaded': !imageLoading }" @load="onImageLoaded" @error="onImageLoadError" />
                             </div>
                             <div class="modal-desc" ref="descText"></div>
                         </div>

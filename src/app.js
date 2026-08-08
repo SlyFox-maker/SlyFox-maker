@@ -8,6 +8,7 @@ new Vue({
 
         modalVisible: false,
         modalImage: "",
+        imageLoading: false,
         animationClass: "",
         projectModalVisible: false,
         projectModalImages: [],
@@ -80,16 +81,27 @@ new Vue({
         },
 
         openImage(cert) {
+            this.imageLoading = true;
             this.modalImage = cert.file;
             this.modalVisible = true;
             this.animationClass = "cyberpunk-in";
 
             this.$nextTick(() => {
+                const image = this.$refs.modalImg;
+                if (image && image.complete && image.naturalWidth > 0) {
+                    this.onImageLoaded();
+                }
                 const el = this.$refs.descText;
                 if (el) {
                     this.scrambleText("", cert.desc || "", el);
                 }
             });
+        },
+        onImageLoaded() {
+            this.imageLoading = false;
+        },
+        onImageLoadError() {
+            this.imageLoading = false;
         },
         calculateProgramProgress(start, end) {
             const startDate = this.parseEducationMonth(start);
