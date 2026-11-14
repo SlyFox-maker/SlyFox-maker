@@ -2,17 +2,15 @@
 <html lang="en">
     <head>
         <meta charset="UTF-8" />
-        <title>Egor Pavlov - Portfolio</title>
+        <title>Egor Pavlov — Full Stack Engineer</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-        <meta name="description" content="Portfolio of Egor Pavlov, a fullstack and DevOps engineer building web, desktop, CRM, automation, and infrastructure solutions." />
+        <meta name="description" content="Egor Pavlov’s portfolio: commercial web applications, backend APIs, CRM integrations and Docker deployment." />
         <link rel="preconnect" href="https://fonts.googleapis.com" />
         <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
         <link href="https://fonts.googleapis.com/css2?family=Fira+Code:wght@400;500;600;700&display=swap" rel="stylesheet" />
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" />
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
         <script src="https://cdn.jsdelivr.net/npm/vue@2/dist/vue.js"></script>
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
-        <script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" />
         <link rel="stylesheet" href="./src/styles.css" />
     </head>
@@ -49,7 +47,7 @@
                         </div>
                     </div>
                     <p ref="intro" class="lead">{{ t('intro') }}</p>
-                    <div class="career-facts" aria-label="Profile details">
+                    <div class="career-facts" :aria-label="t('profile_details')">
                         <span><i class="fas fa-house-laptop" aria-hidden="true"></i>{{ t('work_mode') }}</span>
                         <span><i class="fas fa-location-dot" aria-hidden="true"></i>{{ t('location') }}</span>
                         <span class="career-open"><i class="fas fa-handshake" aria-hidden="true"></i>{{ t('availability') }}</span>
@@ -62,9 +60,9 @@
                 </header>
 
                 <section id="skills" class="my-5 skills page-section">
-                    <h2 ref="skills" class="h4 border-bottom border-info pb-2">{{ t('skills') }}</h2>
+                    <h2 ref="skills" class="h4 border-bottom border-info pb-2 reveal-heading" data-reveal-id="skills-heading" data-reveal-type="heading">{{ t('skills') }}</h2>
                     <div class="skill-groups">
-                        <article v-for="group in currentTranslations.skill_groups" :key="group.title" class="skill-group-card" :class="{ 'skill-group-card-wide': group.wide }">
+                        <article v-for="(group, index) in currentTranslations.skill_groups" :key="group.title" class="skill-group-card reveal-skill" :class="{ 'skill-group-card-wide': group.wide }" :data-reveal-id="'skill-' + index" data-reveal-type="skills">
                             <div class="skill-group-head"><i :class="group.icon" aria-hidden="true"></i><h3>{{ group.title }}</h3></div>
                             <div class="skill-group-tags"><span v-for="item in group.items" :key="group.title + item">{{ item }}</span></div>
                         </article>
@@ -72,7 +70,7 @@
                 </section>
 
                 <section id="projects" class="my-5 page-section">
-                    <h2 class="h4 border-bottom border-info pb-2 section-title">{{ t('projects') }}</h2>
+                    <h2 class="h4 border-bottom border-info pb-2 section-title reveal-heading" data-reveal-id="projects-heading" data-reveal-type="heading">{{ t('projects') }}</h2>
                     <div v-for="group in projectGroups" :key="group.type" class="project-group" :class="'project-group-' + group.type">
                         <div class="project-group-heading">
                             <div class="project-group-title">
@@ -85,7 +83,7 @@
                             <span class="project-group-count">{{ group.projects.length }}</span>
                         </div>
                         <div class="projects-grid">
-                            <article ref="projects" class="project-card" v-for="project in group.projects" :key="group.type + '-' + project.name" @click="openImageProject(project)" tabindex="0" @keydown.enter.prevent="openImageProject(project)" role="button" :title="project.name">
+                            <article ref="projects" class="project-card reveal-project" v-for="(project, projectIndex) in group.projects" :key="group.type + '-' + project.name" :data-reveal-id="'project-' + group.type + '-' + projectIndex" data-reveal-type="projects" @click="openImageProject(project, $event)" tabindex="0" @keydown.enter.prevent="openImageProject(project, $event)" @keydown.space.prevent="openImageProject(project, $event)" role="button" :title="project.name">
                                 <span class="open-indicator" aria-hidden="true"><i class="fas fa-up-right-and-down-left-from-center"></i></span>
                                 <div class="project-preview" :class="{ 'project-preview-contain': project.previewFit === 'contain' }">
                                     <img :src="project.file[0]" :alt="project.name" :class="{ 'project-preview-image-contain': project.previewFit === 'contain' }" loading="lazy" />
@@ -107,7 +105,7 @@
                 </section>
 
                 <section id="degrees" class="my-5 page-section">
-                    <h2 ref="degree" class="h4 border-bottom border-info pb-2">{{ t('degree') }}</h2>
+                    <h2 ref="degree" class="h4 border-bottom border-info pb-2 reveal-heading" data-reveal-id="education-heading" data-reveal-type="heading">{{ t('degree') }}</h2>
                     <p class="degree-summary">{{ t('degree_summary') }}</p>
                     <button type="button" class="education-toggle-btn" @click="showEducationDetails = !showEducationDetails" :aria-expanded="showEducationDetails.toString()">
                         {{ showEducationDetails ? t('education_less') : t('education_more') }}
@@ -122,7 +120,7 @@
                             </div>
                         </div>
                     </div>
-                    <div class="university-panel" v-for="program in educationPrograms" :key="program.id" :class="{ celebrating: activeEducationId === program.id }">
+                    <div class="university-panel reveal-education" v-for="program in educationPrograms" :key="program.id" :data-reveal-id="'education-' + program.id" data-reveal-type="education" :class="{ celebrating: activeEducationId === program.id }">
                         <div class="education-program-top">
                             <div class="education-program-main">
                                 <span class="education-school">{{ program.school }}</span>
@@ -133,7 +131,7 @@
                                 <strong>{{ program.grade }}</strong>
                             </div>
                         </div>
-                        <div class="university-progress-zone" @click="triggerEducationCelebration(program, $event)" tabindex="0" @keydown.enter.prevent="triggerEducationCelebration(program, $event)" role="button" :aria-label="program.celebration">
+                        <div class="university-progress-zone" @click="triggerEducationCelebration(program, $event)" tabindex="0" @keydown.enter.prevent="triggerEducationCelebration(program, $event)" @keydown.space.prevent="triggerEducationCelebration(program, $event)" role="button" :aria-label="program.celebration">
                             <div class="university-progress-head">
                                 <span class="university-progress-label">{{ program.label }}</span>
                                 <span class="university-progress-value">{{ program.progressText }}</span>
@@ -147,7 +145,7 @@
                             </div>
                             <div class="degree-celebration-text" :class="{ visible: activeEducationId === program.id && degreeCelebrationVisible }"></div>
                         </div>
-                        <button v-for="document in program.documents || (program.document ? [program.document] : [])" :key="program.id + '-' + document.file" class="degree-proof-btn" type="button" @click.stop="openImage(document)">
+                        <button v-for="document in program.documents || (program.document ? [program.document] : [])" :key="program.id + '-' + document.file" class="degree-proof-btn" type="button" @click.stop="openImage(document, $event)">
                             <span><i class="fas fa-scroll"></i></span>
                             {{ document.name }}
                         </button>
@@ -158,9 +156,9 @@
                 </section>
 
                 <section id="certificates" class="my-5 page-section">
-                    <h2 class="h4 border-bottom border-info pb-2 section-title">{{ t('certs') }}</h2>
+                    <h2 class="h4 border-bottom border-info pb-2 section-title reveal-heading" data-reveal-id="certificates-heading" data-reveal-type="heading">{{ t('certs') }}</h2>
                     <div class="certificates-grid">
-                        <div ref="certs" class="cert-card" v-for="cert in orderedCertificates" :key="cert.name" @click="openImage(cert)" tabindex="0" @keydown.enter.prevent="openImage(cert)" role="button" :title="cert.name">
+                        <div ref="certs" class="cert-card reveal-certificate" v-for="(cert, index) in orderedCertificates" :key="cert.name" :data-reveal-id="'certificate-' + index" data-reveal-type="certificate" @click="openImage(cert, $event)" tabindex="0" @keydown.enter.prevent="openImage(cert, $event)" @keydown.space.prevent="openImage(cert, $event)" role="button" :title="cert.name">
                             <span class="open-indicator" aria-hidden="true"><i class="fas fa-eye"></i></span>
                             <span>{{ cert.name }}</span>
                         </div>
@@ -168,9 +166,9 @@
                 </section>
 
                 <section id="resume" class="my-5 page-section resume-section">
-                    <h2 class="h4 border-bottom border-info pb-2 section-title">{{ t('resume_title') }}</h2>
+                    <h2 class="h4 border-bottom border-info pb-2 section-title reveal-heading" data-reveal-id="resume-heading" data-reveal-type="heading">{{ t('resume_title') }}</h2>
                     <div class="resume-panel">
-                        <a class="resume-preview-link" :href="currentTranslations.resume_file" target="_blank" rel="noopener noreferrer" :aria-label="t('resume_view')">
+                        <a class="resume-preview-link reveal-resume" :href="currentTranslations.resume_file" target="_blank" rel="noopener noreferrer" :aria-label="t('resume_view')" data-reveal-id="resume-document" data-reveal-type="resume">
                             <img :src="currentTranslations.resume_preview" :alt="t('resume_preview_alt')" loading="lazy" />
                         </a>
                         <div class="resume-details">
@@ -178,7 +176,7 @@
                             <p class="resume-role">{{ t('resume_role') }}</p>
                             <p class="resume-focus">{{ t('resume_focus') }}</p>
                             <div class="resume-actions">
-                                <a class="primary-action-btn" :href="currentTranslations.resume_file" target="_blank" rel="noopener noreferrer"><span>{{ t('resume_view') }}</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                                <a class="primary-action-btn" :href="currentTranslations.resume_file" target="_blank" rel="noopener noreferrer" @click="openResumeViewer($event)"><span>{{ t('resume_view') }}</span><i class="fas fa-eye" aria-hidden="true"></i></a>
                                 <a class="secondary-action-btn" :href="currentTranslations.resume_file" :download="currentTranslations.resume_download_name"><span>{{ t('resume_download') }}</span><i class="fas fa-download" aria-hidden="true"></i></a>
                             </div>
                         </div>
@@ -186,39 +184,46 @@
                 </section>
 
                 <div id="contact" class="contact-info page-section">
-                    <a v-for="(contact, index) in contacts" :key="'contact-' + index" :href="contact.href" target="_blank" rel="noopener" class="contact-btn">
+                    <h2 class="h4 border-bottom border-info pb-2 section-title reveal-heading contact-heading" data-reveal-id="contact-heading" data-reveal-type="heading">{{ t('nav_contact') }}</h2>
+                    <a v-for="(contact, index) in contacts" :key="'contact-' + index" :href="contact.href" target="_blank" rel="noopener" class="contact-btn reveal-contact" :data-reveal-id="'contact-' + index" data-reveal-type="contact">
                         <span class="contact-icon"><i :class="contact.iconClass"></i></span>
                         <span class="contact-text">{{ contact.label }}</span>
                     </a>
                 </div>
 
-                <div id="modal" class="modal" v-show="modalVisible" @click.self="startClose" :class="{ 'modal-visible': modalVisible }">
+                <footer class="text-center mt-5 pt-3 border-top border-info">
+                    <small>© 2026 Egor Pavlov — <a href="https://github.com/SlyFox-maker/SlyFox-maker" target="_blank" rel="noopener">GitHub</a></small>
+                </footer>
+            </div>
+
+                <div id="modal" class="modal" v-show="modalVisible" @click.self="startClose" :class="{ 'modal-visible': modalVisible }" role="dialog" aria-modal="true" :aria-label="modalDocumentName">
                     <div class="modal-content" :class="animationClass" @animationend="onAnimationEnd">
-                        <button class="modal-close" @click="startClose" aria-label="Close">&times;</button>
+                        <button ref="documentClose" class="modal-close" @click="startClose" :aria-label="t('close_label')">&times;</button>
                         <div class="modal-body">
                             <div class="image-container">
                                 <div v-show="imageLoading" class="image-loader" role="status" aria-live="polite">
                                     <span class="image-loader-core" aria-hidden="true"></span>
                                     <span class="image-loader-text">{{ t('image_loading') }}</span>
                                 </div>
-                                <img ref="modalImg" :src="modalImage" alt="Certificate" class="modal-img" :class="{ 'image-loaded': !imageLoading }" @load="onImageLoaded" @error="onImageLoadError" />
+                                <a class="document-original-link" :href="modalImage" target="_blank" rel="noopener noreferrer" :aria-label="modalDocumentName"><img ref="modalImg" :src="modalImage" :alt="modalDocumentName || t('document_image_alt')" class="modal-img" :class="{ 'image-loaded': !imageLoading }" @load="onImageLoaded" @error="onImageLoadError" /></a>
                             </div>
                             <div class="modal-desc" ref="descText"></div>
                         </div>
                     </div>
                 </div>
 
-                <div id="project-modal" class="modal" v-show="projectModalVisible" @click.self="closeProjectModal" :class="{ 'modal-visible': projectModalVisible }">
+                <div id="project-modal" class="modal" v-show="projectModalVisible" @click.self="closeProjectModal" :class="{ 'modal-visible': projectModalVisible }" role="dialog" :aria-modal="imageViewerVisible ? null : 'true'" :aria-hidden="imageViewerVisible ? 'true' : null" :aria-label="projectModalName">
                     <div class="modal-content" :class="animationClass" @animationend="onAnimationEnd">
-                        <button class="modal-close" @click="closeProjectModal" aria-label="Close">&times;</button>
+                        <div class="project-mobile-header"><h2>{{ projectModalName }}</h2><button ref="projectMobileClose" class="modal-close" type="button" @click="closeProjectModal" :aria-label="t('close_label')">&times;</button></div>
+                        <button ref="projectClose" class="modal-close" @click="closeProjectModal" :aria-label="t('close_label')">&times;</button>
 
                         <div class="modal-body">
                             <div class="gallery-side">
-                                <img :src="projectModalImages[projectModalIndex]" :alt="projectModalCaptions[projectModalIndex] || ('Project image ' + (projectModalIndex + 1))" class="gallery-main-img" @click="lightbox.openAt(projectModalIndex)" />
+                                <img :src="projectModalImages[projectModalIndex]" :alt="projectModalCaptions[projectModalIndex] || (t('project_image_alt') + ' ' + (projectModalIndex + 1))" class="gallery-main-img" tabindex="0" role="button" @click="openViewer" @keydown.enter.prevent="openViewer" @keydown.space.prevent="openViewer" />
                                 <p v-if="projectModalCaptions[projectModalIndex]" class="gallery-caption">{{ projectModalCaptions[projectModalIndex] }}</p>
 
                                 <div class="gallery-thumbnails">
-                                <img v-for="(img, idx) in projectModalImages" :key="idx" :src="img" :alt="projectModalCaptions[idx] || ('Thumbnail ' + (idx + 1))" class="gallery-thumb" :class="{ active: idx === projectModalIndex }" @click="goToImage(idx)" />
+                                <img v-for="(img, idx) in projectModalImages" :key="idx" :src="img" :alt="projectModalCaptions[idx] || (t('thumbnail_alt') + ' ' + (idx + 1))" class="gallery-thumb" :class="{ active: idx === projectModalIndex }" tabindex="0" role="button" @click="goToImage(idx)" @keydown.enter.prevent="goToImage(idx)" @keydown.space.prevent="goToImage(idx)" />
                                 </div>
                             </div>
 
@@ -233,10 +238,41 @@
                     </div>
                 </div>
 
-                <footer class="text-center mt-5 pt-3 border-top border-info">
-                    <small>© 2026 Egor Pavlov — <a href="https://github.com/SlyFox-maker/SlyFox-maker" target="_blank" rel="noopener">GitHub</a></small>
-                </footer>
-            </div>
+                <div id="image-viewer" class="modal image-viewer" v-show="imageViewerVisible" :class="{ 'modal-visible': imageViewerVisible }" @click.self="closeViewer" role="dialog" aria-modal="true" :aria-label="projectModalName">
+                    <div class="image-viewer-content" :class="[imageViewerClosing ? 'cyberpunk-out' : 'cyberpunk-in', viewerImageSizeClass ? 'image-viewer-' + viewerImageSizeClass : '']" @animationend="onViewerAnimationEnd">
+                        <div class="image-viewer-header">
+                            <span v-if="projectModalImages.length > 1" class="image-viewer-count" aria-live="polite">{{ projectModalIndex + 1 }} / {{ projectModalImages.length }}</span>
+                            <button ref="viewerClose" class="modal-close image-viewer-close" type="button" @click="closeViewer" :aria-label="t('close_label')">&times;</button>
+                        </div>
+                        <div class="image-viewer-stage" :class="{ 'single-image': projectModalImages.length <= 1 }" @touchstart.passive="onViewerTouchStart" @touchend.passive="onViewerTouchEnd">
+                            <button v-if="projectModalImages.length > 1" class="image-viewer-arrow" type="button" @click="prevImage" :aria-label="t('image_prev')"><i class="fas fa-chevron-left" aria-hidden="true"></i></button>
+                            <img :key="projectModalImages[projectModalIndex]" :src="projectModalImages[projectModalIndex]" :alt="projectModalCaptions[projectModalIndex] || (t('project_image_alt') + ' ' + (projectModalIndex + 1))" class="image-viewer-image" @load="onViewerImageLoad" />
+                            <button v-if="projectModalImages.length > 1" class="image-viewer-arrow" type="button" @click="nextImage" :aria-label="t('image_next')"><i class="fas fa-chevron-right" aria-hidden="true"></i></button>
+                        </div>
+                        <p v-if="projectModalCaptions[projectModalIndex]" class="image-viewer-caption">{{ projectModalCaptions[projectModalIndex] }}</p>
+                    </div>
+                </div>
+
+                <div id="resume-viewer" class="modal resume-viewer-modal" v-show="resumeViewerVisible" :class="{ 'modal-visible': resumeViewerVisible }" @click.self="closeResumeViewer" role="dialog" aria-modal="true" aria-labelledby="resume-viewer-title">
+                    <div class="modal-content resume-viewer-content" :class="resumeViewerAnimationClass" @animationend="onResumeViewerAnimationEnd">
+                        <div class="resume-viewer-header">
+                            <div class="resume-viewer-heading">
+                                <h2 id="resume-viewer-title">{{ t('resume_viewer_title') }}</h2>
+                                <span>{{ currentTranslations.resume_download_name }}</span>
+                            </div>
+                            <div class="resume-viewer-actions">
+                                <a class="resume-viewer-action" :href="currentTranslations.resume_file" target="_blank" rel="noopener noreferrer">
+                                    <span>{{ t('resume_open_separate') }}</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i>
+                                </a>
+                                <a class="resume-viewer-action" :href="currentTranslations.resume_file" :download="currentTranslations.resume_download_name">
+                                    <span>{{ t('resume_download') }}</span><i class="fas fa-download" aria-hidden="true"></i>
+                                </a>
+                                <button ref="resumeViewerClose" class="modal-close resume-viewer-close" type="button" @click="closeResumeViewer" :aria-label="t('close_label')">&times;</button>
+                            </div>
+                        </div>
+                        <iframe :key="currentTranslations.resume_file" class="resume-pdf-frame" :src="currentTranslations.resume_file" :title="t('resume_viewer_title')"></iframe>
+                    </div>
+                </div>
         </div>
 
         <script src="./src/content.js"></script>

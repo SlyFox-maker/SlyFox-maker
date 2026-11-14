@@ -45,12 +45,39 @@ const particlesJSConfig = {
     retina_detect: true,
 };
 
-// Инициализация частиц
-particlesJS("particles-js", particlesJSConfig);
+const reducedMotionQuery = window.matchMedia("(prefers-reduced-motion: reduce)");
 
-// Ресайз с проверкой существования конфига
-window.addEventListener("resize", function () {
-    if (typeof particlesJSConfig !== "undefined") {
-        particlesJS("particles-js", particlesJSConfig);
+function applyParticleMotionPreference() {
+    const movementEnabled = !reducedMotionQuery.matches;
+    (window.pJSDom || []).forEach((instance) => {
+        const particles = instance.pJS;
+        particles.particles.move.enable = movementEnabled;
+        particles.particles.opacity.anim.enable = movementEnabled;
+        particles.particles.size.anim.enable = movementEnabled;
+        particles.interactivity.events.onhover.enable = movementEnabled;
+        particles.interactivity.events.onclick.enable = movementEnabled;
+    });
+}
+
+function initializeParticles() {
+    if (typeof window.particlesJS !== "function") return;
+
+    const config = JSON.parse(JSON.stringify(particlesJSConfig));
+    if (reducedMotionQuery.matches) {
+        config.particles.move.enable = false;
+        config.particles.opacity.anim.enable = false;
+        config.particles.size.anim.enable = false;
+        config.interactivity.events.onhover.enable = false;
+        config.interactivity.events.onclick.enable = false;
     }
-});
+
+    window.particlesJS("particles-js", config);
+}
+
+initializeParticles();
+
+if (typeof reducedMotionQuery.addEventListener === "function") {
+    reducedMotionQuery.addEventListener("change", applyParticleMotionPreference);
+} else if (typeof reducedMotionQuery.addListener === "function") {
+    reducedMotionQuery.addListener(applyParticleMotionPreference);
+}
