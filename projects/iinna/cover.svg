@@ -1,0 +1,44 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 675" role="img" aria-labelledby="title desc">
+  <title id="title">IInna CRM assistant</title>
+  <desc id="desc">A CRM pipeline connected to an AI chat and a user-approved change plan.</desc>
+  <defs>
+    <linearGradient id="bg" x2="1" y2="1"><stop stop-color="#101729"/><stop offset="1" stop-color="#090d17"/></linearGradient>
+    <linearGradient id="accent" x2="1"><stop stop-color="#8b6cff"/><stop offset="1" stop-color="#36d9ef"/></linearGradient>
+    <filter id="shadow" x="-.2" y="-.2" width="1.4" height="1.5"><feDropShadow dx="0" dy="14" stdDeviation="16" flood-color="#02040a" flood-opacity=".45"/></filter>
+  </defs>
+  <rect width="1200" height="675" rx="24" fill="url(#bg)"/>
+  <circle cx="600" cy="330" r="280" fill="#725eff" opacity=".07"/>
+  <path d="M0 525c215-80 356-50 530 4s406 52 670-27v173H0z" fill="#111b2b" opacity=".75"/>
+  <g filter="url(#shadow)">
+    <rect x="72" y="116" width="470" height="432" rx="20" fill="#111a28" stroke="#3a455c" stroke-width="2"/>
+    <path d="M72 166h470" stroke="#303a50" stroke-width="2"/>
+    <circle cx="105" cy="141" r="6" fill="#8b6cff"/><circle cx="127" cy="141" r="6" fill="#43516b"/><circle cx="149" cy="141" r="6" fill="#43516b"/>
+    <text x="100" y="205" fill="#aab7cc" font-family="Arial,sans-serif" font-size="17" font-weight="700" letter-spacing="2">CRM PIPELINE</text>
+    <g font-family="Arial,sans-serif">
+      <rect x="100" y="228" width="182" height="72" rx="12" fill="#19253a" stroke="#725eff"/><circle cx="124" cy="252" r="6" fill="#927aff"/><text x="141" y="258" fill="#f2f4fa" font-size="18" font-weight="700">New request</text><text x="122" y="282" fill="#8e9bb2" font-size="14">Stage · active</text>
+      <rect x="304" y="228" width="210" height="72" rx="12" fill="#19253a" stroke="#33415a"/><circle cx="328" cy="252" r="6" fill="#35c9e5"/><text x="345" y="258" fill="#f2f4fa" font-size="18" font-weight="700">In progress</text><text x="326" y="282" fill="#8e9bb2" font-size="14">Stage · active</text>
+      <rect x="100" y="318" width="182" height="72" rx="12" fill="#19253a" stroke="#33415a"/><circle cx="124" cy="342" r="6" fill="#45d5a2"/><text x="141" y="348" fill="#f2f4fa" font-size="18" font-weight="700">Approved</text><text x="122" y="372" fill="#8e9bb2" font-size="14">Stage · success</text>
+      <rect x="304" y="318" width="210" height="72" rx="12" fill="#19253a" stroke="#33415a"/><circle cx="328" cy="342" r="6" fill="#ef829d"/><text x="345" y="348" fill="#f2f4fa" font-size="18" font-weight="700">Declined</text><text x="326" y="372" fill="#8e9bb2" font-size="14">Stage · failed</text>
+    </g>
+    <rect x="100" y="416" width="414" height="94" rx="13" fill="#141f30" stroke="#344158"/>
+    <text x="121" y="447" fill="#aab7cc" font-family="Arial,sans-serif" font-size="14" letter-spacing="1">CUSTOM DEAL FIELD</text>
+    <text x="121" y="480" fill="#edf1f8" font-family="Arial,sans-serif" font-size="18">Request source</text>
+    <path d="M558 330h70" stroke="url(#accent)" stroke-width="3" stroke-dasharray="7 9"/><circle cx="558" cy="330" r="6" fill="#a28cff"/><circle cx="628" cy="330" r="6" fill="#37d5e9"/>
+    <rect x="650" y="116" width="478" height="432" rx="20" fill="#121b2b" stroke="#3a455c" stroke-width="2"/>
+    <path d="M650 166h478" stroke="#303a50" stroke-width="2"/>
+    <circle cx="684" cy="141" r="13" fill="#725eff"/><path d="M678 141h12m-6-6v12" stroke="#fff" stroke-width="2" stroke-linecap="round"/>
+    <text x="708" y="147" fill="#edf1f8" font-family="Arial,sans-serif" font-size="18" font-weight="700">IInna · CRM assistant</text>
+    <rect x="682" y="190" width="406" height="92" rx="14" fill="#1c2940"/>
+    <text x="704" y="222" fill="#bdc8d9" font-family="Arial,sans-serif" font-size="17">Review the pipeline and suggest</text><text x="704" y="249" fill="#bdc8d9" font-family="Arial,sans-serif" font-size="17">the fields needed for this workflow.</text>
+    <rect x="760" y="296" width="328" height="62" rx="14" fill="#292344" stroke="#725eff"/>
+    <text x="782" y="322" fill="#f2edff" font-family="Arial,sans-serif" font-size="16">I found 4 stages and 2 field</text><text x="782" y="343" fill="#f2edff" font-family="Arial,sans-serif" font-size="16">changes to review.</text>
+    <rect x="682" y="380" width="406" height="132" rx="14" fill="#111724" stroke="#45536b"/>
+    <text x="704" y="408" fill="#aab7cc" font-family="Arial,sans-serif" font-size="13" font-weight="700" letter-spacing="1">CHANGE PLAN · EXPIRES IN 10 MIN</text>
+    <path d="M704 425h360" stroke="#303a50"/>
+    <circle cx="712" cy="448" r="5" fill="#40d6a6"/><text x="728" y="454" fill="#e7edf6" font-family="Arial,sans-serif" font-size="15">Create pipeline and stages</text>
+    <circle cx="712" cy="476" r="5" fill="#40d6a6"/><text x="728" y="482" fill="#e7edf6" font-family="Arial,sans-serif" font-size="15">Add 2 custom fields</text>
+    <rect x="941" y="491" width="123" height="1" fill="#354158"/>
+  </g>
+  <text x="78" y="607" fill="#edf1f8" font-family="Arial,sans-serif" font-size="23" font-weight="700" letter-spacing="1">PLAN FIRST · USER CONFIRMS · CRM IS VERIFIED</text>
+  <rect x="1000" y="574" width="148" height="48" rx="12" fill="url(#accent)"/><path d="m1019 598 7 7 14-16" fill="none" stroke="#071018" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/><text x="1048" y="604" fill="#071018" font-family="Arial,sans-serif" font-size="14" font-weight="700">APPROVE</text>
+</svg>

@@ -57,13 +57,14 @@
                     <div class="hero-actions">
                         <button type="button" class="primary-action-btn" @click="scrollToSection('projects')">{{ t('cta_projects') }}<i class="fas fa-arrow-down" aria-hidden="true"></i></button>
                         <button type="button" class="secondary-action-btn" @click="scrollToSection('contact')">{{ t('cta_contact') }}<i class="fas fa-paper-plane" aria-hidden="true"></i></button>
+                        <a class="secondary-action-btn resume-hero-action" :href="currentTranslations.resume_file" :download="currentTranslations.resume_download_name"><span>{{ t('resume_hero_download') }}</span><i class="fas fa-download" aria-hidden="true"></i></a>
                     </div>
                 </header>
 
                 <section id="skills" class="my-5 skills page-section">
                     <h2 ref="skills" class="h4 border-bottom border-info pb-2">{{ t('skills') }}</h2>
                     <div class="skill-groups">
-                        <article v-for="group in currentTranslations.skill_groups" :key="group.title" class="skill-group-card">
+                        <article v-for="group in currentTranslations.skill_groups" :key="group.title" class="skill-group-card" :class="{ 'skill-group-card-wide': group.wide }">
                             <div class="skill-group-head"><i :class="group.icon" aria-hidden="true"></i><h3>{{ group.title }}</h3></div>
                             <div class="skill-group-tags"><span v-for="item in group.items" :key="group.title + item">{{ item }}</span></div>
                         </article>
@@ -86,8 +87,8 @@
                         <div class="projects-grid">
                             <article ref="projects" class="project-card" v-for="project in group.projects" :key="group.type + '-' + project.name" @click="openImageProject(project)" tabindex="0" @keydown.enter.prevent="openImageProject(project)" role="button" :title="project.name">
                                 <span class="open-indicator" aria-hidden="true"><i class="fas fa-up-right-and-down-left-from-center"></i></span>
-                                <div class="project-preview">
-                                    <img :src="project.file[0]" :alt="project.name" loading="lazy" />
+                                <div class="project-preview" :class="{ 'project-preview-contain': project.previewFit === 'contain' }">
+                                    <img :src="project.file[0]" :alt="project.name" :class="{ 'project-preview-image-contain': project.previewFit === 'contain' }" loading="lazy" />
                                 </div>
                                 <div class="project-content">
                                     <div v-if="project.areas && project.areas.length" class="project-areas">
@@ -166,6 +167,24 @@
                     </div>
                 </section>
 
+                <section id="resume" class="my-5 page-section resume-section">
+                    <h2 class="h4 border-bottom border-info pb-2 section-title">{{ t('resume_title') }}</h2>
+                    <div class="resume-panel">
+                        <a class="resume-preview-link" :href="currentTranslations.resume_file" target="_blank" rel="noopener noreferrer" :aria-label="t('resume_view')">
+                            <img :src="currentTranslations.resume_preview" :alt="t('resume_preview_alt')" loading="lazy" />
+                        </a>
+                        <div class="resume-details">
+                            <p class="resume-name">{{ t('resume_name') }}</p>
+                            <p class="resume-role">{{ t('resume_role') }}</p>
+                            <p class="resume-focus">{{ t('resume_focus') }}</p>
+                            <div class="resume-actions">
+                                <a class="primary-action-btn" :href="currentTranslations.resume_file" target="_blank" rel="noopener noreferrer"><span>{{ t('resume_view') }}</span><i class="fas fa-arrow-up-right-from-square" aria-hidden="true"></i></a>
+                                <a class="secondary-action-btn" :href="currentTranslations.resume_file" :download="currentTranslations.resume_download_name"><span>{{ t('resume_download') }}</span><i class="fas fa-download" aria-hidden="true"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
                 <div id="contact" class="contact-info page-section">
                     <a v-for="(contact, index) in contacts" :key="'contact-' + index" :href="contact.href" target="_blank" rel="noopener" class="contact-btn">
                         <span class="contact-icon"><i :class="contact.iconClass"></i></span>
@@ -195,10 +214,11 @@
 
                         <div class="modal-body">
                             <div class="gallery-side">
-                                <img :src="projectModalImages[projectModalIndex]" :alt="'Project image ' + (projectModalIndex + 1)" class="gallery-main-img" @click="lightbox.openAt(projectModalIndex)" />
+                                <img :src="projectModalImages[projectModalIndex]" :alt="projectModalCaptions[projectModalIndex] || ('Project image ' + (projectModalIndex + 1))" class="gallery-main-img" @click="lightbox.openAt(projectModalIndex)" />
+                                <p v-if="projectModalCaptions[projectModalIndex]" class="gallery-caption">{{ projectModalCaptions[projectModalIndex] }}</p>
 
                                 <div class="gallery-thumbnails">
-                                    <img v-for="(img, idx) in projectModalImages" :key="idx" :src="img" :alt="'Thumbnail ' + (idx + 1)" class="gallery-thumb" :class="{ active: idx === projectModalIndex }" @click="goToImage(idx)" />
+                                <img v-for="(img, idx) in projectModalImages" :key="idx" :src="img" :alt="projectModalCaptions[idx] || ('Thumbnail ' + (idx + 1))" class="gallery-thumb" :class="{ active: idx === projectModalIndex }" @click="goToImage(idx)" />
                                 </div>
                             </div>
 

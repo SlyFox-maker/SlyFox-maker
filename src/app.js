@@ -12,6 +12,7 @@ new Vue({
         animationClass: "",
         projectModalVisible: false,
         projectModalImages: [],
+        projectModalCaptions: [],
         projectModalDesc: "",
         projectModalSections: [],
         projectModalIndex: 0,
@@ -65,7 +66,7 @@ new Vue({
         projectGroups() {
             const projects = this.currentTranslations.project_list || [];
             return [
-                { type: "commercial", labelKey: "projects_commercial", projects: projects.filter((project) => project.type === "commercial") },
+                { type: "commercial", labelKey: "projects_commercial", projects: projects.filter((project) => project.type === "commercial").sort((a, b) => (typeof a.order === "number" ? a.order : 100) - (typeof b.order === "number" ? b.order : 100)) },
                 { type: "pet", labelKey: "projects_pet", projects: projects.filter((project) => project.type === "pet") },
             ].filter((group) => group.projects.length);
         },
@@ -236,6 +237,7 @@ new Vue({
 
             this.$nextTick(() => {
                 this.projectModalImages = project.file;
+                this.projectModalCaptions = project.galleryCaptions || [];
                 this.projectModalDesc = project.desc || "";
                 this.projectModalSections = project.sections || [];
                 this.projectModalIndex = 0;
@@ -300,6 +302,7 @@ new Vue({
                 if (this.projectModalVisible) {
                     this.projectModalVisible = false;
                     this.projectModalSections = [];
+                    this.projectModalCaptions = [];
                     if (this.$refs.projectDescText) this.$refs.projectDescText.innerHTML = "";
                 }
 
