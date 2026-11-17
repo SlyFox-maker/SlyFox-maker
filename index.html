@@ -86,7 +86,7 @@
                             <article ref="projects" class="project-card reveal-project" v-for="(project, projectIndex) in group.projects" :key="group.type + '-' + project.name" :data-reveal-id="'project-' + group.type + '-' + projectIndex" data-reveal-type="projects" @click="openImageProject(project, $event)" tabindex="0" @keydown.enter.prevent="openImageProject(project, $event)" @keydown.space.prevent="openImageProject(project, $event)" role="button" :title="project.name">
                                 <span class="open-indicator" aria-hidden="true"><i class="fas fa-up-right-and-down-left-from-center"></i></span>
                                 <div class="project-preview" :class="{ 'project-preview-contain': project.previewFit === 'contain' }">
-                                    <img :src="project.file[0]" :alt="project.name" :class="{ 'project-preview-image-contain': project.previewFit === 'contain' }" loading="lazy" />
+                                    <img :src="project.preview || project.file[0]" :alt="project.name" :class="{ 'project-preview-image-contain': project.previewFit === 'contain' }" loading="lazy" />
                                 </div>
                                 <div class="project-content">
                                     <div v-if="project.areas && project.areas.length" class="project-areas">
